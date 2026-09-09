@@ -1,10 +1,14 @@
 # Design System
 
-A simple, ownable design system: [shadcn/ui](https://ui.shadcn.com)
+A simple, ownable design system: 47 [shadcn/ui](https://ui.shadcn.com)
 components (Next.js + Tailwind CSS v4 + Radix), retokenized with a
 restrained, near-monochrome palette and tight, fluid type scale inspired
-by [clay.global](https://clay.global). Open `/` after running the dev
-server for a live style guide of every token and component.
+by [clay.global](https://clay.global).
+
+Run the dev server and the whole thing is browsable: an interactive
+showcase with foundations (colour, type, spacing, shape, motion), a page
+per component, and a **token playground** where you can tune the theme
+live and copy the CSS back out.
 
 ## Why this stack
 
@@ -31,8 +35,16 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — that page *is*
-the style guide.
+Open [http://localhost:3000](http://localhost:3000). Worth visiting first:
+
+| Route | What's there |
+| --- | --- |
+| `/` | Overview and index of everything |
+| `/foundations/colors` | The palette and how the token pairs work |
+| `/foundations/motion` | The two easing curves and when each applies |
+| `/components/button` | …and a page for every other component |
+| `/components/link-underline` | The one primitive written for this system |
+| `/playground/tokens` | Edit the theme live, copy the CSS back out |
 
 ## Working with this repo day to day
 
@@ -76,34 +88,49 @@ Everything lives in `src/app/globals.css`:
 
 ## Adding a component
 
+Most of the library is already here. For the ones deliberately left out
+(`chart`, `form`, `calendar`, `drawer`, `resizable`, `input-otp`,
+`sidebar`):
+
 ```bash
-npx shadcn@latest add <component-name>   # e.g. select, sheet, accordion
+npx shadcn@latest add <component-name>
 ```
 
-This pulls the official component source into `src/components/ui/` and
-it will already look right, because it references the same tokens as
-everything else. (Note: this command needs to reach `ui.shadcn.com`,
-which is blocked from *this* cloud sandbox's network — it will work
-fine from your own machine.)
+It lands in `src/components/ui/` already looking right, because it
+references the same tokens as everything else. Two follow-ups:
+
+1. Strip any `shadow-*` classes it arrives with — this system has none.
+2. Add it to `src/showcase/entries/` so it shows up in the showcase.
+
+## Adding a page to the showcase
+
+`src/showcase/registry.tsx` is the single source of truth. Navigation,
+routing and static generation all derive from it, so adding an entry to
+one of the files in `src/showcase/entries/` is the whole job.
 
 ## Project layout
 
 ```
 src/
   app/
-    globals.css      # the entire theme: colours, radius, type scale
-    page.tsx          # the live style guide
-    layout.tsx
-  components/ui/      # shadcn component source — yours to edit
-  lib/utils.ts         # the cn() class-merging helper
-components.json         # shadcn CLI config (style, aliases)
-reference/clay-spec.md  # the full source palette/type/motion reference
+    globals.css          # the entire theme: colours, radius, type scale
+    layout.tsx           # showcase shell: header, sidebar, theme provider
+    page.tsx             # showcase overview
+    [...slug]/page.tsx   # every showcase entry, from the registry
+  components/
+    ui/                  # 47 components — vendored source, yours to edit
+    showcase/            # showcase-only UI (nav, theme toggle, playground)
+  showcase/
+    registry.tsx         # single source of truth for the showcase
+    entries/             # the actual content, grouped by category
+  lib/utils.ts           # the cn() class-merging helper
+components.json          # shadcn CLI config (style, aliases)
+reference/clay-spec.md   # the source palette/type/motion reference
+CHECKLIST.md             # what's built and what's next
 ```
 
-## Roadmap / not yet built
+## Roadmap
 
-- A motion layer (scroll reveal, underline-link hover, optional page
-  transitions) as a small opt-in set of primitives — see
-  `reference/clay-spec.md` for the tokens to build it from.
-- Dark mode *toggle* — the tokens already support `.dark`, there's just
-  no switch UI yet.
+See `CHECKLIST.md`. Next up is Phase 2: layout and page patterns
+(container, section, divider, page archetypes), then a motion layer, then
+packaging the system's conventions as Claude Skills.

@@ -19,24 +19,39 @@ depends on the one before it.
 - [x] `reference/clay-spec.md` — condensed source material to build the
       later phases from
 
-## Phase 1 — Full component pass (customize the whole library, not just 12)
+## Phase 1 — Full component pass (done)
 
-- [ ] Inventory shadcn's full component list and decide which we actually
-      need for portfolio/digital-product work (likely: everything from
-      Phase 0 plus accordion, sheet, select, checkbox, radio-group,
-      switch, table, breadcrumb, skeleton, sonner/toast, progress,
-      command/combobox, navigation-menu, pagination, popover)
-- [ ] Pull each one in via `npx shadcn add <name>` (from your machine,
-      since `ui.shadcn.com` is blocked from this cloud sandbox)
-- [ ] Go through each component and check it actually reads as
-      "clay-inspired" once themed — not every component looks right from
-      tokens alone (e.g. shadows on `popover`/`select`/`command` need an
-      explicit override, since the source material forbids shadows)
-- [ ] Add the one non-standard piece the source material treats as its
-      "workhorse" interaction: a **text link with an animated underline**
-      (clay's primary link style — shadcn has no equivalent primitive)
-- [ ] Re-check every component in dark mode, not just light
-- [ ] Re-check every component at mobile width, not just desktop
+- [x] Expanded to **47 components**, pulled as one consistent snapshot from
+      the shadcn-ui/ui repo (their registry API is blocked from this cloud
+      sandbox; `npx shadcn add` works normally from your machine)
+- [x] Stripped every `shadow-xs/sm/md/lg` from the component sources — the
+      no-shadows rule now holds system-wide. Overlays separate themselves
+      with a border and an opaque surface instead
+- [x] Added the **underline link** primitive (`link-underline.tsx`) — the
+      one piece shadcn has no equivalent for
+- [x] Verified in dark mode
+- [ ] Audit every component at mobile width (deferred to the Phase 6
+      responsive pass, where it belongs alongside the layout patterns)
+
+Deliberately skipped, and why: `chart` (pulls recharts; data-viz is its own
+concern), `form` (pulls react-hook-form; validation, not visual design),
+`calendar` (react-day-picker; not needed for portfolio work), `combobox`
+(pulls a second primitive library, Base UI), `drawer`, `resizable`,
+`input-otp`, `sidebar`, and the AI-chat components. Any of them can be
+added later with one command.
+
+## Phase 1.5 — Interactive showcase (done)
+
+- [x] Sidebar-navigated showcase app replacing the single-page style guide
+- [x] One route per topic, all statically generated from a single registry
+      (`src/showcase/registry.tsx`) — adding a page means adding one entry
+- [x] Light/dark toggle that persists across navigation
+- [x] Foundations pages: colour, typography, spacing, shape, motion —
+      documenting the *rules*, not just showing swatches
+- [x] Every component page labelled by origin: stock / modified / custom,
+      with a note explaining any modification
+- [x] **Token playground**: edit colours and radius live against a preview,
+      then copy the generated CSS back into `globals.css`
 
 ## Phase 2 — Patterns: spacing, grid, layout, page structure
 
@@ -122,6 +137,6 @@ depends on the one before it.
 
 ---
 
-**Next up:** Phase 1. Say the word and I'll start with the full
-component pull + the underline-link primitive, since everything in
-Phase 2–4 assumes the component set is settled first.
+**Next up:** Phase 2 — the layout and page patterns (container, section,
+divider, page archetypes). The component set is settled, so these can now
+be built and previewed directly in the showcase.
