@@ -1,0 +1,73 @@
+# Publishes the design system to GitHub Packages when a version tag is pushed.
+#
+#   npm version minor --workspace @farnazshahriari/design-system
+#   git commit -am "design system 1.1.0" && git tag v1.1.0
+#   git push && git push --tags
+#
+# The tag is what publishes; pushing to a branch never does. That keeps
+# "I edited a token" and "every site that installs this will get it"
+# as two separate, deliberate acts.
+name: Publish design system
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          # Writes the .npmrc that points the scope at GitHub Packages and
+          # reads NODE_AUTH_TOKEN for auth.
+          registry-url: https://npm.pkg.github.com
+          scope: "@farnazshahriari"
+
+      - run: npm ci
+
+      # Publishing a broken theme is expensive to undo: npm versions are
+      # immutable, so a bad token reaches every site that updates and the
+      # only fix is another release. The showcase consumes the package the
+      # same way a real site does, so these four checks are a genuine
+      # rehearsal of the install, not a formality.
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Contrast (WCAG AA)
+        run: npm run check:contrast
+
+      - name: Skills in sync
+        run: npm run check:skills
+
+      - name: Build the showcase against the package
+        run: npm run build
+
+      - name: Check the tag matches the package version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg=$(node -p "require('./packages/design-system/package.json').version")
+          if [ "$tag" != "$pkg" ]; then
+            echo "Tag $GITHUB_REF_NAME says $tag, but package.json says $pkg."
+            echo "Run: npm version <new> --workspace @farnazshahriari/design-system"
+            exit 1
+          fi
+          echo "Publishing $pkg"
+        if: github.event_name == 'push'
+
+      - name: Publish
+        run: npm publish --workspace @farnazshahriari/design-system
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,24 @@
+# Runs the same checks the publish workflow runs, but on every push — so a
+# broken token or a failing contrast pair is caught here rather than at the
+# moment it would reach every site that installs the package.
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run check:contrast
+      - run: npm run check:skills
+      - run: npm run build
