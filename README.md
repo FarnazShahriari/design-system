@@ -123,6 +123,40 @@ A change here reaches other sites when it is published and they install
 it. Locally, a project can also depart from the system on purpose by
 redeclaring a token *after* the theme import — see the package README.
 
+## Shipping a change to every site
+
+This is the loop the whole package structure exists for.
+
+```bash
+# 1. change something — a token in packages/design-system/theme.css,
+#    a component, a pattern
+npm run check:contrast          # if you touched a colour
+npm run build                   # the showcase is the first consumer;
+                                #   if it breaks, so would a real site
+
+# 2. give it a version
+npm version minor --workspace @farnazshahriari/design-system
+
+# 3. release it
+git commit -am "describe the change" && git tag v1.1.0
+git push && git push --tags
+```
+
+The tag is what publishes — pushing to a branch never does. That keeps
+"I edited a token" and "every site that installs this will get it" as two
+separate decisions, which matters because npm versions are immutable: a
+bad theme reaches everyone who updates, and the only fix is another
+release.
+
+On the consuming side there is nothing to do but `npm update`, or just
+deploy — a caret range picks up the new version on the next install. Change
+the button here, and it changes on every site that uses it.
+
+**Choosing the number:** patch for a fix that changes nothing visually,
+minor for a new component or a tuned value, major for anything that would
+make an existing page look wrong. A design system's "breaking change" is
+visual, not just an API signature.
+
 ## Adding a component
 
 Most of the library is already here. For the ones deliberately left out

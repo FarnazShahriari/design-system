@@ -256,8 +256,24 @@ was the actual requirement. The escape hatch is that the source still
 ships — a component can be read, and a token can be overridden per project
 without forking anything.
 
-- [ ] GitHub Actions workflow to publish on a version tag
-- [ ] Verify the install path from a clean project outside this repo
+- [x] **Publishing on a version tag** (`.github/workflows/publish.yml`).
+      A tag publishes; a branch push never does — editing a token and
+      making every site pick it up should be two decisions, because npm
+      versions are immutable and a bad theme can only be fixed forward.
+      It runs the full check suite first (including the showcase build,
+      which is a real rehearsal of a consumer's install) and refuses to
+      publish if the tag and the package version disagree.
+      `ci.yml` runs the same checks on every push, so failures surface
+      while they are still cheap
+- [x] **Install path verified from outside the repo.** `npm pack`ed the
+      tarball, installed it into a bare Next app in a temp directory, and
+      wired it up using only what the package README says — the three
+      lines, nothing borrowed from this repo. It builds, and the CSS it
+      produces was compared against the showcase's own build: of 377
+      utility rules emitted by both, all are identical. The section
+      themes, the type scale and the pill radius all arrive intact. What
+      the consumer *doesn't* get is Tailwind's stock palette that the
+      showcase happens to use — correct tree-shaking, not a gap
 
 ## Phase 6 — Polish & v1.0
 
