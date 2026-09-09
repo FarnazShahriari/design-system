@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import type { Entry } from "@/showcase/types"
 
 const colorPairs = [
@@ -67,7 +68,7 @@ export const foundations: Entry[] = [
       },
       {
         label: "The accent slot",
-        note: "This is the one token meant to change per project. Everything else stays put. Change --accent in globals.css and every accent surface follows.",
+        note: "This is the one token meant to change per project. Everything else stays put. Change --accent in globals.css and every accent surface follows — then run `npm run check:contrast` to confirm the new colour still clears AA.",
         node: (
           <div className="flex flex-wrap items-center gap-4">
             <div className="h-20 w-20 rounded-md bg-accent" />
@@ -76,6 +77,22 @@ export const foundations: Entry[] = [
               call-to-action, say. The moment it appears three times it stops
               reading as an accent.
             </p>
+          </div>
+        ),
+      },
+      {
+        label: "Buttons on an accent band",
+        note: "The one place this palette needs a usage rule rather than a token. The default button is near-black, which sits at only 2.8:1 against the accent — readable, but its shape goes soft. On an accent surface, use the white or outline variant instead.",
+        node: (
+          <div className="flex flex-wrap gap-6">
+            <div className="flex flex-col gap-3 rounded-md bg-accent p-6">
+              <p className="text-meta text-accent-foreground/80">Avoid</p>
+              <Button>Default button</Button>
+            </div>
+            <div className="flex flex-col gap-3 rounded-md bg-accent p-6">
+              <p className="text-meta text-accent-foreground/80">Prefer</p>
+              <Button variant="secondary">Secondary button</Button>
+            </div>
           </div>
         ),
       },

@@ -77,7 +77,9 @@ Everything lives in `src/app/globals.css`:
 
 - **Colours** — edit the hex values under `:root` (light) and `.dark`
   (dark). `--accent` is the one slot meant to change per brand/project;
-  everything else is the shared neutral base.
+  everything else is the shared neutral base. After changing any colour,
+  run `npm run check:contrast` — it reads the tokens straight out of
+  `globals.css` and checks every meaningful pair against WCAG AA.
 - **Radius** — `--radius` controls the (near-zero, by design) default
   corner rounding for cards/inputs/buttons. `--radius-pill` (999px) is
   separate, for the one "real button" / chip shape.

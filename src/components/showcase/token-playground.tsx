@@ -24,11 +24,12 @@ const COLOR_TOKENS = [
   { name: "primary-foreground", light: "#ffffff", dark: "#171921" },
   { name: "secondary", light: "#f3f4f6", dark: "#252833" },
   { name: "muted", light: "#f3f4f6", dark: "#252833" },
-  { name: "muted-foreground", light: "#7f8694", dark: "#b2b8c2" },
-  { name: "accent", light: "#ff5a36", dark: "#ff5a36" },
+  { name: "muted-foreground", light: "#666c7a", dark: "#b2b8c2" },
+  { name: "accent", light: "#33658a", dark: "#5492c0" },
   { name: "accent-foreground", light: "#ffffff", dark: "#171921" },
   { name: "destructive", light: "#cf3723", dark: "#cf3723" },
   { name: "border", light: "#e6e8eb", dark: "#353945" },
+  { name: "input", light: "#8b94a2", dark: "#62697f" },
 ] as const
 
 type TokenName = (typeof COLOR_TOKENS)[number]["name"]

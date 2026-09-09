@@ -93,11 +93,11 @@
 
 /* ============================================================
    LIGHT THEME — values only. This is the one place a colour is
-   ever a literal. Every hex below is taken verbatim from the
-   reference palette (see reference/clay-spec.md §3). The single
-   line marked "swap per brand" is the one token meant to change
-   per project; everything else is the shared, near-monochrome
-   base.
+   ever a literal. The neutral ramp comes verbatim from the
+   reference palette (see reference/clay-spec.md §3); the accent
+   and the values derived from it are ours, chosen so every pair
+   below clears WCAG AA. The single line marked "swap per brand"
+   is the one token meant to change per project.
    ============================================================ */
 :root {
   --radius: 0.125rem; /* ~2px: "almost no radius" — pills opt in via rounded-pill */
@@ -117,21 +117,26 @@
   --secondary-foreground: #171921;
 
   --muted: #f3f4f6;
-  --muted-foreground: #7f8694; /* labels, captions, meta text */
+  --muted-foreground: #666c7a; /* labels, captions, meta — 4.5:1 on white AND on muted */
 
-  --accent: #ff5a36; /* swap per brand — the one accent color slot */
+  --accent: #33658a; /* swap per brand — the one accent color slot */
   --accent-foreground: #ffffff;
 
   --destructive: #cf3723;
   --destructive-foreground: #ffffff;
 
-  --border: #e6e8eb;
-  --input: #e6e8eb;
-  --ring: #171921;
+  --border: #e6e8eb; /* decorative: dividers, card edges — deliberately quiet */
+  --input: #8b94a2;  /* a control's boundary identifies it, so it needs 3:1 */
+  --ring: #171921;   /* stays neutral on purpose — see the note below */
 
-  --selection-bg: #bacdff;
+  --selection-bg: #bcd4e6;
   --selection-fg: #06070a;
 }
+
+/* Why --ring is not derived from --accent: --accent is documented as the
+   one token you swap per brand. A focus ring built from it would silently
+   fall below the 3:1 it needs the moment someone picks a pale accent.
+   Keeping the ring neutral makes focus survive any accent swap. */
 
 /* ============================================================
    DARK THEME — same token names, dark-appropriate values.
@@ -155,17 +160,17 @@
   --muted: #252833;
   --muted-foreground: #b2b8c2;
 
-  --accent: #ff5a36;
+  --accent: #5492c0; /* the same blue, lifted so it reads on the dark ground */
   --accent-foreground: #171921;
 
   --destructive: #cf3723;
   --destructive-foreground: #ffffff;
 
   --border: #353945;
-  --input: #353945;
+  --input: #62697f;
   --ring: #b2b8c2;
 
-  --selection-bg: #31356d;
+  --selection-bg: #274c68;
   --selection-fg: #ffffff;
 }
 
