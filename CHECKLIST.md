@@ -99,22 +99,48 @@ Two things this phase settled that were not on the list:
       checks every meaningful pair, so the next accent swap is
       verifiable rather than hoped-for
 
-## Phase 3 — Patterns: interaction & motion (the "advanced" layer)
+## Phase 3 — Interaction & motion (done)
 
-- [ ] Pick a motion approach: hand-written CSS (matches clay exactly, more
-      maintenance) vs. Framer Motion (less bespoke code, nearly the same
-      feel) — this was flagged as a decision in the original plan, still
-      open
-- [ ] Build one **scroll-reveal** primitive (fade / rise-and-fade),
-      single IntersectionObserver-based implementation, reveals once
-- [ ] Wire the underline-link hover animation from Phase 1 into a real,
-      reusable interaction (not just a static style)
-- [ ] Decide whether to build a simplified **page-transition** effect at
-      all for v1, or explicitly defer it (it's the single heaviest,
-      most bespoke piece of the source material — see
-      `reference/clay-spec.md`'s "what we deliberately did not port")
-- [ ] Add `prefers-reduced-motion` handling to every motion primitive
-      before calling this phase done
+- [x] **Decision made: Motion** (the library formerly called Framer Motion,
+      now the `motion` package). The system's "you own every line" rule is
+      a strong argument for markup and weak for animation plumbing — an
+      IntersectionObserver wrapper is not a design decision, and
+      hand-rolling one buys nothing anyone would want to change
+- [x] **Reveal** primitive with three recipes and only three: fade, rise,
+      rise-fade. In rise-fade the position settles slower than the fade, so
+      an element arrives before it stops moving — the detail that reads as
+      calm rather than snappy. Reveals once; never re-animates on scroll-up
+- [x] **RevealGroup** for staggering direct children, with a warning in the
+      source against using it on long grids
+- [x] `src/lib/motion.ts` — the easing curves and duration ladder as
+      cubic-bezier arrays, the same values the CSS transitions use
+- [x] `prefers-reduced-motion` handled once, globally, by
+      `<MotionConfig reducedMotion="user">` in the root layout. Transforms
+      are dropped and opacity kept; no primitive checks the query itself.
+      Verified in a real reduced-motion browser context: opacity 1,
+      transform none
+- [x] Hover states stay in CSS. The underline link is two pseudo-elements
+      and a transform; wrapping that in JavaScript would buy nothing and
+      cost a re-render on every pointer move
+- [x] **Page transition: deferred, deliberately.** The source material's
+      shared-element move (the next project's colour band growing into the
+      next page's hero) needs a persistent overlay outside the routed
+      subtree, geometry captured at click time, and a route commit hidden
+      inside the animation — roughly as much machinery as the rest of this
+      system combined. What ships instead is a route-enter fade via
+      `template.tsx`, which re-mounts on every navigation: eight lines, and
+      it covers the case that actually matters, which is arriving without
+      a flash
+
+## Showcase additions (done, alongside Phase 3)
+
+- [x] **BreakpointPreview** — renders a real page at 390 / 768 / 1280px,
+      with a Compare mode putting mobile and desktop side by side. Frames
+      are scaled to fit and labelled with the scale, so the grid can be
+      judged at both widths without leaving the page
+- [x] **Everything on one page** (`/all`) — every foundation, pattern and
+      component in one scroll, for judging whether the parts add up to a
+      system rather than looking one up
 
 ## Phase 4 — Package it all as Claude Skills
 
@@ -161,6 +187,7 @@ Two things this phase settled that were not on the list:
 
 ---
 
-**Next up:** Phase 3 — the motion layer. The open decision there is still
-open: hand-written CSS (matches the source exactly, more to maintain) or
-Framer Motion (less bespoke code, nearly the same feel).
+**Next up:** Phase 4 — packaging the system's conventions as Claude Skills,
+so a fresh session in this repo produces work that matches it without being
+told. Phase 5's distribution question (template repo vs. self-hosted
+registry) is still open and worth deciding before then.

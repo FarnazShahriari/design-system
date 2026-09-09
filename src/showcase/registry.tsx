@@ -6,6 +6,7 @@ import { forms } from "@/showcase/entries/forms"
 import { foundations } from "@/showcase/entries/foundations"
 import { navigation } from "@/showcase/entries/navigation"
 import { overlays } from "@/showcase/entries/overlays"
+import { motionEntries } from "@/showcase/entries/motion"
 import { patterns } from "@/showcase/entries/patterns"
 import type { Entry, Section } from "@/showcase/types"
 
@@ -33,8 +34,8 @@ export const sections: Section[] = [
     slug: "patterns",
     title: "Patterns",
     description:
-      "How pages are built: one container, sections that own their ground, and the layouts those compose into.",
-    entries: patterns,
+      "How pages are built: one container, sections that own their ground, the layouts those compose into, and how it all moves.",
+    entries: [...patterns, ...motionEntries],
   },
   {
     slug: "playground",

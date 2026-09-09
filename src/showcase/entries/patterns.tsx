@@ -1,30 +1,11 @@
+import { BreakpointPreview } from "@/components/showcase/breakpoint-preview"
 import { ProjectCard, ProjectGrid } from "@/components/patterns/project-grid"
 import { Container } from "@/components/ui/container"
 import { Divider } from "@/components/ui/divider"
-import { LinkUnderline } from "@/components/ui/link-underline"
 import { Button } from "@/components/ui/button"
+import { LinkUnderline } from "@/components/ui/link-underline"
 import { Section } from "@/components/ui/section"
 import type { Entry } from "@/showcase/types"
-
-/** Embeds a real archetype page at a real width, so it can be judged as a page. */
-function PagePreview({ src, title, height = 620 }: { src: string; title: string; height?: number }) {
-  return (
-    <div className="flex flex-col gap-3">
-      <div className="overflow-hidden rounded-md border">
-        <iframe
-          src={src}
-          title={title}
-          loading="lazy"
-          className="block w-full bg-background"
-          style={{ height }}
-        />
-      </div>
-      <LinkUnderline href={src} className="w-fit text-meta">
-        Open {title} full width
-      </LinkUnderline>
-    </div>
-  )
-}
 
 export const patterns: Entry[] = [
   {
@@ -153,6 +134,11 @@ export const patterns: Entry[] = [
     originNote: "src/components/patterns/project-grid.tsx",
     examples: [
       {
+        label: "Mobile and desktop, side by side",
+        note: "One column below 768px, two above it, and the stagger only applies once there are two columns to stagger between. Hit Compare to see both at once — this is the grid inside the real work-index page.",
+        node: <BreakpointPreview src="/preview/work-index" height={700} defaultMode="compare" />,
+      },
+      {
         label: "Staggered",
         note: "The second column is offset downward so the grid drifts rather than marching in rows. Off by default: it reads beautifully with eight considered projects and badly with three.",
         node: (
@@ -187,17 +173,17 @@ export const patterns: Entry[] = [
       {
         label: "Case study",
         note: "Hero, full-bleed media, an info block split 57.5/42.5, then alternating bands with a divider where two share a colour. Ends on the accent teaser — the reason the accent section theme exists.",
-        node: <PagePreview src="/preview/case-study" title="the case study" height={640} />,
+        node: <BreakpointPreview src="/preview/case-study" height={700} />,
       },
       {
         label: "Work index",
         note: "One ambitious statement, a filter list marked with a dot rather than a colour, then the staggered grid. The oversized bottom padding is what makes the footer read as a separate chapter.",
-        node: <PagePreview src="/preview/work-index" title="the work index" height={640} />,
+        node: <BreakpointPreview src="/preview/work-index" height={700} defaultMode="compare" />,
       },
       {
         label: "Content page",
         note: "One narrow column the whole way down. Measure is doing the work here, not layout — this is the archetype for an about, a contact or a piece of writing.",
-        node: <PagePreview src="/preview/about" title="the content page" height={560} />,
+        node: <BreakpointPreview src="/preview/about" height={620} />,
       },
     ],
   },

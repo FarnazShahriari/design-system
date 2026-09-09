@@ -46,7 +46,9 @@ Open [http://localhost:3000](http://localhost:3000). Worth visiting first:
 | `/components/link-underline` | The one primitive written for this system |
 | `/patterns/section` | Sections that own their ground — the core layout idea |
 | `/patterns/page-archetypes` | Three full page layouts, embedded live |
+| `/patterns/reveal` | The scroll-reveal primitive |
 | `/playground/tokens` | Edit the theme live, copy the CSS back out |
+| `/all` | Everything in one scroll |
 
 ## Working with this repo day to day
 
@@ -106,6 +108,22 @@ references the same tokens as everything else. Two follow-ups:
 1. Strip any `shadow-*` classes it arrives with — this system has none.
 2. Add it to `src/showcase/entries/` so it shows up in the showcase.
 
+## Motion
+
+Animation uses [Motion](https://motion.dev). Two curves and a duration
+ladder live in `src/lib/motion.ts`; `Reveal` is the only scroll primitive:
+
+```tsx
+<Reveal>            {/* fade + rise, settles once, never re-animates */}
+  <h1 className="text-display">Northwind</h1>
+</Reveal>
+```
+
+`prefers-reduced-motion` is handled once in the root layout by
+`<MotionConfig reducedMotion="user">` — transforms are dropped, opacity is
+kept, and no primitive checks the query itself. Hover and focus states stay
+in CSS, where they belong.
+
 ## Building a page
 
 Pages are a stack of `Section`s, each wrapping a `Container`. A section
@@ -144,11 +162,13 @@ src/
     ui/                  # 47 components + the layout primitives
                          #   container.tsx / section.tsx / divider.tsx
     patterns/            # composed patterns (project grid)
+    motion/              # Reveal / RevealGroup, and the MotionConfig provider
     showcase/            # showcase-only UI (nav, theme toggle, playground)
   showcase/
     registry.tsx         # single source of truth for the showcase
     entries/             # the actual content, grouped by category
   lib/utils.ts           # the cn() class-merging helper
+  lib/motion.ts          # easing curves and the duration ladder
 components.json          # shadcn CLI config (style, aliases)
 reference/clay-spec.md   # the source palette/type/motion reference
 CHECKLIST.md             # what's built and what's next
@@ -156,6 +176,6 @@ CHECKLIST.md             # what's built and what's next
 
 ## Roadmap
 
-See `CHECKLIST.md`. Next up is Phase 2: layout and page patterns
-(container, section, divider, page archetypes), then a motion layer, then
-packaging the system's conventions as Claude Skills.
+See `CHECKLIST.md`. Phases 0–3 are done: tokens, 47 components, the layout
+layer, and motion. Next is packaging the system's conventions as Claude
+Skills, so a fresh session in this repo matches it without being told.

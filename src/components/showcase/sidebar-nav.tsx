@@ -26,6 +26,23 @@ function NavList({
 
   return (
     <nav className="space-y-8">
+      <ul className="list-none space-y-px p-0">
+        <li>
+          <Link
+            href="/all"
+            onClick={onNavigate}
+            aria-current={pathname === "/all" ? "page" : undefined}
+            className={cn(
+              "block rounded-md px-3 py-1.5 text-sm transition-colors",
+              pathname === "/all"
+                ? "bg-secondary font-medium text-secondary-foreground"
+                : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
+            )}
+          >
+            Everything on one page
+          </Link>
+        </li>
+      </ul>
       {sections.map((section) => (
         <div key={section.slug} className="space-y-2">
           <p className="text-meta uppercase tracking-wide text-muted-foreground">

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 
+import { Reveal } from "@/components/motion/reveal"
 import { Container } from "@/components/ui/container"
 import { Divider } from "@/components/ui/divider"
 import { LinkUnderline } from "@/components/ui/link-underline"
@@ -27,17 +28,23 @@ export default function CaseStudyArchetype() {
           breadcrumb, no date, no author. */}
       <Section theme="light" rhythm="lg">
         <Container>
-          <h1 className="max-w-[24ch] text-display">Northwind</h1>
-          <p className="mt-6 max-w-[52ch] text-lead text-muted-foreground">
-            A retail bank rebuilt around the two things its customers actually
-            do every day.
-          </p>
+          <Reveal>
+            <h1 className="max-w-[24ch] text-display">Northwind</h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-6 max-w-[52ch] text-lead text-muted-foreground">
+              A retail bank rebuilt around the two things its customers
+              actually do every day.
+            </p>
+          </Reveal>
         </Container>
       </Section>
 
       {/* Full-bleed hero media, edge to edge, no radius. */}
       <Section theme="light" rhythm="none">
-        <Media ratio="21 / 9" label="Full-bleed hero media" />
+        <Reveal variant="fade">
+          <Media ratio="21 / 9" label="Full-bleed hero media" />
+        </Reveal>
       </Section>
 
       {/* Project info: context on the left, a services list on the right.
@@ -89,8 +96,12 @@ export default function CaseStudyArchetype() {
             </p>
           </div>
           <div className="mt-10 grid gap-4 md:grid-cols-2">
-            <Media ratio="4 / 5" label="Home screen" />
-            <Media ratio="4 / 5" label="Transfer flow" />
+            <Reveal>
+              <Media ratio="4 / 5" label="Home screen" />
+            </Reveal>
+            <Reveal delay={0.08}>
+              <Media ratio="4 / 5" label="Transfer flow" />
+            </Reveal>
           </div>
         </Container>
       </Section>
@@ -110,7 +121,9 @@ export default function CaseStudyArchetype() {
             </p>
           </div>
           <div className="mt-10">
-            <Media ratio="16 / 9" label="Component library" />
+            <Reveal>
+              <Media ratio="16 / 9" label="Component library" />
+            </Reveal>
           </div>
         </Container>
       </Section>
