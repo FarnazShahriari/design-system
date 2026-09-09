@@ -44,6 +44,8 @@ Open [http://localhost:3000](http://localhost:3000). Worth visiting first:
 | `/foundations/motion` | The two easing curves and when each applies |
 | `/components/button` | …and a page for every other component |
 | `/components/link-underline` | The one primitive written for this system |
+| `/patterns/section` | Sections that own their ground — the core layout idea |
+| `/patterns/page-archetypes` | Three full page layouts, embedded live |
 | `/playground/tokens` | Edit the theme live, copy the CSS back out |
 
 ## Working with this repo day to day
@@ -104,6 +106,24 @@ references the same tokens as everything else. Two follow-ups:
 1. Strip any `shadow-*` classes it arrives with — this system has none.
 2. Add it to `src/showcase/entries/` so it shows up in the showcase.
 
+## Building a page
+
+Pages are a stack of `Section`s, each wrapping a `Container`. A section
+owns its ground and its vertical rhythm:
+
+```tsx
+<Section theme="dark" rhythm="lg">
+  <Container>
+    <h2 className="text-h2">A dark band</h2>
+    <Button>This inverts on its own</Button>
+  </Container>
+</Section>
+```
+
+The theme re-declares the colour tokens for everything inside it, so no
+component needs an `onDark` prop. `/preview/case-study` is a real page
+built this way — there is no bespoke layout code in it.
+
 ## Adding a page to the showcase
 
 `src/showcase/registry.tsx` is the single source of truth. Navigation,
@@ -118,9 +138,12 @@ src/
     globals.css          # the entire theme: colours, radius, type scale
     layout.tsx           # showcase shell: header, sidebar, theme provider
     page.tsx             # showcase overview
-    [...slug]/page.tsx   # every showcase entry, from the registry
+    (shell)/             # the docs shell: header, sidebar, entry routes
+    (bare)/preview/      # page archetypes, rendered full width
   components/
-    ui/                  # 47 components — vendored source, yours to edit
+    ui/                  # 47 components + the layout primitives
+                         #   container.tsx / section.tsx / divider.tsx
+    patterns/            # composed patterns (project grid)
     showcase/            # showcase-only UI (nav, theme toggle, playground)
   showcase/
     registry.tsx         # single source of truth for the showcase

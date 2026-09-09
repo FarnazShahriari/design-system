@@ -82,16 +82,16 @@ export const foundations: Entry[] = [
       },
       {
         label: "Buttons on an accent band",
-        note: "The one place this palette needs a usage rule rather than a token. The default button is near-black, which sits at only 2.8:1 against the accent — readable, but its shape goes soft. On an accent surface, use the white or outline variant instead.",
+        note: "A near-black button sits at only 2.8:1 against the accent, so its shape goes soft. Section theme=\"accent\" now solves this for you — it re-declares --primary as the accent's foreground, so the default button inverts to a legible white pill. The pair below is what you get if you paint an accent background by hand instead of using a Section.",
         node: (
           <div className="flex flex-wrap gap-6">
             <div className="flex flex-col gap-3 rounded-md bg-accent p-6">
-              <p className="text-meta text-accent-foreground/80">Avoid</p>
+              <p className="text-meta text-accent-foreground/80">Hand-painted background</p>
               <Button>Default button</Button>
             </div>
             <div className="flex flex-col gap-3 rounded-md bg-accent p-6">
-              <p className="text-meta text-accent-foreground/80">Prefer</p>
-              <Button variant="secondary">Secondary button</Button>
+              <p className="text-meta text-accent-foreground/80">Inside a Section</p>
+              <Button variant="secondary">Legible either way</Button>
             </div>
           </div>
         ),

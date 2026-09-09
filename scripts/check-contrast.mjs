@@ -49,6 +49,44 @@ const CHECKS = [
   ["accent block on muted", "accent", "muted", 3],
 ]
 
+/**
+ * Section themes re-declare tokens for a subtree. The accent section derives
+ * its values with color-mix() against a translucent foreground, so those are
+ * composited here before measuring — a semi-transparent caption is only as
+ * legible as what it actually resolves to over the band.
+ */
+function mixOver(fg, bg, pct) {
+  const a = pct / 100
+  const ch = (i) => {
+    const f = parseInt(fg.slice(i, i + 2), 16)
+    const b = parseInt(bg.slice(i, i + 2), 16)
+    return Math.round(a * f + (1 - a) * b)
+  }
+  return "#" + [1, 3, 5].map((i) => ch(i).toString(16).padStart(2, "0")).join("")
+}
+
+function sectionThemes(base) {
+  const acc = base["accent"]
+  const accFg = base["accent-foreground"]
+  return {
+    "section: muted": { background: "#f3f4f6", foreground: "#06070a", "muted-foreground": "#666c7a" },
+    "section: dark": { background: "#171921", foreground: "#ffffff", "muted-foreground": "#b2b8c2" },
+    "section: accent": {
+      background: acc,
+      foreground: accFg,
+      "muted-foreground": mixOver(accFg, acc, 85),
+      // a default Button inside an accent section inverts to this pair
+      primary: accFg,
+      "primary-foreground": acc,
+    },
+  }
+}
+
+const SECTION_CHECKS = [
+  ["body text", "foreground", "background", 4.5],
+  ["meta text", "muted-foreground", "background", 4.5],
+]
+
 let failed = 0
 for (const [theme, selector] of [["light", ":root"], ["dark", "\\.dark"]]) {
   const light = block(":root")
@@ -65,6 +103,29 @@ for (const [theme, selector] of [["light", ":root"], ["dark", "\\.dark"]]) {
     console.log(
       `  ${pass ? "PASS" : "FAIL"}  ${label.padEnd(28)} ${tokens[fg]} on ${tokens[bg]}  ` +
       `${ratio.toFixed(2)}:1 (need ${need})`
+    )
+  }
+}
+
+// Section themes are declared once but the accent section resolves against
+// whichever --accent is in play, so it has to be checked in both page themes.
+const lightBase = block(":root")
+const darkBase = { ...lightBase, ...block("\\.dark") }
+console.log("\n  SECTION THEMES")
+const sectionSets = {
+  ...sectionThemes(lightBase),
+  "section: accent (dark page)": sectionThemes(darkBase)["section: accent"],
+}
+for (const [name, tokens] of Object.entries(sectionSets)) {
+  const checks = [...SECTION_CHECKS]
+  if (tokens.primary) checks.push(["button on the band", "primary-foreground", "primary", 4.5])
+  for (const [label, fg, bg, need] of checks) {
+    const ratio = contrast(tokens[fg], tokens[bg])
+    const pass = ratio >= need
+    if (!pass) failed++
+    console.log(
+      `  ${pass ? "PASS" : "FAIL"}  ${(name + " / " + label).padEnd(34)} ` +
+      `${tokens[fg]} on ${tokens[bg]}  ${ratio.toFixed(2)}:1 (need ${need})`
     )
   }
 }

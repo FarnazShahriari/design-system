@@ -53,27 +53,51 @@ added later with one command.
 - [x] **Token playground**: edit colours and radius live against a preview,
       then copy the generated CSS back into `globals.css`
 
-## Phase 2 — Patterns: spacing, grid, layout, page structure
+## Phase 2 — Patterns: spacing, grid, layout, page structure (done)
 
-- [ ] Formalize the spacing rhythm as documented steps (not enforced —
-      just written down and used consistently): a short, named scale
-      derived from `reference/clay-spec.md` §Spacing rhythm
-- [ ] Define **one** container/grid primitive (max-width + responsive
-      side margins) — clay's version has 7 breakpoints; ours should be
-      2–3 max, kept in one place
-- [ ] Define reusable **section** pattern: a wrapper that owns background
-      theme (light/off-white/dark/accent) and vertical padding, so pages
-      are built by stacking sections rather than one-off divs
-- [ ] Define a **divider** pattern (a plain spacer block) for breathing
-      room between two same-theme sections
-- [ ] Define 2–3 **page archetypes** as documented layouts (not
-      necessarily code yet): a hero + content page (portfolio case
-      study), a grid/archive page (project list), a simple content page
-      (about/contact) — simplified from clay's case-study / work-archive
-      / home structure
-- [ ] Define a **card/grid** pattern for project or work listings
-      (staggered two-column, per clay, or a simpler single responsive
-      grid — decide which fits "simple")
+- [x] Spacing rhythm documented as a named step set on the Spacing
+      foundations page. Not enforced — the steps map onto Tailwind's
+      default scale, so this is discipline about which values to reach
+      for, not a config override
+- [x] **Container** — the one container primitive. The source material
+      steps its margins across seven breakpoints; this is the same shape
+      at three (24px / 40px from tablet / centred 1400px band), with
+      `narrow` and `wide` variants
+- [x] **Section** — owns the ground it sits on and its vertical rhythm.
+      The theme is a data attribute that re-declares the colour tokens
+      for the subtree, so a button, caption or border inside a dark or
+      accent band inverts on its own. No component takes an `onDark`
+      prop, and none ever should
+- [x] **Divider** — a block of nothing at the section rhythm, so two
+      same-coloured bands can breathe without doubling their padding
+- [x] **ProjectGrid / ProjectCard** — the work-listing pattern. Whole
+      card is one link, titles never wrap, optional column stagger
+- [x] Three **page archetypes**, built only from the primitives above
+      and viewable as real pages: `/preview/case-study`,
+      `/preview/work-index`, `/preview/about`
+- [x] Showcase gains a Patterns section, with the archetypes embedded
+      live at real width
+
+Two things this phase settled that were not on the list:
+
+- The accent section theme derives its tokens from `--accent`, which
+  makes the "don't put a default button on an accent band" rule from the
+  colour pass unnecessary — inside an accent section a default Button
+  inverts to a legible white pill automatically.
+- `check:contrast` now covers the section themes in both page themes.
+  That caught a real failure: the dark accent band's caption sat at
+  3.79:1, because a mid-luminance ground leaves almost no headroom to
+  mute against. The dark accent was lifted to #6aa0c8 to buy it back.
+
+## Colour pass (done, unplanned — pulled forward from Phase 6)
+
+- [x] Accent moved to #33658a, with a lifted #6aa0c8 for dark
+- [x] Fixed three pre-existing AA failures the change surfaced:
+      `--muted-foreground`, the accent surface itself, and the input
+      boundary (split from the decorative `--border`)
+- [x] `npm run check:contrast` — reads the tokens out of globals.css and
+      checks every meaningful pair, so the next accent swap is
+      verifiable rather than hoped-for
 
 ## Phase 3 — Patterns: interaction & motion (the "advanced" layer)
 
@@ -137,6 +161,6 @@ added later with one command.
 
 ---
 
-**Next up:** Phase 2 — the layout and page patterns (container, section,
-divider, page archetypes). The component set is settled, so these can now
-be built and previewed directly in the showcase.
+**Next up:** Phase 3 — the motion layer. The open decision there is still
+open: hand-written CSS (matches the source exactly, more to maintain) or
+Framer Motion (less bespoke code, nearly the same feel).
