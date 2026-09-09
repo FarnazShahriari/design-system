@@ -158,25 +158,49 @@ Two things this phase settled that were not on the list:
 - [x] **Grid primitive** (`src/components/ui/grid.tsx`) — 12 columns, 16px
       gutter; children place themselves with `col-span-*`
 
-## Phase 4 — Package it all as Claude Skills
+## Phase 4 — The system's conventions as skills (done)
 
-- [ ] Set up `.claude/skills/` in this repo
-- [ ] `design-tokens` skill — how to read/change a color, radius, or
-      type-scale value in `globals.css`, and the rule "never hard-code a
-      value in a component"
-- [ ] `add-component` skill — the correct way to pull in and re-theme a
-      new shadcn component consistently with this system
-- [ ] `page-patterns` skill — how to assemble a page from the Phase 2
-      primitives (container, section, divider, archetypes) instead of
-      writing new layout code each time
-- [ ] `motion-recipes` skill — how to apply the Phase 3 interaction
-      patterns (which easing/duration for what, when to use the reveal
-      primitive, the reduced-motion rule)
-- [ ] Use the `skill-creator` skill to actually author and validate each
-      of the above as proper `SKILL.md` files (frontmatter, trigger
-      description, procedure, guardrails) rather than plain docs
-- [ ] Confirm: opening this repo in a fresh Claude Code session actually
-      surfaces and uses these skills correctly on a test task
+Four **guardrail** skills, in `.claude/skills/`. They cover the four places
+drift actually happens rather than trying to document everything:
+
+- [x] `design-tokens` — fires on any colour, radius, type or spacing value.
+      The invariant: no component contains a raw literal. Includes the
+      three things that surprise people (why `--ring` is not derived from
+      `--accent`, why `--border` and `--input` differ, why the dark accent
+      is lighter) so nobody "fixes" them back
+- [x] `page-patterns` — fires on building or editing any page or layout.
+      The invariant: a page is a stack of Sections wrapping Containers, and
+      no component ever takes an `onDark` prop
+- [x] `add-component` — fires on adding or modifying anything in
+      `components/ui/`. Strip shadows, check both themes and 390px,
+      register it in the showcase, run the checks
+- [x] `motion-recipes` — fires on any animation or transition. Two curves,
+      three reveal recipes, the morph's naming contract, and the rule that
+      reduced motion is already handled above you
+- [x] Committed to the repo, so anyone who clones it gets them with nothing
+      to install — and they are active in this session
+- [x] Verified by giving a subagent a task designed to tempt every
+      violation (a new page with a dark hero, cards, and an accent band).
+      Zero violations: no raw hex, no shadows, no hand-rolled container or
+      padding — it reached for Section/Container/rhythm and the type scale
+      unprompted. The test also surfaced two things worth keeping:
+      - `CardTitle` sets `leading-none` and `DialogTitle` sets `text-lg
+        leading-none`. Since `cn()` merges font-size and line-height as
+        separate groups, `<CardTitle className="text-h4">` silently loses
+        the line-height that travels with the token. Documented in
+        `design-tokens` with the fix (a real heading inside `CardHeader`)
+      - The "don't stack two large rhythms" rule was too absolute: it holds
+        when the ground continues, but a section on a *different* ground
+        still needs its own padding or its content touches the colour edge.
+        `page-patterns` now says which is which
+
+**On personal/account-level skills:** the repo copy already covers this
+project and anyone who imports it. To apply the same conventions in *other*
+repos, copy the four directories into `~/.claude/skills/` — the command is
+in `.claude/skills/README.md`. This has to be run on your own machine: the
+cloud sandbox's `~/.claude/skills/synced/` is a read-only mirror of account
+skills and the container is ephemeral, so anything written there from here
+would not survive the session.
 
 ## Phase 5 — Make it importable for new projects
 
@@ -203,7 +227,8 @@ Two things this phase settled that were not on the list:
 
 ---
 
-**Next up:** Phase 4 — packaging the system's conventions as Claude Skills,
-so a fresh session in this repo produces work that matches it without being
-told. Phase 5's distribution question (template repo vs. self-hosted
-registry) is still open and worth deciding before then.
+**Next up:** Phase 5 — distribution. The open decision: a GitHub template
+repository ("Use this template" — simplest, and the skills travel with it),
+a self-hosted shadcn registry (lets `npx shadcn add` pull *our* components
+into another project, more setup), or just cloning. Worth deciding before
+Phase 6's polish pass.

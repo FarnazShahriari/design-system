@@ -154,6 +154,24 @@ built this way — there is no bespoke layout code in it.
 routing and static generation all derive from it, so adding an entry to
 one of the files in `src/showcase/entries/` is the whole job.
 
+## Conventions, enforced
+
+`.claude/skills/` holds four guardrail skills that keep work consistent with
+the system. They are committed, so Claude Code picks them up automatically
+for anyone who clones the repo — nothing to install.
+
+| Skill | Fires when |
+| --- | --- |
+| `design-tokens` | Any colour, radius, type or spacing value |
+| `page-patterns` | Building or editing a page or layout |
+| `add-component` | Adding or modifying anything in `components/ui/` |
+| `motion-recipes` | Any animation, transition or hover effect |
+
+They exist because these are the four places a design system actually
+drifts: raw values instead of tokens, hand-rolled layout instead of the
+primitives, components that arrive not matching, and invented motion. To
+apply them in your other repos too, see `.claude/skills/README.md`.
+
 ## Project layout
 
 ```
@@ -175,6 +193,7 @@ src/
     entries/             # the actual content, grouped by category
   lib/utils.ts           # the cn() class-merging helper
   lib/motion.ts          # easing curves and the duration ladder
+.claude/skills/          # the four guardrail skills
 components.json          # shadcn CLI config (style, aliases)
 reference/clay-spec.md   # the source palette/type/motion reference
 CHECKLIST.md             # what's built and what's next
@@ -182,6 +201,6 @@ CHECKLIST.md             # what's built and what's next
 
 ## Roadmap
 
-See `CHECKLIST.md`. Phases 0–3 are done: tokens, 47 components, the layout
-layer, and motion. Next is packaging the system's conventions as Claude
-Skills, so a fresh session in this repo matches it without being told.
+See `CHECKLIST.md`. Phases 0–4 are done: tokens, 47 components, the layout
+layer, motion, and the convention skills. Next is distribution — deciding
+how another project imports this system.
