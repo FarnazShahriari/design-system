@@ -1,6 +1,6 @@
-import { Container } from "@/components/ui/container"
-import { LinkUnderline } from "@/components/ui/link-underline"
-import { Section } from "@/components/ui/section"
+import { Container } from "@farnazshahriari/design-system/ui/container"
+import { LinkUnderline } from "@farnazshahriari/design-system/ui/link-underline"
+import { Section } from "@farnazshahriari/design-system/ui/section"
 
 export const metadata = { title: "Content page archetype" }
 

@@ -202,18 +202,62 @@ cloud sandbox's `~/.claude/skills/synced/` is a read-only mirror of account
 skills and the container is ephemeral, so anything written there from here
 would not survive the session.
 
-## Phase 5 — Make it importable for new projects
+## Phase 5 — Make it importable for new projects (done)
 
-- [ ] Decide the distribution mechanism (this is a real decision, not a
-      default): a **GitHub template repository** (simplest — "Use this
-      template" or `create-next-app -e`) vs. a **self-hosted component
-      registry** (lets `npx shadcn add` pull from *our* library instead
-      of shadcn's, more setup) vs. a plain **git clone as starting
-      point**
-- [ ] Strip anything project-specific (this style guide's own copy, the
-      placeholder accent color) into a documented "first things to
-      change when starting a new project" step
-- [ ] Write a short "starting a new project from this system" guide
+The open decision from Phase 4 is settled, and it went further than the
+options on the list. A template repo and a plain clone both distribute a
+*copy*: change a button here afterwards and nothing that started from that
+copy ever hears about it. The requirement was the opposite — one change
+here reaching every site built on it — so the system had to become a real
+installable dependency.
+
+- [x] **Distribution: a published npm package on GitHub Packages**,
+      `@farnazshahriari/design-system`. Private to the account, no registry
+      to host, `npm install` and `npm update` are the whole interface
+- [x] The repo is now an **npm workspace**. The design system moved into
+      `packages/design-system/` (60 files); the showcase stayed at the root
+      and became the package's **first consumer**, importing it by name like
+      any other project would. Dogfooding is the point — the showcase
+      breaking is how a packaging mistake gets caught before a real site
+      hits it
+- [x] **`theme.css` extracted** from the app's `globals.css` and shipped by
+      the package. The app's `globals.css` is now six lines: Tailwind, the
+      theme import, and an `@source` pointing at the package source
+- [x] Package-internal imports converted from `@/` aliases to relative
+      paths, so the source resolves inside a consumer's `node_modules`
+      where no alias config of ours exists
+- [x] **Ships TypeScript source, not a build.** Consumers add
+      `transpilePackages`, which costs one config line and buys away a
+      build step, a sourcemap story, and a `"use client"` boundary that
+      bundlers routinely mangle. The `@source` line in the consumer's CSS
+      is the other load-bearing piece: Tailwind does not scan
+      `node_modules`, and without it the components arrive unstyled
+- [x] Dependencies split correctly: Radix/cmdk/embla/motion/lucide belong
+      to the package; `next`/`react`/`react-dom` are peers so a consumer
+      never gets a second React. `lucide-react` was pinned a major behind
+      the app, which silently installed two copies of an icon library —
+      ranges now match and npm dedupes
+- [x] `packages/design-system/README.md` — install, the three wire-up
+      steps, updating, and **how to depart from the system on purpose**
+      (redeclare a token after the theme import, so the difference is one
+      visible line instead of a fork)
+- [x] The four guardrail skills ship inside the package too, so a consuming
+      project can copy them into its own `.claude/skills/` and be held to
+      the same conventions
+- [x] Verified end to end: typecheck clean, lint clean, 48 static pages
+      built, `check:contrast` green — all with every component resolved
+      through the package name rather than a local path
+
+**The trade-off, stated plainly:** this inverts shadcn's founding premise.
+Their pitch is that you own every line and nothing can break underneath
+you; the cost is that nothing can *improve* underneath you either. We took
+the other side, because "change the button here and it changes everywhere"
+was the actual requirement. The escape hatch is that the source still
+ships — a component can be read, and a token can be overridden per project
+without forking anything.
+
+- [ ] GitHub Actions workflow to publish on a version tag
+- [ ] Verify the install path from a clean project outside this repo
 
 ## Phase 6 — Polish & v1.0
 
@@ -227,8 +271,7 @@ would not survive the session.
 
 ---
 
-**Next up:** Phase 5 — distribution. The open decision: a GitHub template
-repository ("Use this template" — simplest, and the skills travel with it),
-a self-hosted shadcn registry (lets `npx shadcn add` pull *our* components
-into another project, more setup), or just cloning. Worth deciding before
-Phase 6's polish pass.
+**Next up:** Phase 6 — polish. The distribution question is answered and
+built; what is left is the accessibility pass, the mobile-width audit
+carried over from Phase 1, and tagging v1.0 so there is a first published
+version to install.

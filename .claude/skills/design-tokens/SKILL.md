@@ -1,12 +1,12 @@
 ---
 name: design-tokens
-description: How colour, radius, spacing and type work in this design system, and how to change them safely. Use this whenever you are about to write a colour, a font-size, a border-radius or a spacing value anywhere in this repo — including when the request sounds like ordinary styling ("make this heading bigger", "the caption looks too light", "use a darker blue here", "rebrand this"). Also use it before editing src/app/globals.css for any reason.
+description: How colour, radius, spacing and type work in this design system, and how to change them safely. Use this whenever you are about to write a colour, a font-size, a border-radius or a spacing value anywhere in this repo — including when the request sounds like ordinary styling ("make this heading bigger", "the caption looks too light", "use a darker blue here", "rebrand this"). Also use it before editing packages/design-system/theme.css for any reason.
 ---
 
 # Design tokens
 
 **The invariant this protects: no component contains a raw colour, radius or
-font-size. Every one of those values lives in `src/app/globals.css`, and
+font-size. Every one of those values lives in `packages/design-system/theme.css`, and
 components only ever reference the token name.**
 
 That is the whole reason the system can be restyled in one place. The moment
@@ -15,7 +15,7 @@ nobody finds out until the next rebrand.
 
 ## Where things live
 
-Everything is in `src/app/globals.css`, in four blocks:
+Everything is in `packages/design-system/theme.css`, in four blocks:
 
 | Block | What it holds |
 | --- | --- |

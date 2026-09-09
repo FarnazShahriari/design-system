@@ -5,9 +5,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { MenuIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { cn } from "@/lib/utils"
+import { Button } from "@farnazshahriari/design-system/ui/button"
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@farnazshahriari/design-system/ui/sheet"
+import { cn } from "@farnazshahriari/design-system"
 
 export type NavSection = {
   slug: string

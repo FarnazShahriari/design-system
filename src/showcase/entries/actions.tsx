@@ -1,9 +1,9 @@
 import { ArrowRightIcon, BoldIcon, ItalicIcon, PlusIcon, UnderlineIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { ButtonGroup } from "@/components/ui/button-group"
-import { Toggle } from "@/components/ui/toggle"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { Button } from "@farnazshahriari/design-system/ui/button"
+import { ButtonGroup } from "@farnazshahriari/design-system/ui/button-group"
+import { Toggle } from "@farnazshahriari/design-system/ui/toggle"
+import { ToggleGroup, ToggleGroupItem } from "@farnazshahriari/design-system/ui/toggle-group"
 import type { Entry } from "@/showcase/types"
 
 export const actions: Entry[] = [

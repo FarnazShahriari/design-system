@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@farnazshahriari/design-system/ui/accordion"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,13 +14,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "@farnazshahriari/design-system/ui/alert-dialog"
+import { Button } from "@farnazshahriari/design-system/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@farnazshahriari/design-system/ui/collapsible"
 import {
   Dialog,
   DialogClose,
@@ -30,7 +30,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@farnazshahriari/design-system/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,15 +38,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@farnazshahriari/design-system/ui/dropdown-menu"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+} from "@farnazshahriari/design-system/ui/hover-card"
+import { Label } from "@farnazshahriari/design-system/ui/label"
+import { Input } from "@farnazshahriari/design-system/ui/input"
+import { Popover, PopoverContent, PopoverTrigger } from "@farnazshahriari/design-system/ui/popover"
 import {
   Sheet,
   SheetContent,
@@ -54,8 +54,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+} from "@farnazshahriari/design-system/ui/sheet"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@farnazshahriari/design-system/ui/tooltip"
 import type { Entry } from "@/showcase/types"
 
 export const overlays: Entry[] = [

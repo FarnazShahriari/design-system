@@ -2,7 +2,7 @@
 
 import { toast } from "sonner"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@farnazshahriari/design-system/ui/button"
 
 export function ToastDemo() {
   return (

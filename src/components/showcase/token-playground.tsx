@@ -3,12 +3,12 @@
 import * as React from "react"
 import { CheckIcon, CopyIcon, RotateCcwIcon } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
+import { Badge } from "@farnazshahriari/design-system/ui/badge"
+import { Button } from "@farnazshahriari/design-system/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@farnazshahriari/design-system/ui/card"
+import { Input } from "@farnazshahriari/design-system/ui/input"
+import { Label } from "@farnazshahriari/design-system/ui/label"
+import { Slider } from "@farnazshahriari/design-system/ui/slider"
 
 /**
  * Live token editor. Writes directly to inline custom properties on

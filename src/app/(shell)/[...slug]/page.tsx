@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@farnazshahriari/design-system/ui/badge"
 import { allEntryParams, findEntry } from "@/showcase/registry"
 
 export function generateStaticParams() {

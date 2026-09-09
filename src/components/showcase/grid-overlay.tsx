@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { Container } from "@/components/ui/container"
+import { Container } from "@farnazshahriari/design-system/ui/container"
 
 /**
  * Draws the 12 column guides over a page, so a layout can be checked

@@ -1,21 +1,21 @@
 import { MailIcon, SearchIcon } from "lucide-react"
 
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
-import { Label } from "@/components/ui/label"
-import { NativeSelect } from "@/components/ui/native-select"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Checkbox } from "@farnazshahriari/design-system/ui/checkbox"
+import { Input } from "@farnazshahriari/design-system/ui/input"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@farnazshahriari/design-system/ui/input-group"
+import { Label } from "@farnazshahriari/design-system/ui/label"
+import { NativeSelect } from "@farnazshahriari/design-system/ui/native-select"
+import { RadioGroup, RadioGroupItem } from "@farnazshahriari/design-system/ui/radio-group"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Slider } from "@/components/ui/slider"
-import { Switch } from "@/components/ui/switch"
-import { Textarea } from "@/components/ui/textarea"
+} from "@farnazshahriari/design-system/ui/select"
+import { Slider } from "@farnazshahriari/design-system/ui/slider"
+import { Switch } from "@farnazshahriari/design-system/ui/switch"
+import { Textarea } from "@farnazshahriari/design-system/ui/textarea"
 import type { Entry } from "@/showcase/types"
 
 export const forms: Entry[] = [

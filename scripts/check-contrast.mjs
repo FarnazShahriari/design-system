@@ -1,5 +1,5 @@
 /**
- * Reads the token values straight out of src/app/globals.css and checks every
+ * Reads the token values straight out of the package's theme.css and checks every
  * pair that carries meaning against WCAG AA. Run it after changing any colour —
  * especially --accent, which is the token meant to be swapped per project.
  *
@@ -9,10 +9,13 @@
  */
 import { readFileSync } from "node:fs"
 
-const CSS = readFileSync(new URL("../src/app/globals.css", import.meta.url), "utf8")
+const CSS = readFileSync(new URL("../packages/design-system/theme.css", import.meta.url), "utf8")
 
 function block(selector) {
-  const re = new RegExp(`${selector}\\s*\\{([\\s\\S]*?)\\n\\}`, "m")
+  // Anchored to the start of a line: an example like `:root { --accent: … }`
+  // inside a doc comment would otherwise match first and yield a block with
+  // one token in it, which fails confusingly far from the cause.
+  const re = new RegExp(`^${selector}\\s*\\{([\\s\\S]*?)\\n\\}`, "m")
   const body = CSS.match(re)?.[1] ?? ""
   const out = {}
   for (const [, name, value] of body.matchAll(/--([a-z-]+):\s*(#[0-9a-fA-F]{6})/g)) {

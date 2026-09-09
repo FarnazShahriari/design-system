@@ -1,9 +1,9 @@
 import { CommandIcon } from "lucide-react"
 
-import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { AspectRatio } from "@farnazshahriari/design-system/ui/aspect-ratio"
+import { Avatar, AvatarFallback } from "@farnazshahriari/design-system/ui/avatar"
+import { Badge } from "@farnazshahriari/design-system/ui/badge"
+import { Button } from "@farnazshahriari/design-system/ui/button"
 import {
   Card,
   CardContent,
@@ -11,20 +11,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@farnazshahriari/design-system/ui/card"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
-import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty"
-import { Kbd } from "@/components/ui/kbd"
-import { Progress } from "@/components/ui/progress"
-import { Separator } from "@/components/ui/separator"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Spinner } from "@/components/ui/spinner"
+} from "@farnazshahriari/design-system/ui/carousel"
+import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@farnazshahriari/design-system/ui/empty"
+import { Kbd } from "@farnazshahriari/design-system/ui/kbd"
+import { Progress } from "@farnazshahriari/design-system/ui/progress"
+import { Separator } from "@farnazshahriari/design-system/ui/separator"
+import { Skeleton } from "@farnazshahriari/design-system/ui/skeleton"
+import { Spinner } from "@farnazshahriari/design-system/ui/spinner"
 import {
   Table,
   TableBody,
@@ -33,7 +33,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@farnazshahriari/design-system/ui/table"
 import type { Entry } from "@/showcase/types"
 
 export const display: Entry[] = [

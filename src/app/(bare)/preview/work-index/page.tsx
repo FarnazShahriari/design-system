@@ -1,10 +1,10 @@
 import Link from "next/link"
 
-import { projectTitleTransition } from "@/lib/view-transition-names"
-import { ProjectCard, ProjectGrid } from "@/components/patterns/project-grid"
+import { projectTitleTransition } from "@farnazshahriari/design-system/lib/view-transition-names"
+import { ProjectCard, ProjectGrid } from "@farnazshahriari/design-system/patterns/project-grid"
 import { PROJECTS } from "../projects"
-import { Container } from "@/components/ui/container"
-import { Section } from "@/components/ui/section"
+import { Container } from "@farnazshahriari/design-system/ui/container"
+import { Section } from "@farnazshahriari/design-system/ui/section"
 
 export const metadata = { title: "Work index archetype" }
 

@@ -1,7 +1,7 @@
 import { AlertCircleIcon, CheckCircle2Icon } from "lucide-react"
 
 import { ToastDemo } from "@/components/showcase/toast-demo"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@farnazshahriari/design-system/ui/alert"
 import type { Entry } from "@/showcase/types"
 
 export const feedback: Entry[] = [

@@ -3,7 +3,7 @@
 import { MoonIcon, SunIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@farnazshahriari/design-system/ui/button"
 
 /**
  * Both icons are always rendered and swapped with CSS on the `.dark` class,

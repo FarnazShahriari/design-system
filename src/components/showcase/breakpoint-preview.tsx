@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@farnazshahriari/design-system/ui/button"
 
 /**
  * Renders a real page inside a frame at a chosen CSS width, scaled down to

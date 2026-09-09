@@ -1,11 +1,11 @@
 import { BreakpointPreview } from "@/components/showcase/breakpoint-preview"
-import { ProjectCard, ProjectGrid } from "@/components/patterns/project-grid"
-import { Container } from "@/components/ui/container"
-import { Grid } from "@/components/ui/grid"
-import { Divider } from "@/components/ui/divider"
-import { Button } from "@/components/ui/button"
-import { LinkUnderline } from "@/components/ui/link-underline"
-import { Section } from "@/components/ui/section"
+import { ProjectCard, ProjectGrid } from "@farnazshahriari/design-system/patterns/project-grid"
+import { Container } from "@farnazshahriari/design-system/ui/container"
+import { Grid } from "@farnazshahriari/design-system/ui/grid"
+import { Divider } from "@farnazshahriari/design-system/ui/divider"
+import { Button } from "@farnazshahriari/design-system/ui/button"
+import { LinkUnderline } from "@farnazshahriari/design-system/ui/link-underline"
+import { Section } from "@farnazshahriari/design-system/ui/section"
 import type { Entry } from "@/showcase/types"
 
 export const patterns: Entry[] = [

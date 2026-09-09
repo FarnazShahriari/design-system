@@ -1,0 +1,332 @@
+/* =============================================================
+   @farnazshahriari/design-system — theme
+   =============================================================
+   Every colour, radius and type value in the system. A consuming
+   app imports this once and gets the whole visual language:
+
+     @import "tailwindcss";
+     @import "@farnazshahriari/design-system/theme.css";
+     @source "../../node_modules/@farnazshahriari/design-system";
+
+   The @source line matters: Tailwind only generates the utility
+   classes it can see used, and the component source lives in
+   node_modules, which it does not scan by default.
+
+   To depart from the system for one project, redeclare a token
+   after this import — that is the supported way to differ, and
+   it keeps everything else in step:
+
+     :root { --accent: #b4531f; }
+   ============================================================= */
+
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   THEME MAPPING
+   Tailwind utilities (bg-primary, text-muted-foreground, rounded-lg,
+   text-h1, ...) are generated from this block. Component code never
+   references a raw color or size — only these names. To restyle the
+   whole system, edit the values below (and nothing else).
+   ============================================================ */
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* radius scale, derived from one base value */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  /* one extra token outside the derived scale: the pill shape,
+     used for the site's single "real button" and for chips/badges */
+  --radius-pill: 999px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* --------------------------------------------------------
+     Simplified type scale (a pared-down version of the very
+     detailed 7-breakpoint scale in reference/clay-spec.md).
+     Fluid via clamp() so it looks right at any width without
+     needing a dozen breakpoint rules. Tight negative tracking
+     at display sizes, loosening to 0 at small sizes, mirrors
+     the source material's signature typographic move.
+     Use as text-display / text-h1 / text-h2 / text-h3 / text-h4
+     / text-lead / text-meta. Ordinary copy stays on Tailwind's
+     default text-sm / text-base / text-lg — only headings and
+     the two special body variants get a named scale.
+     -------------------------------------------------------- */
+  --text-display: clamp(2.5rem, 1.9rem + 3vw, 5.625rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.045em;
+  --text-display--font-weight: 700;
+
+  --text-h1: clamp(2.5rem, 2.1rem + 2vw, 4rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.04em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: clamp(1.875rem, 1.6rem + 1.4vw, 3.25rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.03em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: clamp(1.25rem, 1.1rem + 0.7vw, 2rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h3--font-weight: 700;
+
+  --text-h4: clamp(1.125rem, 1.05rem + 0.3vw, 1.5rem);
+  --text-h4--line-height: 1.3;
+  --text-h4--letter-spacing: -0.02em;
+  --text-h4--font-weight: 700;
+
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.75rem);
+  --text-lead--line-height: 1.4;
+  --text-lead--letter-spacing: -0.01em;
+  --text-lead--font-weight: 500;
+
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.4;
+  --text-meta--letter-spacing: 0em;
+  --text-meta--font-weight: 500;
+}
+
+/* ============================================================
+   LIGHT THEME — values only. This is the one place a colour is
+   ever a literal. The neutral ramp comes verbatim from the
+   reference palette (see reference/clay-spec.md §3); the accent
+   and the values derived from it are ours, chosen so every pair
+   below clears WCAG AA. The single line marked "swap per brand"
+   is the one token meant to change per project.
+   ============================================================ */
+:root {
+  --radius: 0.125rem; /* ~2px: "almost no radius" — pills opt in via rounded-pill */
+
+  --background: #ffffff;
+  --foreground: #06070a; /* near-black, never pure #000 */
+
+  --card: #ffffff;
+  --card-foreground: #06070a;
+  --popover: #ffffff;
+  --popover-foreground: #06070a;
+
+  --primary: #171921; /* the "black" surface — buttons, the pill on light */
+  --primary-foreground: #ffffff;
+
+  --secondary: #f3f4f6; /* off-white */
+  --secondary-foreground: #171921;
+
+  --muted: #f3f4f6;
+  --muted-foreground: #666c7a; /* labels, captions, meta — 4.5:1 on white AND on muted */
+
+  --accent: #33658a; /* swap per brand — the one accent color slot */
+  --accent-foreground: #ffffff;
+
+  --destructive: #cf3723;
+  --destructive-foreground: #ffffff;
+
+  --border: #e6e8eb; /* decorative: dividers, card edges — deliberately quiet */
+  --input: #8b94a2;  /* a control's boundary identifies it, so it needs 3:1 */
+  --ring: #171921;   /* stays neutral on purpose — see the note below */
+
+  --selection-bg: #bcd4e6;
+  --selection-fg: #06070a;
+}
+
+/* Why --ring is not derived from --accent: --accent is documented as the
+   one token you swap per brand. A focus ring built from it would silently
+   fall below the 3:1 it needs the moment someone picks a pale accent.
+   Keeping the ring neutral makes focus survive any accent swap. */
+
+/* ============================================================
+   DARK THEME — same token names, dark-appropriate values.
+   No component needs to know a dark mode exists.
+   ============================================================ */
+.dark {
+  --background: #171921;
+  --foreground: #ffffff;
+
+  --card: #171921;
+  --card-foreground: #ffffff;
+  --popover: #171921;
+  --popover-foreground: #ffffff;
+
+  --primary: #ffffff;
+  --primary-foreground: #171921;
+
+  --secondary: #252833;
+  --secondary-foreground: #ffffff;
+
+  --muted: #252833;
+  --muted-foreground: #b2b8c2;
+
+  --accent: #6aa0c8; /* the same blue, lifted: a mid-luminance band leaves no
+                        headroom to mute a caption against (see check:contrast) */
+  --accent-foreground: #171921;
+
+  --destructive: #cf3723;
+  --destructive-foreground: #ffffff;
+
+  --border: #353945;
+  --input: #62697f;
+  --ring: #b2b8c2;
+
+  --selection-bg: #274c68;
+  --selection-fg: #ffffff;
+}
+
+/* ============================================================
+   SECTION THEMES
+   A section declares its own ground, and everything inside it
+   follows — buttons, captions, borders, links. This is a token
+   re-declaration, not a set of component props: no component
+   needs to know which kind of section it is sitting in.
+
+   Because custom properties inherit, a rule matching the section
+   element itself beats the value inherited from :root or .dark,
+   so these work identically in light and dark mode.
+   ============================================================ */
+[data-section="light"] {
+  --background: #ffffff;
+  --foreground: #06070a;
+  --card: #ffffff;
+  --card-foreground: #06070a;
+  --primary: #171921;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #171921;
+  --muted: #f3f4f6;
+  --muted-foreground: #666c7a;
+  --border: #e6e8eb;
+  --input: #8b94a2;
+  --ring: #171921;
+}
+
+[data-section="muted"] {
+  --background: #f3f4f6;
+  --foreground: #06070a;
+  --card: #ffffff;
+  --card-foreground: #06070a;
+  --primary: #171921;
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff;
+  --secondary-foreground: #171921;
+  --muted: #e6e8eb;
+  --muted-foreground: #666c7a;
+  --border: #cbd0d6;
+  --input: #8b94a2;
+  --ring: #171921;
+}
+
+[data-section="dark"] {
+  --background: #171921;
+  --foreground: #ffffff;
+  --card: #171921;
+  --card-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #171921;
+  --secondary: #252833;
+  --secondary-foreground: #ffffff;
+  --muted: #252833;
+  --muted-foreground: #b2b8c2;
+  --border: #353945;
+  --input: #62697f;
+  --ring: #b2b8c2;
+}
+
+/* The accent section derives everything from --accent, so it keeps
+   working when the accent is swapped per project. Note what this
+   does to buttons: --primary becomes the accent's foreground, so a
+   default Button on an accent band inverts to a legible white pill
+   automatically instead of a near-black one that goes shapeless. */
+[data-section="accent"] {
+  --background: var(--accent);
+  --foreground: var(--accent-foreground);
+  --card: color-mix(in srgb, var(--accent-foreground) 10%, var(--accent));
+  --card-foreground: var(--accent-foreground);
+  --primary: var(--accent-foreground);
+  --primary-foreground: var(--accent);
+  --secondary: color-mix(in srgb, var(--accent-foreground) 16%, transparent);
+  --secondary-foreground: var(--accent-foreground);
+  --muted: color-mix(in srgb, var(--accent-foreground) 10%, transparent);
+  --muted-foreground: color-mix(in srgb, var(--accent-foreground) 85%, transparent);
+  --border: color-mix(in srgb, var(--accent-foreground) 26%, transparent);
+  --input: color-mix(in srgb, var(--accent-foreground) 45%, transparent);
+  --ring: var(--accent-foreground);
+}
+
+/* ============================================================
+   VIEW TRANSITIONS
+   The shared-element morph: a project title on the work index and
+   the same title on its case-study page carry one name, so the
+   browser moves and scales a single piece of text between routes
+   rather than fading one out and another in.
+
+   Nothing here creates the animation — React pairs the elements and
+   the browser interpolates. This only sets the timing, so the morph
+   obeys the same curve as everything else the page initiates.
+   ============================================================ */
+::view-transition-group(.morph) {
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1); /* --ease-out */
+}
+
+/* A touch of blur mid-flight hides the pixel interpolation you would
+   otherwise see while a display-size word is being scaled. */
+::view-transition-image-pair(.morph) {
+  animation-name: morph-blur;
+}
+
+@keyframes morph-blur {
+  30% {
+    filter: blur(2px);
+  }
+}
+
+/* Reduced motion: keep the crossfade, drop the travel. The colour and
+   content still change, so the navigation is still legible — it simply
+   does not move. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 120ms !important;
+    animation-delay: 0s !important;
+  }
+  ::view-transition-image-pair(.morph) {
+    animation-name: none;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background-color: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+}

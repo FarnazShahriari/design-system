@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { LinkUnderline } from "@/components/ui/link-underline"
+import { Button } from "@farnazshahriari/design-system/ui/button"
+import { LinkUnderline } from "@farnazshahriari/design-system/ui/link-underline"
 import { sections } from "@/showcase/registry"
 
 export default function OverviewPage() {

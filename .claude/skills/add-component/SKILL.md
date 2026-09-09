@@ -1,6 +1,6 @@
 ---
 name: add-component
-description: How to add a new UI component to this design system so it matches the rest of it. Use this whenever a component is being added, installed or created in this repo — including "npx shadcn add", "we need a date picker", "add a carousel", "can you build a stepper component" — and whenever an existing component in src/components/ui/ is being modified. Covers the no-shadows rule, both-theme checking, and registering it in the showcase.
+description: How to add a new UI component to this design system so it matches the rest of it. Use this whenever a component is being added, installed or created in this repo — including "npx shadcn add", "we need a date picker", "add a carousel", "can you build a stepper component" — and whenever an existing component in packages/design-system/src/components/ui/ is being modified. Covers the no-shadows rule, both-theme checking, and registering it in the showcase.
 ---
 
 # Adding a component
@@ -8,7 +8,7 @@ description: How to add a new UI component to this design system so it matches t
 **The invariant this protects: a component matches the system before it is
 used anywhere, not after somebody notices it looks wrong.**
 
-There are already 47 components in `src/components/ui/`. Check whether one
+There are already 52 components in `packages/design-system/src/components/ui/`. Check whether one
 covers the need before adding anything — the most common mistake is adding
 a near-duplicate of something that exists.
 
@@ -18,12 +18,20 @@ a near-duplicate of something that exists.
 npx shadcn@latest add <name>
 ```
 
-It lands in `src/components/ui/` and will already be close, because it
-references the same token names as everything else. (This command needs
-`ui.shadcn.com`, which is blocked from the cloud sandbox but works fine
-locally. From the sandbox, copy the source from the `shadcn-ui/ui` repo and
-rewrite `from "cn"` → `from "@/lib/utils"` and `@/registry/new-york-v4/ui/`
-→ `@/components/ui/`.)
+It lands in the showcase's `src/components/ui/`. **Move it into
+`packages/design-system/src/components/ui/`** — that is where the library
+lives; anything left at the root ships to nobody.
+
+Then rewrite its imports as **relative paths** (`../../lib/utils`, not
+`@/lib/utils`). Inside the package there is no `@/` alias, because the
+source has to resolve from a consumer's `node_modules`. An `@/` import that
+compiles here will fail in every project that installs the package.
+
+It will already look close to right, because it references the same token
+names as everything else. (`npx shadcn add` needs `ui.shadcn.com`, which is
+blocked from the cloud sandbox but works fine locally. From the sandbox,
+copy the source out of the `shadcn-ui/ui` repo instead and rewrite
+`from "cn"` and `@/registry/new-york-v4/ui/` to the relative paths above.)
 
 Deliberately not installed, each for a reason: `chart` (pulls recharts),
 `form` (pulls react-hook-form — validation, not visual design), `calendar`,
@@ -56,7 +64,9 @@ usually obvious from the existing groupings — and mark its origin honestly:
 - `custom` — no upstream equivalent
 
 `src/showcase/registry.tsx` derives navigation, routing and static
-generation from those entries, so adding the entry is the whole job.
+generation from those entries, so adding the entry is the whole job. (The
+showcase stays at the repo root — it is the package's first consumer, not
+part of the package.)
 
 ## Before calling it done
 
@@ -73,6 +83,6 @@ If you touched any colour, `npm run check:contrast` too.
 - Don't introduce a third radius or a new easing curve to accommodate one
   component — either it fits the system or the system needs a deliberate
   change.
-- Vendored files in `src/components/ui/` stay close to upstream so future
+- Vendored files in `packages/design-system/src/components/ui/` stay close to upstream so future
   `shadcn add` updates apply cleanly. Restyle class strings freely; think
   twice before rewriting their React logic.

@@ -1,27 +1,48 @@
 # Design System
 
-A simple, ownable design system: 47 [shadcn/ui](https://ui.shadcn.com)
+A living design system: 52 [shadcn/ui](https://ui.shadcn.com)-based
 components (Next.js + Tailwind CSS v4 + Radix), retokenized with a
-restrained, near-monochrome palette and tight, fluid type scale inspired
+restrained, near-monochrome palette and a tight, fluid type scale inspired
 by [clay.global](https://clay.global).
 
-Run the dev server and the whole thing is browsable: an interactive
-showcase with foundations (colour, type, spacing, shape, motion), a page
-per component, and a **token playground** where you can tune the theme
+**It is an installable package**, not a folder to copy. Sites depend on
+`@farnazshahriari/design-system`; change a token here, publish, and every
+site that installs it follows on its next build. See
+[`packages/design-system/README.md`](packages/design-system/README.md) to
+install it into a project.
+
+This repo is two things:
+
+| | |
+| --- | --- |
+| `packages/design-system/` | The package — theme, components, patterns, motion, skills |
+| everything else | The **showcase**, an interactive Next.js app that documents the system and is also its first consumer |
+
+The showcase imports the package by name, exactly the way another project
+would. That is deliberate: a packaging mistake breaks the showcase here,
+before it reaches a real site.
+
+Run the dev server and the whole thing is browsable: foundations (colour,
+type, spacing, shape, motion), a page per component, layout patterns and
+page archetypes, and a **token playground** where you can tune the theme
 live and copy the CSS back out.
 
 ## Why this stack
 
-- **shadcn/ui is not a package.** Component source is copied into
-  `src/components/ui/` and you own every line — no black-box dependency,
-  no breaking upgrades. Add more components any time with
-  `npx shadcn@latest add <name>`, and they'll pick up this theme
-  automatically because they're all styled from the same token names.
-- **One file controls the whole look.** `src/app/globals.css` defines
-  every colour, radius and type-scale value as a named token
-  (`--primary`, `--muted-foreground`, `--radius`, `text-h1`, ...).
-  Components never hard-code a colour or size — they reference the
-  token. Change a value there and it propagates everywhere.
+- **One file controls the whole look.**
+  `packages/design-system/theme.css` defines every colour, radius and
+  type-scale value as a named token (`--primary`, `--muted-foreground`,
+  `--radius`, `text-h1`, ...). No component contains a raw colour or size
+  — they all reference tokens. That invariant is what makes the package
+  model work: change a value there and it propagates to every component,
+  in every site, on their next build.
+- **Shipped as a dependency, on purpose.** shadcn's premise is that you
+  copy the source and own every line, so nothing can break underneath
+  you. The cost is that nothing can *improve* underneath you either. This
+  system takes the other side of that trade, because the requirement was
+  "change the button once, and it changes everywhere it's used." The
+  source still ships in the package, so a component is always readable,
+  and a project can override any token locally without forking.
 - **The "advanced" layer is documented, not baked in.**
   `reference/clay-spec.md` has the full source palette, type scale and
   motion language this system draws from, including the parts (custom
@@ -51,6 +72,9 @@ Open [http://localhost:3000](http://localhost:3000). Worth visiting first:
 | `/playground/tokens` | Edit the theme live, copy the CSS back out |
 | `/all` | Everything in one scroll |
 
+Edits to `packages/design-system/` are picked up live — it is a workspace,
+so there is no build or link step between the package and the showcase.
+
 ## Working with this repo day to day
 
 This repo lives on GitHub. To work on it from your own computer:
@@ -78,13 +102,15 @@ standard git, nothing design-system-specific about it.
 
 ## Changing the theme
 
-Everything lives in `src/app/globals.css`:
+Everything lives in `packages/design-system/theme.css` — the file the
+package ships and every consuming site imports:
 
 - **Colours** — edit the hex values under `:root` (light) and `.dark`
   (dark). `--accent` is the one slot meant to change per brand/project;
   everything else is the shared neutral base. After changing any colour,
   run `npm run check:contrast` — it reads the tokens straight out of
-  `globals.css` and checks every meaningful pair against WCAG AA.
+  `theme.css` and checks every meaningful pair against WCAG AA, in both
+  page themes and all four section themes.
 - **Radius** — `--radius` controls the (near-zero, by design) default
   corner rounding for cards/inputs/buttons. `--radius-pill` (999px) is
   separate, for the one "real button" / chip shape.
@@ -92,6 +118,10 @@ Everything lives in `src/app/globals.css`:
   Each has paired `--text-<name>--line-height` /
   `--text-<name>--letter-spacing` / `--text-<name>--font-weight` values
   (a Tailwind v4 feature) that travel with it automatically.
+
+A change here reaches other sites when it is published and they install
+it. Locally, a project can also depart from the system on purpose by
+redeclaring a token *after* the theme import — see the package README.
 
 ## Adding a component
 
@@ -103,16 +133,22 @@ Most of the library is already here. For the ones deliberately left out
 npx shadcn@latest add <component-name>
 ```
 
-It lands in `src/components/ui/` already looking right, because it
-references the same tokens as everything else. Two follow-ups:
+Move it into `packages/design-system/src/components/ui/` — it already
+looks right, because it references the same tokens as everything else.
+Three follow-ups:
 
 1. Strip any `shadow-*` classes it arrives with — this system has none.
-2. Add it to `src/showcase/entries/` so it shows up in the showcase.
+2. Rewrite its `@/` imports as relative paths, so it resolves inside a
+   consumer's `node_modules`.
+3. Add it to `src/showcase/entries/` so it shows up in the showcase.
+
+The `add-component` skill covers this checklist; it fires automatically.
 
 ## Motion
 
 Animation uses [Motion](https://motion.dev). Two curves and a duration
-ladder live in `src/lib/motion.ts`; `Reveal` is the only scroll primitive:
+ladder live in the package's `src/lib/motion.ts`; `Reveal` is the only
+scroll primitive:
 
 ```tsx
 <Reveal>            {/* fade + rise, settles once, never re-animates */}
@@ -175,32 +211,41 @@ apply them in your other repos too, see `.claude/skills/README.md`.
 ## Project layout
 
 ```
-src/
+packages/design-system/        # THE PACKAGE — what other sites install
+  theme.css                    #   the entire theme: colours, radius, type scale
+  package.json                 #   exports map, deps, GitHub Packages config
+  src/
+    index.ts                   #   barrel (deep imports are preferred)
+    components/
+      ui/                      #   52 components + the layout primitives
+                               #     container.tsx / section.tsx / divider.tsx / grid.tsx
+      patterns/                #   composed patterns (project grid)
+      motion/                  #   Reveal / RevealGroup / ViewTransition / MotionConfig
+    lib/utils.ts               #   the cn() class-merging helper
+    lib/motion.ts              #   easing curves and the duration ladder
+  skills/                      #   the guardrail skills, shipped to consumers
+  README.md                    #   install & wire-up guide
+
+src/                           # THE SHOWCASE — the package's first consumer
   app/
-    globals.css          # the entire theme: colours, radius, type scale
-    layout.tsx           # showcase shell: header, sidebar, theme provider
-    page.tsx             # showcase overview
-    (shell)/             # the docs shell: header, sidebar, entry routes
-    (bare)/preview/      # page archetypes, rendered full width
-  components/
-    ui/                  # 47 components + the layout primitives
-                         #   container.tsx / section.tsx / divider.tsx
-    patterns/            # composed patterns (project grid)
-    motion/              # Reveal / RevealGroup, and the MotionConfig provider
-    showcase/            # showcase-only UI (nav, theme toggle, playground)
+    globals.css                #   six lines: Tailwind + the theme import
+    layout.tsx                 #   providers
+    (shell)/                   #   the docs shell: header, sidebar, entry routes
+    (bare)/preview/            #   page archetypes, rendered full width
+  components/showcase/         #   showcase-only UI (nav, theme toggle, playground)
   showcase/
-    registry.tsx         # single source of truth for the showcase
-    entries/             # the actual content, grouped by category
-  lib/utils.ts           # the cn() class-merging helper
-  lib/motion.ts          # easing curves and the duration ladder
-.claude/skills/          # the four guardrail skills
-components.json          # shadcn CLI config (style, aliases)
-reference/clay-spec.md   # the source palette/type/motion reference
-CHECKLIST.md             # what's built and what's next
+    registry.tsx               #   single source of truth for the showcase
+    entries/                   #   the actual content, grouped by category
+
+.claude/skills/                # the four guardrail skills (active in this repo)
+scripts/check-contrast.mjs     # WCAG AA audit, reads theme.css directly
+reference/clay-spec.md         # the source palette/type/motion reference
+CHECKLIST.md                   # what's built and what's next
 ```
 
 ## Roadmap
 
-See `CHECKLIST.md`. Phases 0–4 are done: tokens, 47 components, the layout
-layer, motion, and the convention skills. Next is distribution — deciding
-how another project imports this system.
+See `CHECKLIST.md`. Phases 0–5 are done: tokens, 52 components, the layout
+layer, motion, the convention skills, and distribution as an installable
+package. Next is Phase 6 — the accessibility pass, a mobile-width audit,
+and tagging v1.0.

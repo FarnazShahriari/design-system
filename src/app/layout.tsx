@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 
-import { MotionProvider } from "@/components/motion/motion-provider"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/sonner"
-import { TooltipProvider } from "@/components/ui/tooltip"
+import { MotionProvider } from "@farnazshahriari/design-system/motion/motion-provider"
+import { ThemeProvider } from "@farnazshahriari/design-system"
+import { Toaster } from "@farnazshahriari/design-system/ui/sonner"
+import { TooltipProvider } from "@farnazshahriari/design-system/ui/tooltip"
 
 import "./globals.css"
 

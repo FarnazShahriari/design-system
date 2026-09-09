@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@farnazshahriari/design-system/ui/badge"
 import { sections } from "@/showcase/registry"
 
 export const metadata = { title: "Everything on one page" }

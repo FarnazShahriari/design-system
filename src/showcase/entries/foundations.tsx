@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@farnazshahriari/design-system/ui/button"
 import type { Entry } from "@/showcase/types"
 
 const colorPairs = [

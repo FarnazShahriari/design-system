@@ -3,7 +3,7 @@
 import * as React from "react"
 import { motion } from "motion/react"
 
-import { duration, easeOut } from "@/lib/motion"
+import { duration, easeOut } from "@farnazshahriari/design-system/lib/motion"
 
 /**
  * A route-enter transition for the archetype pages.

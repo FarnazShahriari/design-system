@@ -7,8 +7,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { LinkUnderline } from "@/components/ui/link-underline"
+} from "@farnazshahriari/design-system/ui/breadcrumb"
+import { LinkUnderline } from "@farnazshahriari/design-system/ui/link-underline"
 import {
   Pagination,
   PaginationContent,
@@ -16,8 +16,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "@farnazshahriari/design-system/ui/pagination"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@farnazshahriari/design-system/ui/tabs"
 import type { Entry } from "@/showcase/types"
 
 export const navigation: Entry[] = [

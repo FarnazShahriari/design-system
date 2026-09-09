@@ -20,7 +20,7 @@ move slightly differently reads as unfinished even when nobody can say why.**
 
 ## The vocabulary
 
-In `src/lib/motion.ts`, matching the CSS values:
+In `packages/design-system/src/lib/motion.ts`, matching the CSS values:
 
 | Token | Value | For |
 | --- | --- | --- |
@@ -77,7 +77,8 @@ Things worth knowing before you touch it:
 
 - `share="morph"` and `default="none"` go together. With `default="none"`
   and no `share`, the pair silently stops morphing.
-- The naming helper lives in `src/lib/`, not the client wrapper, because
+- The naming helper lives in the package's `src/lib/`, not the client
+  wrapper, because
   server components need to call it.
 - The wrapper degrades to rendering children untouched where the API is
   absent — navigation still works, it just doesn't animate.

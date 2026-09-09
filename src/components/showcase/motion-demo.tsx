@@ -2,8 +2,8 @@
 
 import * as React from "react"
 
-import { Reveal } from "@/components/motion/reveal"
-import { Button } from "@/components/ui/button"
+import { Reveal } from "@farnazshahriari/design-system/motion/reveal"
+import { Button } from "@farnazshahriari/design-system/ui/button"
 
 const RECIPES = [
   { v: "fade" as const, label: "fade", note: "opacity only" },
