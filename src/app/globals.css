@@ -255,6 +255,49 @@
   --ring: var(--accent-foreground);
 }
 
+/* ============================================================
+   VIEW TRANSITIONS
+   The shared-element morph: a project title on the work index and
+   the same title on its case-study page carry one name, so the
+   browser moves and scales a single piece of text between routes
+   rather than fading one out and another in.
+
+   Nothing here creates the animation — React pairs the elements and
+   the browser interpolates. This only sets the timing, so the morph
+   obeys the same curve as everything else the page initiates.
+   ============================================================ */
+::view-transition-group(.morph) {
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1); /* --ease-out */
+}
+
+/* A touch of blur mid-flight hides the pixel interpolation you would
+   otherwise see while a display-size word is being scaled. */
+::view-transition-image-pair(.morph) {
+  animation-name: morph-blur;
+}
+
+@keyframes morph-blur {
+  30% {
+    filter: blur(2px);
+  }
+}
+
+/* Reduced motion: keep the crossfade, drop the travel. The colour and
+   content still change, so the navigation is still legible — it simply
+   does not move. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 120ms !important;
+    animation-delay: 0s !important;
+  }
+  ::view-transition-image-pair(.morph) {
+    animation-name: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

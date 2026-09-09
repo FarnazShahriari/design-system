@@ -84,12 +84,19 @@ export function BreakpointPreview({
   src,
   height = 700,
   defaultMode = "desktop",
+  showGridToggle = true,
 }: {
   src: string
   height?: number
   defaultMode?: Mode
+  showGridToggle?: boolean
 }) {
   const [mode, setMode] = React.useState<Mode>(defaultMode)
+  const [grid, setGrid] = React.useState(false)
+
+  // the overlay lives inside the previewed page, so it lines up with the
+  // real container margins at every width instead of approximating them
+  const frameSrc = grid ? `${src}?grid=1` : src
 
   const frames =
     mode === "compare"
@@ -118,8 +125,18 @@ export function BreakpointPreview({
         >
           Compare
         </Button>
+        {showGridToggle ? (
+          <Button
+            size="sm"
+            variant={grid ? "default" : "outline"}
+            onClick={() => setGrid((g) => !g)}
+            aria-pressed={grid}
+          >
+            Grid
+          </Button>
+        ) : null}
         <a
-          href={src}
+          href={frameSrc}
           className="ml-auto text-meta text-muted-foreground underline underline-offset-4 hover:text-foreground"
         >
           Open standalone
@@ -128,7 +145,13 @@ export function BreakpointPreview({
 
       <div className="flex flex-col gap-6 md:flex-row md:gap-4">
         {frames.map((f) => (
-          <Frame key={f.id} src={src} width={f.width} height={height} label={f.label} />
+          <Frame
+            key={`${f.id}-${grid}`}
+            src={frameSrc}
+            width={f.width}
+            height={height}
+            label={f.label}
+          />
         ))}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import * as React from "react"
 import Link from "next/link"
 
+import { ViewTransition } from "@/components/motion/view-transition"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
@@ -42,11 +43,18 @@ function ProjectCard({
   tags,
   ratio = "4 / 3",
   media,
+  transitionName,
   className,
   ...props
 }: Omit<React.ComponentProps<"li">, "title"> & {
   href: string
   title: string
+  /**
+   * Pairs this title with the same-named title on the destination page, so
+   * the word travels and scales into place instead of being replaced. Both
+   * sides must use the same name — see projectTitleTransition().
+   */
+  transitionName?: string
   description?: string
   tags?: string[]
   /** CSS aspect-ratio for the media frame. Locked so nothing reflows on load. */
@@ -69,7 +77,13 @@ function ProjectCard({
         </div>
         <div className="mt-4 flex flex-col gap-2 md:mt-6">
           {/* Titles never wrap — a two-line title breaks the grid's rhythm. */}
-          <h3 className="truncate text-h4">{title}</h3>
+          {transitionName ? (
+            <ViewTransition name={transitionName} share="morph" default="none">
+              <h3 className="truncate text-h4">{title}</h3>
+            </ViewTransition>
+          ) : (
+            <h3 className="truncate text-h4">{title}</h3>
+          )}
           {description ? (
             <p className="truncate text-sm text-muted-foreground">{description}</p>
           ) : null}

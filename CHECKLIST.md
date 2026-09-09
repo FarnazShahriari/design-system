@@ -122,15 +122,24 @@ Two things this phase settled that were not on the list:
 - [x] Hover states stay in CSS. The underline link is two pseudo-elements
       and a transform; wrapping that in JavaScript would buy nothing and
       cost a re-render on every pointer move
-- [x] **Page transition: deferred, deliberately.** The source material's
-      shared-element move (the next project's colour band growing into the
-      next page's hero) needs a persistent overlay outside the routed
-      subtree, geometry captured at click time, and a route commit hidden
-      inside the animation — roughly as much machinery as the rest of this
-      system combined. What ships instead is a route-enter fade via
-      `template.tsx`, which re-mounts on every navigation: eight lines, and
-      it covers the case that actually matters, which is arriving without
-      a flash
+- [x] **Shared-element page transition — built.** Initially deferred on the
+      grounds that it needs a persistent overlay, geometry captured at click
+      time and a route commit hidden inside the animation. That reasoning
+      described how the source site did it in 2024 and is now out of date:
+      React's `<ViewTransition name>` pairs the elements and the browser
+      interpolates position and size, so the whole thing is declarative.
+      A project title on the work index and the same title on its case-study
+      page share one name, and the word travels and scales between routes
+      instead of one fading out while another fades in.
+      - `/preview/case-study/[slug]` is a real route per project, so the
+        morph has somewhere to land; the next-case teaser carries the *next*
+        project's name, so the chain continues
+      - Verified by inspecting what the browser animates mid-navigation:
+        `::view-transition-group(project-title-northwind)` with its old/new
+        pair, not just a default crossfade
+      - Degrades to a plain navigation where the API or the component is
+        absent, and reduced motion keeps the crossfade but drops the travel
+      - Also kept: the route-enter fade via `template.tsx`
 
 ## Showcase additions (done, alongside Phase 3)
 
@@ -141,6 +150,13 @@ Two things this phase settled that were not on the list:
 - [x] **Everything on one page** (`/all`) — every foundation, pattern and
       component in one scroll, for judging whether the parts add up to a
       system rather than looking one up
+- [x] **Grid & breakpoints** page — the 12-column grid, a table of what
+      actually changes at each of the three breakpoints, and a **Grid
+      toggle** that draws the real column guides over the real pages. The
+      overlay renders inside the previewed page and uses the same Container,
+      so the guides are the true margins rather than an approximation
+- [x] **Grid primitive** (`src/components/ui/grid.tsx`) — 12 columns, 16px
+      gutter; children place themselves with `col-span-*`
 
 ## Phase 4 — Package it all as Claude Skills
 

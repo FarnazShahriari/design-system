@@ -1,6 +1,7 @@
 import { BreakpointPreview } from "@/components/showcase/breakpoint-preview"
 import { ProjectCard, ProjectGrid } from "@/components/patterns/project-grid"
 import { Container } from "@/components/ui/container"
+import { Grid } from "@/components/ui/grid"
 import { Divider } from "@/components/ui/divider"
 import { Button } from "@/components/ui/button"
 import { LinkUnderline } from "@/components/ui/link-underline"
@@ -36,6 +37,88 @@ export const patterns: Entry[] = [
             ))}
           </div>
         ),
+      },
+    ],
+  },
+  {
+    slug: "grid-and-breakpoints",
+    title: "Grid & breakpoints",
+    description:
+      "Twelve columns, a 16px gutter, and three breakpoints. This page is the answer to “what actually changes between a phone and a desktop” — including a switch that draws the real column guides over the real pages.",
+    origin: "custom",
+    originNote: "src/components/ui/grid.tsx",
+    examples: [
+      {
+        label: "The columns",
+        note: "Children place themselves with Tailwind's col-span-* utilities rather than span props — span props would mean enumerating every responsive combination as a class, and `col-span-12 md:col-span-6` on the child is clearer anyway.",
+        node: (
+          <div className="flex flex-col gap-6">
+            <Grid>
+              {Array.from({ length: 12 }, (_, i) => (
+                <div
+                  key={i}
+                  className="col-span-1 bg-accent/15 py-3 text-center text-meta text-muted-foreground"
+                >
+                  {i + 1}
+                </div>
+              ))}
+            </Grid>
+            <Grid>
+              <div className="col-span-12 bg-muted p-4 text-meta md:col-span-7">
+                col-span-12 md:col-span-7
+              </div>
+              <div className="col-span-12 bg-muted p-4 text-meta md:col-span-5">
+                col-span-12 md:col-span-5
+              </div>
+            </Grid>
+          </div>
+        ),
+      },
+      {
+        label: "What changes at each breakpoint",
+        note: "Three, deliberately. The source material uses seven; a system nobody can hold in their head gets applied inconsistently, which is worse than a coarser one applied everywhere.",
+        node: (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[34rem] border-collapse text-sm">
+              <thead>
+                <tr className="border-b text-left">
+                  <th className="py-2 pr-4 font-bold">Width</th>
+                  <th className="py-2 pr-4 font-bold">Container</th>
+                  <th className="py-2 font-bold">What it does</th>
+                </tr>
+              </thead>
+              <tbody className="text-muted-foreground">
+                {[
+                  ["< 768px", "24px side margins", "One column. Grids collapse, the info split stacks, media goes full width."],
+                  ["≥ 768px (md)", "40px side margins", "The structural switch: two-column grids appear, the card stagger turns on, the case-study info block splits 57.5 / 42.5."],
+                  ["≥ 1280px (xl)", "centred, max 1400px", "No new layout — only scale. Margins stop growing, the type scale reaches its ceiling, vertical rhythm steps to 80px."],
+                ].map((r) => (
+                  <tr key={r[0]} className="border-b align-top last:border-b-0">
+                    <td className="py-3 pr-4 font-mono text-meta text-foreground">{r[0]}</td>
+                    <td className="py-3 pr-4">{r[1]}</td>
+                    <td className="py-3">{r[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ),
+      },
+      {
+        label: "The grid over a real page",
+        note: "Press Grid to overlay the column guides, then Compare to see them at both widths. The overlay renders inside the page and uses the same Container, so the guides are the real margins rather than an approximation of them.",
+        node: (
+          <BreakpointPreview
+            src="/preview/work-index"
+            height={700}
+            defaultMode="compare"
+          />
+        ),
+      },
+      {
+        label: "One layout, three widths",
+        note: "The case-study page at each breakpoint. Nothing is hidden between them — the same content reflows, which is why the archetypes use a single column order rather than rearranging blocks per device.",
+        node: <BreakpointPreview src="/preview/case-study/northwind" height={660} />,
       },
     ],
   },
@@ -151,7 +234,7 @@ export const patterns: Entry[] = [
             ].map((p) => (
               <ProjectCard
                 key={p.t}
-                href="/preview/case-study"
+                href="/preview/case-study/northwind"
                 title={p.t}
                 description={p.d}
                 tags={p.g}
@@ -173,7 +256,7 @@ export const patterns: Entry[] = [
       {
         label: "Case study",
         note: "Hero, full-bleed media, an info block split 57.5/42.5, then alternating bands with a divider where two share a colour. Ends on the accent teaser — the reason the accent section theme exists.",
-        node: <BreakpointPreview src="/preview/case-study" height={700} />,
+        node: <BreakpointPreview src="/preview/case-study/northwind" height={700} />,
       },
       {
         label: "Work index",

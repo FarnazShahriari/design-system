@@ -1,19 +1,12 @@
 import Link from "next/link"
 
+import { projectTitleTransition } from "@/lib/view-transition-names"
 import { ProjectCard, ProjectGrid } from "@/components/patterns/project-grid"
+import { PROJECTS } from "../projects"
 import { Container } from "@/components/ui/container"
 import { Section } from "@/components/ui/section"
 
 export const metadata = { title: "Work index archetype" }
-
-const PROJECTS = [
-  { slug: "northwind", title: "Northwind", description: "Retail banking, rebuilt around two daily tasks", tags: ["Product design", "iOS"] },
-  { slug: "meridian", title: "Meridian", description: "An identity for a logistics company that moves quietly", tags: ["Branding"] },
-  { slug: "atlas", title: "Atlas", description: "A public-sector service that explains itself", tags: ["Websites", "Content"] },
-  { slug: "corvid", title: "Corvid", description: "Field research tooling for ecologists", tags: ["Product design"] },
-  { slug: "harbour", title: "Harbour", description: "A marketplace for small boat builders", tags: ["Websites"] },
-  { slug: "stellar", title: "Stellar", description: "Observatory booking, from spreadsheet to service", tags: ["Product design", "Branding"] },
-]
 
 const FILTERS = [
   { label: "All work", count: 6, active: true },
@@ -68,10 +61,11 @@ export default function WorkIndexArchetype() {
             {PROJECTS.map((p) => (
               <ProjectCard
                 key={p.slug}
-                href="/preview/case-study"
+                href={`/preview/case-study/${p.slug}`}
                 title={p.title}
                 description={p.description}
                 tags={p.tags}
+                transitionName={projectTitleTransition(p.slug)}
               />
             ))}
           </ProjectGrid>

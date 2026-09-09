@@ -20,7 +20,7 @@ export const motionEntries: Entry[] = [
       {
         label: "In a real page",
         note: "The case-study archetype reveals its hero, its media and each band. Scroll the frame — each element reveals once and never re-animates on the way back up, which is the difference between considered and cheap.",
-        node: <BreakpointPreview src="/preview/case-study" height={700} />,
+        node: <BreakpointPreview src="/preview/case-study/northwind" height={700} />,
       },
     ],
   },

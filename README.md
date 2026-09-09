@@ -46,6 +46,7 @@ Open [http://localhost:3000](http://localhost:3000). Worth visiting first:
 | `/components/link-underline` | The one primitive written for this system |
 | `/patterns/section` | Sections that own their ground — the core layout idea |
 | `/patterns/page-archetypes` | Three full page layouts, embedded live |
+| `/patterns/grid-and-breakpoints` | The 12-col grid, breakpoints, and a grid overlay |
 | `/patterns/reveal` | The scroll-reveal primitive |
 | `/playground/tokens` | Edit the theme live, copy the CSS back out |
 | `/all` | Everything in one scroll |
@@ -118,6 +119,11 @@ ladder live in `src/lib/motion.ts`; `Reveal` is the only scroll primitive:
   <h1 className="text-display">Northwind</h1>
 </Reveal>
 ```
+
+Navigating from a project card to its case study morphs the title: the two
+elements share a `<ViewTransition name>`, so the browser moves and scales
+one piece of text between routes rather than fading one out and another in.
+Try it at `/preview/work-index`.
 
 `prefers-reduced-motion` is handled once in the root layout by
 `<MotionConfig reducedMotion="user">` — transforms are dropped, opacity is
