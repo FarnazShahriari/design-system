@@ -17,6 +17,15 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+
+      # PageProps and LayoutProps are global types Next generates into
+      # .next/types from the route files. A fresh checkout has no .next, so
+      # tsc has to be given them first or it fails on every typed route —
+      # a failure that never reproduces locally, where a build has already
+      # run.
+      - name: Generate Next route types
+        run: npx next typegen
+
       - run: npx tsc --noEmit
       - run: npm run lint
       - run: npm run check:contrast
