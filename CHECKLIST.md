@@ -287,8 +287,15 @@ without forking anything.
       Phase 6 because it was blocking real use in another project — the
       polish items below do not need to land first
 - [ ] README/CHECKLIST cleanup
-- [x] ~~Open a PR into `main`~~ — there is no `main`. This branch is the
-      repository's default branch, so there is nothing to merge into
+- [x] **`main` created** at the same commit. The repository had no `main`
+      at all — its default branch was `claude/design-system-setup-c6t1cj`,
+      the throwaway name of an agent session, which is not a trunk anyone
+      should be cloning from a year from now. There was nothing to merge,
+      so `main` simply starts from the same commit
+- [ ] **Flip the default branch to `main`** in Settings → Branches, then
+      delete the old branch. This is the one step that has to be done by
+      hand: it needs a repository-settings write, which no tool here has,
+      and the session's git credentials are scoped to the old branch ref
 
 Publishing surfaced one thing worth recording: a tag push from an agent
 sandbox is refused with a 403 while branch pushes succeed, because the
