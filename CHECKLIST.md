@@ -282,12 +282,33 @@ without forking anything.
       nav through dialog/dropdown/tabs
 - [ ] Expand the style-guide page to show patterns and page archetypes,
       not just atomic components
-- [ ] README/CHECKLIST cleanup, tag a `v1.0`
-- [ ] Open a PR from `claude/design-system-setup-c6t1cj` into `main`
+- [x] **v1.0.0 published**, `@farnazshahriari/design-system` on GitHub
+      Packages, tagged `v1.0.0`. 69 files. Pulled forward from the rest of
+      Phase 6 because it was blocking real use in another project — the
+      polish items below do not need to land first
+- [ ] README/CHECKLIST cleanup
+- [x] ~~Open a PR into `main`~~ — there is no `main`. This branch is the
+      repository's default branch, so there is nothing to merge into
+
+Publishing surfaced one thing worth recording: a tag push from an agent
+sandbox is refused with a 403 while branch pushes succeed, because the
+session's git credentials are scoped to a single branch ref. The publish
+workflow now creates the tag itself after a successful publish, so a
+release is reachable by hand from the Actions tab and still ends up
+findable in git.
+
+## Known limitation — installing needs a token
+
+The repository is private, so the package is too. GitHub Packages also
+requires authentication for *every* npm read, public packages included, so
+this does not go away by making the repo public. Any project installing
+this system needs a personal access token with `read:packages` in its
+`~/.npmrc` — the two lines are in the package README. Worth knowing before
+handing the package to a CI runner or another sandbox, which will not have
+one unless it is given one.
 
 ---
 
-**Next up:** Phase 6 — polish. The distribution question is answered and
-built; what is left is the accessibility pass, the mobile-width audit
-carried over from Phase 1, and tagging v1.0 so there is a first published
-version to install.
+**Next up:** the rest of Phase 6 — the accessibility pass, the
+mobile-width audit carried over from Phase 1, and the doc cleanup. The
+system is installable and in use while that happens.

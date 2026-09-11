@@ -283,6 +283,26 @@ reference/clay-spec.md         # the source palette/type/motion reference
 CHECKLIST.md                   # what's built and what's next
 ```
 
+## Installing it in another project
+
+Published as `@farnazshahriari/design-system` on GitHub Packages — see
+[`packages/design-system/README.md`](packages/design-system/README.md) for
+the full wire-up.
+
+**Auth is required, and it is the step people get stuck on.** GitHub
+Packages authenticates *every* npm read, so this is not a consequence of
+the repo being private and will not go away if it is made public. Once per
+machine, in `~/.npmrc`:
+
+```
+@farnazshahriari:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+```
+
+The token is a [personal access
+token](https://github.com/settings/tokens) with `read:packages`. In CI, use
+a repository secret rather than a committed file.
+
 ## Roadmap
 
 See `CHECKLIST.md`. Phases 0–5 are done: tokens, 52 components, the layout
