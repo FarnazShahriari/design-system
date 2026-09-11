@@ -134,13 +134,20 @@ npm run check:contrast          # if you touched a colour
 npm run build                   # the showcase is the first consumer;
                                 #   if it breaks, so would a real site
 
-# 2. give it a version
+# 2. write down what will look different
+#    packages/design-system/CHANGELOG.md — the release notes are lifted
+#    from it automatically, and the publish fails if the section is missing
+
+# 3. give it a version
 npm version minor --workspace @farnazshahriari/design-system
 
 # 3. release it
 git commit -am "describe the change" && git tag v1.1.0
 git push && git push --tags
 ```
+
+The tag push publishes, then tags and cuts a GitHub release with those
+notes.
 
 The tag is what publishes — pushing to a branch never does. That keeps
 "I edited a token" and "every site that installs this will get it" as two
@@ -161,7 +168,7 @@ the button here, and it changes on every site that uses it.
 **Choosing the number:** patch for a fix that changes nothing visually,
 minor for a new component or a tuned value, major for anything that would
 make an existing page look wrong. A design system's "breaking change" is
-visual, not just an API signature.
+visual, not just an API signature — the changelog says more about this.
 
 ## Adding a component
 

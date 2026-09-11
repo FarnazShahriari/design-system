@@ -18,7 +18,8 @@
     "src",
     "theme.css",
     "skills",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": "./src/index.ts",

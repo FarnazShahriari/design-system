@@ -108,3 +108,33 @@ jobs:
           git tag -a "v$version" -m "Design system $version"
           git push origin "v$version"
           echo "Tagged v$version"
+
+      # A tag is a pointer; the release page is where the notes live. The
+      # body is lifted out of the changelog rather than written here, so the
+      # two cannot drift apart. Runs after the publish for the same reason
+      # the tag does — do not announce what did not ship.
+      - name: Create the GitHub release
+        run: |
+          version=$(node -p "require('./packages/design-system/package.json').version")
+          if gh release view "v$version" >/dev/null 2>&1; then
+            echo "Release v$version already exists — nothing to do."
+            exit 0
+          fi
+          # Everything between this version's heading and the next one,
+          # minus the trailing link definitions.
+          awk -v v="## [$version]" '
+            index($0, v) == 1 { found = 1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' packages/design-system/CHANGELOG.md \
+            | grep -v '^\[.*\]: http' > /tmp/notes.md
+          if [ ! -s /tmp/notes.md ]; then
+            echo "No changelog section for $version — add one before releasing." >&2
+            exit 1
+          fi
+          gh release create "v$version" \
+            --title "Design system $version" \
+            --notes-file /tmp/notes.md
+          echo "Released v$version"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
