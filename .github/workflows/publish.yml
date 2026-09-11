@@ -1,12 +1,18 @@
-# Publishes the design system to GitHub Packages when a version tag is pushed.
+# Publishes the design system to GitHub Packages.
 #
-#   npm version minor --workspace @farnazshahriari/design-system
-#   git commit -am "design system 1.1.0" && git tag v1.1.0
-#   git push && git push --tags
+# Two ways in, both deliberate — pushing to a branch never publishes, so
+# "I edited a token" and "every site that installs this will get it" stay
+# two separate acts:
 #
-# The tag is what publishes; pushing to a branch never does. That keeps
-# "I edited a token" and "every site that installs this will get it"
-# as two separate, deliberate acts.
+#   1. Push a version tag:
+#        npm version minor --workspace @farnazshahriari/design-system
+#        git commit -am "design system 1.1.0" && git tag v1.1.0
+#        git push && git push --tags
+#
+#   2. Run this workflow by hand, which publishes whatever version
+#      package.json currently names and then creates the matching tag.
+#      This is the route when you cannot push a tag yourself — an agent
+#      sandbox, for instance, is usually scoped to one branch ref.
 name: Publish design system
 
 on:
@@ -18,7 +24,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      # contents: write so a manual run can create the tag for what it published.
+      contents: write
       packages: write
 
     steps:
@@ -38,8 +45,9 @@ jobs:
       # Publishing a broken theme is expensive to undo: npm versions are
       # immutable, so a bad token reaches every site that updates and the
       # only fix is another release. The showcase consumes the package the
-      # same way a real site does, so these four checks are a genuine
+      # same way a real site does, so the checks below are a genuine
       # rehearsal of the install, not a formality.
+
       # PageProps and LayoutProps are global types Next generates into
       # .next/types from the route files. A fresh checkout has no .next, so
       # tsc has to be given them first or it fails on every typed route —
@@ -79,3 +87,24 @@ jobs:
         run: npm publish --workspace @farnazshahriari/design-system
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # A release should be findable in git, not only in the registry. A
+      # tag-triggered run already has its tag and this does nothing; a
+      # manual run creates it. It runs after the publish on purpose —
+      # a tag pointing at a version that never shipped is worse than none.
+      #
+      # The existence check asks the remote rather than the local clone:
+      # actions/checkout fetches no tags, so a local lookup would report
+      # every tag as missing.
+      - name: Tag the released version
+        run: |
+          version=$(node -p "require('./packages/design-system/package.json').version")
+          if git ls-remote --exit-code --tags origin "refs/tags/v$version" >/dev/null 2>&1; then
+            echo "v$version already exists — nothing to do."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "v$version" -m "Design system $version"
+          git push origin "v$version"
+          echo "Tagged v$version"

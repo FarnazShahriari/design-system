@@ -148,6 +148,12 @@ separate decisions, which matters because npm versions are immutable: a
 bad theme reaches everyone who updates, and the only fix is another
 release.
 
+If you can't push a tag (an agent sandbox is usually scoped to one branch
+ref), run the **Publish design system** workflow from the Actions tab
+instead. It publishes whatever version `package.json` names and then
+creates the matching tag itself, so a release is still findable in git and
+not only in the registry.
+
 On the consuming side there is nothing to do but `npm update`, or just
 deploy — a caret range picks up the new version on the next install. Change
 the button here, and it changes on every site that uses it.
