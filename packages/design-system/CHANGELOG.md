@@ -17,6 +17,32 @@ the rule is what a change does to a page, not to a signature:
 Each entry says what will look different, because that is what a consumer
 is deciding about when they read it.
 
+## [2.1.0] — 2026-09-21
+
+Icons were the one thing 2.0.0's larger type left behind. Nothing breaks;
+every icon in the system gets heavier, and the accordion's chevron grows.
+
+### Icons have a stroke token
+
+New `--stroke-icon`, default `2.25`, applied in the base layer to
+`svg.lucide`. Lucide draws at stroke-width 2 in a 24px box, which is a
+hairline once an icon renders at 16px beside a 92px heading — and nothing in
+the system set the stroke at all, so every icon inherited that default.
+
+It is a CSS rule rather than a prop on 22 components because CSS beats an
+SVG presentation attribute, so one declaration reaches every icon including
+ones a consumer renders themselves. Change the token to restyle all of them.
+
+### The accordion chevron is larger
+
+`size-4` → `size-5`, and it no longer forces `text-muted-foreground`, so it
+takes the trigger's own colour. A 16px hairline in a lighter grey read as an
+afterthought next to a row title, which is the whole affordance for "this
+opens".
+
+Marked `modified` in the showcase with the reason, per the repo's own rule
+about not leaving a changed component looking stock.
+
 ## [2.0.0] — 2026-09-21
 
 **Major, and it will look it.** Every page built on this system changes

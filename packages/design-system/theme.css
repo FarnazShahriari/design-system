@@ -126,6 +126,11 @@
 :root {
   --radius: 0.125rem; /* ~2px: "almost no radius" — pills opt in via rounded-pill */
 
+  /* Icon stroke. Lucide draws at stroke-width 2 in a 24px box, which is a
+     hairline once an icon is rendered at 16 or 20px next to type this
+     large. One token so every icon in the system stays in step with it. */
+  --stroke-icon: 2.25;
+
   --background: #ffffff;
   --foreground: #06070a; /* near-black, never pure #000 */
 
@@ -332,5 +337,11 @@
   ::selection {
     background-color: var(--selection-bg);
     color: var(--selection-fg);
+  }
+  /* lucide sets stroke-width as an SVG presentation attribute, and CSS
+     beats a presentation attribute, so this reaches every icon without a
+     single component having to pass a prop. */
+  svg.lucide {
+    stroke-width: var(--stroke-icon);
   }
 }
