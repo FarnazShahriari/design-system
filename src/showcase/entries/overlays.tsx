@@ -219,7 +219,9 @@ export const overlays: Entry[] = [
     title: "Accordion & collapsible",
     description:
       "Progressive disclosure. The FAQ pattern this system inherits keeps one row open at a time and sits on the off-white surface.",
-    origin: "restyled",
+    origin: "modified",
+    originNote:
+      "Chevron enlarged to size-5 and left on the trigger's own colour rather than muted — at the sizes this type scale reaches, a 16px hairline in a lighter grey read as an afterthought next to the row title.",
     examples: [
       {
         label: "Accordion",
