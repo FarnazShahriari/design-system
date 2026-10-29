@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "check:contrast": "node scripts/check-contrast.mjs",
-    "check:skills": "node scripts/check-skills.mjs"
+    "check:skills": "node scripts/check-skills.mjs",
+    "design-sync:prep": "bash scripts/design-sync-prep.sh"
   },
   "dependencies": {
     "@farnazshahriari/design-system": "*",
