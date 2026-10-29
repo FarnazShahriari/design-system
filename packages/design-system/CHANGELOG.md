@@ -17,6 +17,109 @@ the rule is what a change does to a page, not to a signature:
 Each entry says what will look different, because that is what a consumer
 is deciding about when they read it.
 
+## [3.0.0] — 2026-10-29
+
+**Major, and every page changes colour.** The system now carries a specific
+brand — "Calm. Bold." — rather than a neutral clay-inspired palette. Nothing
+needs editing to keep compiling except one removed section theme, but no
+page looks the same.
+
+### Paper and black
+
+The palette is four values: Paper `#f5f4f0`, Black `#0d0d0d`, Line grey
+`#bdbab2`, and Point `#7a8574`. The budget is 80% paper, 20% black, and
+colour capped at roughly 2% of a view.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `--background` | `#ffffff` | `#f5f4f0` |
+| `--foreground` | `#06070a` | `#0d0d0d` |
+| `--primary` | `#171921` | `#0d0d0d` |
+| `--muted` | `#f3f4f6` | `#ebe9e3` |
+| `--muted-foreground` | `#666c7a` | `#5a5852` |
+| `--border` | `#e6e8eb` | `#bdbab2` |
+| `--input` | `#8b94a2` | `#85827b` |
+
+**`--accent` is no longer a brand colour, and never really was one.** 37 of
+its 39 uses in this library are `focus:`, `hover:` and `data-[state=open]:`
+backgrounds on menu items, options and toggles — it is the interaction
+surface, inherited from shadcn along with its misleading name. Setting it to
+a saturated blue meant every dropdown hover was a block of saturated blue.
+It is now a step down the paper ramp (`#e4e1d9`), which is what a hover
+state should be.
+
+**`--point` is new**, and is the brand's only actual colour. It marks where
+you are and does nothing else. It is deliberately not wired into any section
+theme, and at 3.51:1 on paper it sits below the 4.5:1 text requires — that
+is the brand's "never coloured text for important information" as a number.
+
+### `theme="accent"` is removed — BREAKING
+
+A full-bleed band of `--accent` made sense when `--accent` was a brand
+colour. This brand has one bold ground and it is black: a band of the green
+would be ~100% of a view against a ~2% budget.
+
+```diff
+- <Section theme="accent">
++ <Section theme="dark">
+```
+
+It is a TypeScript error rather than a silent colour change, so the compiler
+will find every one for you.
+
+### Four type roles
+
+Statements shout, headings do not. The gap between them *is* the hierarchy.
+
+| Token | Role | Was | Now |
+| --- | --- | --- | --- |
+| `text-display` | Statement | 40→110px, 700 | 56→96px, **800** |
+| `text-h1` | Statement | 40→92px, 700 | 48→72px, **800** |
+| `text-h2` | Heading | 30→62px | **24→32px** |
+| `text-h3` | Heading | 20→36px | **20→26px** |
+| `text-h4` | Heading | 20→30px | **20→22px** |
+| `text-lead` | Body | 18→34px, 500 | 20→26px, **400** |
+| `text-body` | Body | *did not exist* | **17→18px at 1.6** |
+| `text-meta` | Label | 13→17px fluid | **13px fixed, +10% tracking** |
+
+Headings shrink a lot. v2.0.0 grew them on the reading that bigger was
+under-set; this brand says the opposite — one statement per view carries the
+page, and everything under it stays quiet.
+
+**`text-body` is new, and `<body>` now sets its metrics globally.** This
+system previously had no body token at all: ordinary copy sat on Tailwind's
+`text-sm`/`text-base`, 14/16px at 1.43/1.5, below the brand's 17px floor.
+Paragraphs that do not opt into anything are now correct by default.
+
+**`text-label` is new**, and is a `@utility` rather than a font-size token.
+A Tailwind type token carries size, line-height, tracking and weight — but
+not `text-transform` — so `text-meta` alone always lost the brand's
+uppercasing and every call site had to remember it. Both read the same
+`--label-*` custom properties, so they cannot drift.
+
+### One curve
+
+`easeOutExpo` and `easeOut` both resolve to `cubic-bezier(.22, 1, .36, 1)`
+now; the brand specifies a single easing. They remain separate exports
+because what differs between them is duration, not shape. Tailwind's
+`--ease-out` is overridden to the same curve, so a CSS transition and a
+Motion animation move identically without either knowing about the other.
+
+UI durations moved up into the brand's 500–800ms range: `quick` 0.35 → 0.5,
+`short` 0.5 → 0.65. Reveal durations did not move; they were already long.
+
+### Also
+
+- `--destructive` is deep and desaturated (`#8f2e20`) so an error reads as
+  functional rather than as a brand colour. The dark value is lifted to
+  `#d05a44`, because it has to carry black text at AA rather than merely be
+  visible.
+- `check:contrast` now parses the section themes out of `theme.css` instead
+  of restating their values, which it could previously disagree with. It
+  also checks input boundaries and point markers inside every section.
+- Verified: all pairs meet WCAG AA in both page themes and all three
+  section themes.
+
 ## [2.1.0] — 2026-09-21
 
 Icons were the one thing 2.0.0's larger type left behind. Nothing breaks;

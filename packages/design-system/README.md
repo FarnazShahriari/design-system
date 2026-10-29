@@ -95,7 +95,7 @@ and the difference is one visible line rather than a fork:
 ```css
 @import "@farnazshahriari/design-system/theme.css";
 
-:root { --accent: #b4531f; }   /* this project runs warm */
+:root { --point: #8a6a4f; }   /* this project's marker runs warm */
 ```
 
 If a project needs a component to differ structurally, that is a signal the

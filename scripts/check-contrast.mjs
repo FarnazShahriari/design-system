@@ -1,7 +1,10 @@
 /**
  * Reads the token values straight out of the package's theme.css and checks every
- * pair that carries meaning against WCAG AA. Run it after changing any colour —
- * especially --accent, which is the token meant to be swapped per project.
+ * pair that carries meaning against WCAG AA. Run it after changing any colour.
+ *
+ * Section themes are parsed from the stylesheet too, rather than restated here.
+ * They used to be hardcoded, which meant this file could quietly disagree with
+ * the theme it was supposed to be checking.
  *
  *   npm run check:contrast
  *
@@ -39,6 +42,7 @@ const CHECKS = [
   ["body text", "foreground", "background", 4.5],
   ["meta text on background", "muted-foreground", "background", 4.5],
   ["meta text on muted", "muted-foreground", "muted", 4.5],
+  ["meta text on accent surface", "muted-foreground", "accent", 4.5],
   ["primary button", "primary-foreground", "primary", 4.5],
   ["secondary button", "secondary-foreground", "secondary", 4.5],
   ["accent surface text", "accent-foreground", "accent", 4.5],
@@ -47,47 +51,30 @@ const CHECKS = [
   // 3:1 is the non-text threshold: a control's boundary must be identifiable,
   // and the focus ring must be visible. Decorative dividers (--border) are exempt.
   ["input boundary", "input", "background", 3],
+  ["input boundary on muted", "input", "muted", 3],
   ["focus ring", "ring", "background", 3],
-  ["accent block on background", "accent", "background", 3],
-  ["accent block on muted", "accent", "muted", 3],
+  // The point is a mark, never text. 3:1 is the bar it has to clear; it is
+  // expected to miss 4.5:1, which is why the brand forbids coloured text.
+  ["point marker on background", "point", "background", 3],
+  ["point marker on muted", "point", "muted", 3],
 ]
 
 /**
- * Section themes re-declare tokens for a subtree. The accent section derives
- * its values with color-mix() against a translucent foreground, so those are
- * composited here before measuring — a semi-transparent caption is only as
- * legible as what it actually resolves to over the band.
+ * Section themes re-declare tokens for a subtree. Parsed from the stylesheet
+ * so this check cannot drift from what the theme actually says. A section
+ * only overrides some tokens, so each one is layered over the page theme it
+ * sits in — exactly how the cascade resolves it in a browser.
  */
-function mixOver(fg, bg, pct) {
-  const a = pct / 100
-  const ch = (i) => {
-    const f = parseInt(fg.slice(i, i + 2), 16)
-    const b = parseInt(bg.slice(i, i + 2), 16)
-    return Math.round(a * f + (1 - a) * b)
-  }
-  return "#" + [1, 3, 5].map((i) => ch(i).toString(16).padStart(2, "0")).join("")
-}
-
-function sectionThemes(base) {
-  const acc = base["accent"]
-  const accFg = base["accent-foreground"]
-  return {
-    "section: muted": { background: "#f3f4f6", foreground: "#06070a", "muted-foreground": "#666c7a" },
-    "section: dark": { background: "#171921", foreground: "#ffffff", "muted-foreground": "#b2b8c2" },
-    "section: accent": {
-      background: acc,
-      foreground: accFg,
-      "muted-foreground": mixOver(accFg, acc, 85),
-      // a default Button inside an accent section inverts to this pair
-      primary: accFg,
-      "primary-foreground": acc,
-    },
-  }
+function sectionNames() {
+  return [...CSS.matchAll(/^\[data-section="([a-z]+)"\]\s*\{/gm)].map((m) => m[1])
 }
 
 const SECTION_CHECKS = [
   ["body text", "foreground", "background", 4.5],
   ["meta text", "muted-foreground", "background", 4.5],
+  ["button on the band", "primary-foreground", "primary", 4.5],
+  ["input boundary", "input", "background", 3],
+  ["point marker", "point", "background", 3],
 ]
 
 let failed = 0
@@ -110,26 +97,26 @@ for (const [theme, selector] of [["light", ":root"], ["dark", "\\.dark"]]) {
   }
 }
 
-// Section themes are declared once but the accent section resolves against
-// whichever --accent is in play, so it has to be checked in both page themes.
+// A section theme is checked inside both page themes: it only overrides some
+// tokens, and the rest it inherits differ between light and dark.
 const lightBase = block(":root")
 const darkBase = { ...lightBase, ...block("\\.dark") }
+
 console.log("\n  SECTION THEMES")
-const sectionSets = {
-  ...sectionThemes(lightBase),
-  "section: accent (dark page)": sectionThemes(darkBase)["section: accent"],
-}
-for (const [name, tokens] of Object.entries(sectionSets)) {
-  const checks = [...SECTION_CHECKS]
-  if (tokens.primary) checks.push(["button on the band", "primary-foreground", "primary", 4.5])
-  for (const [label, fg, bg, need] of checks) {
-    const ratio = contrast(tokens[fg], tokens[bg])
-    const pass = ratio >= need
-    if (!pass) failed++
-    console.log(
-      `  ${pass ? "PASS" : "FAIL"}  ${(name + " / " + label).padEnd(34)} ` +
-      `${tokens[fg]} on ${tokens[bg]}  ${ratio.toFixed(2)}:1 (need ${need})`
-    )
+for (const name of sectionNames()) {
+  const overrides = block(`\\[data-section="${name}"\\]`)
+  for (const [page, base] of [["", lightBase], [" (dark page)", darkBase]]) {
+    const tokens = { ...base, ...overrides }
+    for (const [label, fg, bg, need] of SECTION_CHECKS) {
+      if (!tokens[fg] || !tokens[bg]) continue
+      const ratio = contrast(tokens[fg], tokens[bg])
+      const pass = ratio >= need
+      if (!pass) failed++
+      console.log(
+        `  ${pass ? "PASS" : "FAIL"}  ${(`section: ${name}${page} / ${label}`).padEnd(42)} ` +
+        `${tokens[fg]} on ${tokens[bg]}  ${ratio.toFixed(2)}:1 (need ${need})`
+      )
+    }
   }
 }
 

@@ -2,8 +2,9 @@
 
 A living design system: 52 [shadcn/ui](https://ui.shadcn.com)-based
 components (Next.js + Tailwind CSS v4 + Radix), retokenized with a
-restrained, near-monochrome palette and a tight, fluid type scale inspired
-by [clay.global](https://clay.global).
+restrained paper-and-black palette and a four-role type scale, carrying the
+"Calm. Bold." personal brand — 80% calm paper, 20% bold black, and colour
+capped at about 2% of any view.
 
 **It is an installable package**, not a folder to copy. Sites depend on
 `@farnazshahriari/design-system`; change a token here, publish, and every
@@ -106,11 +107,14 @@ Everything lives in `packages/design-system/theme.css` — the file the
 package ships and every consuming site imports:
 
 - **Colours** — edit the hex values under `:root` (light) and `.dark`
-  (dark). `--accent` is the one slot meant to change per brand/project;
-  everything else is the shared neutral base. After changing any colour,
-  run `npm run check:contrast` — it reads the tokens straight out of
-  `theme.css` and checks every meaningful pair against WCAG AA, in both
-  page themes and all four section themes.
+  (dark). The palette is four values: Paper `#f5f4f0`, Black `#0d0d0d`,
+  Line grey `#bdbab2` and Point `#7a8574`. Note that `--accent` is *not*
+  one of them — despite the name it is the interaction surface, the
+  background behind a hovered menu item, and belongs a step down the paper
+  ramp. The brand's colour is `--point`, and it is budgeted at ~2% of a
+  view. After changing any colour, run `npm run check:contrast` — it reads
+  the tokens straight out of `theme.css` and checks every meaningful pair
+  against WCAG AA, in both page themes and all three section themes.
 - **Radius** — `--radius` controls the (near-zero, by design) default
   corner rounding for cards/inputs/buttons. `--radius-pill` (999px) is
   separate, for the one "real button" / chip shape.

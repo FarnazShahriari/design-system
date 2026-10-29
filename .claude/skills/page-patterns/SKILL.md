@@ -26,7 +26,7 @@ then drifts from every other page the first time anything changes.
   `width="default"` (1400px band), `"narrow"` (reading width, for long-form),
   `"wide"` (edge to edge inside the insets).
 - **`Section`** — owns the ground and the vertical rhythm.
-  `theme`: `light` | `muted` | `dark` | `accent` | `inherit`.
+  `theme`: `light` | `muted` | `dark` | `inherit`.
   `rhythm`: `none` | `sm` | `default` | `lg`.
 - **`Divider`** — a block of nothing at the section rhythm. Use it between
   two same-coloured sections so they can breathe without doubling padding.
@@ -38,17 +38,19 @@ then drifts from every other page the first time anything changes.
 ## The section theme is the important idea
 
 `theme` re-declares the colour tokens for everything inside the section. A
-button, caption, link or border inside a dark or accent band inverts on its
-own.
+button, caption, link or border inside a dark band inverts on its own.
 
 **This means no component ever takes an `onDark` prop, and none should.** If
 you find yourself wanting to pass a variant down so something reads on a
 dark background, the answer is almost always that it should be inside a
 `Section theme="dark"` instead.
 
-The accent theme derives its tokens from `--accent`, so a default `Button`
-on an accent band becomes a legible pale pill automatically rather than the
-near-black one that would go shapeless there.
+**There is one bold ground, and it is `dark`.** The brand allows a single
+black block per page, for the key statement — so the system deliberately
+offers no second loud option to reach for. `theme="accent"` was removed in
+3.0.0; it is a TypeScript error now, and the replacement is `theme="dark"`.
+If a page seems to want two black bands, the real problem is usually that
+it has two competing statements.
 
 ## Composing a page
 
@@ -70,7 +72,7 @@ Real pages, built only from the primitives, in `src/app/(bare)/preview/`:
 
 | Archetype | Shape | Use for |
 | --- | --- | --- |
-| `case-study/[slug]` | Hero → full-bleed media → 57.5/42.5 info split → alternating bands → accent teaser | A project, a story, anything long with media |
+| `case-study/[slug]` | Hero → full-bleed media → 57.5/42.5 info split → alternating bands → dark teaser | A project, a story, anything long with media |
 | `work-index` | Statement + filter list → staggered project grid | A listing of anything |
 | `about` | One narrow column throughout | Long-form: about, contact, writing |
 

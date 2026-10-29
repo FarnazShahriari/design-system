@@ -8,7 +8,7 @@ import { cn } from "../../lib/utils"
  * sits on, and its vertical rhythm.
  *
  * The theme is applied as a data attribute that re-declares the colour
- * tokens for the subtree (see the SECTION THEMES block in globals.css), so
+ * tokens for the subtree (see the SECTION THEMES block in theme.css), so
  * a Button, a caption or a border inside a dark section inverts on its own.
  * No component takes an "onDark" prop, and none ever should.
  *
@@ -19,8 +19,13 @@ const sectionVariants = cva("w-full bg-background text-foreground", {
     theme: {
       light: "",
       muted: "",
+      /**
+       * The one bold ground. The brand allows a single black block per
+       * page, for the key statement — there is deliberately no second
+       * loud option to reach for. (theme="accent" was removed in 3.0.0;
+       * this is its replacement.)
+       */
       dark: "",
-      accent: "",
       /** Inherit the page's current theme instead of declaring one. */
       inherit: "",
     },

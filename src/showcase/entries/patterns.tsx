@@ -132,10 +132,10 @@ export const patterns: Entry[] = [
     examples: [
       {
         label: "Themes",
-        note: "This is the important idea in the whole layout layer. No component takes an `onDark` prop — the button, the caption and the border below are the same components in all four bands, reading their tokens from whichever section encloses them.",
+        note: "This is the important idea in the whole layout layer. No component takes an `onDark` prop — the button, the caption and the border below are the same components in all three bands, reading their tokens from whichever section encloses them. There are three and not four on purpose: the brand allows one bold ground, so `dark` is the only loud option.",
         node: (
           <div className="-mx-6 sm:-mx-8">
-            {(["light", "muted", "dark", "accent"] as const).map((t) => (
+            {(["light", "muted", "dark"] as const).map((t) => (
               <Section key={t} theme={t} rhythm="sm">
                 <Container>
                   <div className="flex flex-wrap items-center justify-between gap-4">
