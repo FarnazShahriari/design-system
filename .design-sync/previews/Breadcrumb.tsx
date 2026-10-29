@@ -65,7 +65,7 @@ export const SlashSeparator = () => (
 
 /** Sitting where it really sits: above the page title, on paper. */
 export const AbovePageTitle = () => (
-  <div className="bg-background">
+  <div className="w-full max-w-md">
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
@@ -81,7 +81,7 @@ export const AbovePageTitle = () => (
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
-    <h3 className="mt-3 text-h3 text-foreground">
+    <h3 className="mt-4 text-h3 text-foreground">
       Rebuilding a licensing service around the people who renew it
     </h3>
     <p className="mt-2 text-meta text-muted-foreground">

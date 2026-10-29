@@ -91,6 +91,30 @@ matching release in `playwright-core/browsers.json`.
 - `ThemeProvider` renders at 0px height. Correct: it is a provider that
   renders only its children and has no visual output of its own.
 
+## Preview-authoring gotchas (found while authoring, worth keeping)
+
+- **The CSS scope bug, now fixed.** `.ds-compiled.css` originally scanned only
+  `./src`, so any utility a preview used that the library source did not
+  happen to use was silently absent — the class reached the DOM, matched no
+  rule, and the card rendered wrong with **no build error and no capture
+  error**. `tabular-nums`, the whole `my-*` scale, `aspect-[4/3]`,
+  `grid-cols-3` and most fractional widths were all missing. Both `@source`
+  lines in `.ds-tw-entry.css` are load-bearing; do not drop the previews one.
+- **`Separator` vertical collapses.** `data-[orientation=vertical]` resolves to
+  `h-full`, which is zero inside a flex row — the parent needs an explicit
+  height (`h-5` inline, `h-10` for a stat strip).
+- **`Skeleton` ships `rounded-md`.** The brand is square by default, so
+  previews pass `rounded-none`.
+- **`PaginationPrevious` / `PaginationNext` render as `<a>`**, so the
+  `disabled:` variants in `buttonVariants` never fire. Use `aria-disabled`
+  plus `pointer-events-none` for an inert control.
+- **Compound leaf parts** (`BreadcrumbEllipsis`, `PaginationEllipsis`,
+  `RadioGroupItem`) are a few pixels alone. Author their preview as the full
+  parent composition — it is the only render that is true anyway, and it is
+  what clears the blank-card flag.
+- **Remote images do not load in the capture environment.** Use
+  `AvatarFallback` initials rather than `AvatarImage` with a URL.
+
 ## Re-sync risks
 
 - **Stale `.ds-compiled.css`.** It is gitignored, so a fresh clone has none and
