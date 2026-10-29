@@ -65,13 +65,13 @@ export const Widths = () => (
  * page lines up without being asked to.
  */
 export const Insets = () => (
-  <Section theme="muted" rhythm="sm">
+  <Section rhythm="sm">
     <Container>
-      <div className="border border-border bg-background px-8 py-10">
+      <div className="border border-border bg-muted px-8 py-10">
         <p className="text-h3">Everything lines up on one inset</p>
         <p className="mt-2 text-body text-muted-foreground">
-          The muted ground runs edge to edge. The paper block starts where the
-          container's padding ends.
+          The paper ground runs edge to edge. The block inside starts where
+          the container&rsquo;s padding ends — 24px on a phone, 40px from tablet up.
         </p>
       </div>
     </Container>

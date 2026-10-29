@@ -108,6 +108,47 @@ Motion animation move identically without either knowing about the other.
 UI durations moved up into the brand's 500–800ms range: `quick` 0.35 → 0.5,
 `short` 0.5 → 0.65. Reveal durations did not move; they were already long.
 
+### `cn()` was deleting every type-role utility
+
+`tailwind-merge` does not know this system's type roles. It saw `text-h2`,
+failed to match a known font size, and filed it under *text colour* — so any
+colour utility later in the same call deleted it:
+
+```js
+cn("text-h2", "text-muted-foreground")  // -> "text-muted-foreground"
+```
+
+Silently, in every component, since they all pipe `className` through `cn()`.
+The heading just rendered at the inherited size, which reads as a design
+mistake rather than a bug. `cn()` now registers the roles with
+`extendTailwindMerge`, so a type role and a colour coexist and two type roles
+collapse to the last one. **Add any new type role to that list**, or it will
+be eaten the same way.
+
+This also means `className="text-label"` on a `Label` now wins over the
+component's base `text-sm`, where before the cascade silently kept `text-sm`.
+
+### Raw colour utilities are gone
+
+The "no component contains a raw colour" rule had only ever been checked by
+grepping for hex. Tailwind palette utilities bypass tokens just as
+effectively, and six were in the library: `text-white` on the destructive
+Button and Badge, `bg-black/50` on the Dialog, AlertDialog and Sheet
+overlays, and `bg-white` on the Slider thumb — which did not invert on a dark
+section.
+
+All tokenised. The overlays needed a **new `--overlay` token** rather than an
+existing one: a scrim has to stay dark in both themes, and `--foreground` is
+paper in the dark one, so deriving from it would have lit the page up instead
+of dimming it.
+
+### `Divider` still offered the removed accent theme
+
+`dividerVariants` kept an `accent` entry after `[data-section="accent"]` was
+deleted — a dead variant that silently fell back to `inherit`. The compiler
+caught `Section` because that is where the type error surfaced; `Divider`
+has its own `cva` and was missed. Removed.
+
 ### Also
 
 - `--destructive` is deep and desaturated (`#8f2e20`) so an error reads as

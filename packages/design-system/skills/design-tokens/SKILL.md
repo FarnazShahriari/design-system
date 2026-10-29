@@ -108,7 +108,22 @@ so `text-meta` alone always loses the uppercasing. `text-label` is a
 `@utility` that composes the complete label. Use `text-meta` only when you
 deliberately want those metrics without the uppercasing.
 
-**One trap.** A few vendored components hard-set their own line-height —
+**The trap that cost the most to find.** `cn()` uses `tailwind-merge`, which
+does not know this system's type roles. It sees `text-h2`, fails to match a
+known font size, and files it under *text colour* — so a colour utility later
+in the same call **deletes it**:
+
+```js
+cn("text-h2", "text-muted-foreground")  // -> "text-muted-foreground"
+```
+
+Silently: the heading renders at the inherited size and it reads as a design
+mistake, not a bug. `src/lib/utils.ts` registers the roles with
+`extendTailwindMerge` to stop this. **If you add a type role to `theme.css`,
+add it to that list too** — otherwise it will be eaten everywhere, and
+nothing will tell you.
+
+**A second trap.** A few vendored components hard-set their own line-height —
 `CardTitle` is `leading-none font-semibold`, `DialogTitle` is `text-lg
 leading-none font-semibold`. `cn()` merges font-size and line-height as
 separate groups, so `<CardTitle className="text-h4">` gives you the h4

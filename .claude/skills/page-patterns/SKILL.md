@@ -40,6 +40,11 @@ then drifts from every other page the first time anything changes.
 `theme` re-declares the colour tokens for everything inside the section. A
 button, caption, link or border inside a dark band inverts on its own.
 
+**`bg-background` is invisible inside a themed section.** The section
+re-declares `--background` to its own ground, so an element painted with it
+matches its parent exactly. Reach for `bg-muted` on a light section, or
+`bg-card` on a muted one.
+
 **This means no component ever takes an `onDark` prop, and none should.** If
 you find yourself wanting to pass a variant down so something reads on a
 dark background, the answer is almost always that it should be inside a

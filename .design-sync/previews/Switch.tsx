@@ -39,21 +39,29 @@ export const Preferences = () => (
   </div>
 )
 
-/** Both sizes. The small one belongs in dense rows, not in forms. */
+/**
+ * Both sizes. The step is deliberately small — the switch is a control, not a
+ * graphic — so each row names the prop that produced it.
+ */
 export const Sizes = () => (
   <div className="flex w-80 flex-col gap-4">
     <div className="flex items-center gap-3">
       <Switch id="sw-default" defaultChecked />
       <Label htmlFor="sw-default">
         Default
+        <span className="text-meta text-muted-foreground">size=&quot;default&quot;</span>
       </Label>
     </div>
     <div className="flex items-center gap-3">
       <Switch id="sw-sm" size="sm" defaultChecked />
       <Label htmlFor="sw-sm">
         Small
+        <span className="text-meta text-muted-foreground">size=&quot;sm&quot;</span>
       </Label>
     </div>
+    <p className="text-meta text-muted-foreground">
+      Small is for dense rows and tables, never for a form.
+    </p>
   </div>
 )
 

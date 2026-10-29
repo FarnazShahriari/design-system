@@ -1,3 +1,4 @@
+import type { ReactNode } from "react"
 import { Container, ProjectCard, ProjectGrid, Section } from "@farnazshahriari/design-system"
 
 const WORK = [
@@ -27,35 +28,65 @@ const WORK = [
   },
 ]
 
-/** The work listing: two columns, whole card one link, no buttons. */
+/**
+ * A four-project listing is taller than the capture frame, so the two
+ * composition stories are shown on a 1120px page scaled to fit. The geometry
+ * is inline because it is preview rigging, not design-system styling.
+ */
+const PageFrame = ({
+  height,
+  scale,
+  children,
+}: {
+  height: number
+  scale: number
+  children: ReactNode
+}) => (
+  <div className="overflow-hidden bg-background" style={{ height }}>
+    <div
+      style={{
+        width: 1120,
+        transform: `scale(${scale})`,
+        transformOrigin: "top left",
+      }}
+    >
+      {children}
+    </div>
+  </div>
+)
+
+/** The work listing: two columns, the whole card one link, no buttons anywhere. */
 export const Work = () => (
-  <Section rhythm="sm">
-    <Container>
-      <p className="text-label text-muted-foreground">Selected work</p>
-      <ProjectGrid className="mt-6">
-        {WORK.map((p) => (
-          <ProjectCard key={p.href} {...p} />
-        ))}
-      </ProjectGrid>
-    </Container>
-  </Section>
+  <PageFrame height={560} scale={0.62}>
+    <Section rhythm="sm">
+      <Container>
+        <ProjectGrid>
+          {WORK.map((p) => (
+            <ProjectCard key={p.href} {...p} ratio="16 / 9" />
+          ))}
+        </ProjectGrid>
+      </Container>
+    </Section>
+  </PageFrame>
 )
 
 /**
  * `stagger` drops the second column, so the grid drifts rather than marching
- * in rows. It wants eight considered projects; with three it reads as an
- * accident.
+ * in rows. It is off by default: it reads beautifully with eight considered
+ * projects and badly with three.
  */
 export const Staggered = () => (
-  <Section rhythm="sm">
-    <Container>
-      <ProjectGrid stagger>
-        {WORK.map((p) => (
-          <ProjectCard key={p.href} {...p} ratio="4 / 3" />
-        ))}
-      </ProjectGrid>
-    </Container>
-  </Section>
+  <PageFrame height={600} scale={0.56}>
+    <Section rhythm="sm">
+      <Container>
+        <ProjectGrid stagger>
+          {WORK.map((p) => (
+            <ProjectCard key={p.href} {...p} ratio="16 / 9" />
+          ))}
+        </ProjectGrid>
+      </Container>
+    </Section>
+  </PageFrame>
 )
 
 /** On the bold ground nothing changes: the tokens invert, the grid does not. */

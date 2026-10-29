@@ -73,6 +73,11 @@
      there is no green band in this system. */
   --color-point: var(--point);
 
+  /* The scrim behind a modal. Deliberately NOT derived from --foreground:
+     a scrim has to stay dark in both themes, and --foreground is paper in
+     the dark one, which would light the page up instead of dimming it. */
+  --color-overlay: var(--overlay);
+
   /* --------------------------------------------------------
      Type scale — Inter, with weight.
 
@@ -221,6 +226,8 @@
                         Line grey is only 1.76:1 on paper and cannot do this job */
   --ring: #0d0d0d;   /* stays neutral on purpose — see the note below */
 
+  --overlay: #0d0d0d; /* scrim: the black, at whatever alpha the component asks for */
+
   --selection-bg: #d9ddd4; /* the point, diluted to a highlight */
   --selection-fg: #0d0d0d;
 }
@@ -267,6 +274,8 @@
   --border: #333330;
   --input: #6e6b64;
   --ring: #a8a59d;
+
+  --overlay: #0d0d0d; /* same black as on paper — a scrim does not invert */
 
   --selection-bg: #3a4036;
   --selection-fg: #f5f4f0;

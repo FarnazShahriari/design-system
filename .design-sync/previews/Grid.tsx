@@ -1,15 +1,19 @@
 import { Container, Grid, Section } from "@farnazshahriari/design-system"
 
-/** Twelve columns, 16px gutter. Each block is one column. */
+/**
+ * Twelve columns, 16px gutter. Each block is one column — muted blocks on the
+ * paper ground, because inside a themed section `bg-background` IS that
+ * section's ground and would disappear.
+ */
 export const TwelveColumns = () => (
-  <Section theme="muted" rhythm="sm">
+  <Section rhythm="sm">
     <Container>
       <p className="text-label text-muted-foreground">12 columns · 16px gutter</p>
       <Grid className="mt-4">
         {Array.from({ length: 12 }, (_, i) => (
           <div
             key={i}
-            className="col-span-1 flex h-16 items-end justify-center bg-background pb-3 text-meta text-muted-foreground"
+            className="col-span-1 flex h-16 items-end justify-center bg-muted pb-3 text-meta text-muted-foreground"
           >
             {i + 1}
           </div>

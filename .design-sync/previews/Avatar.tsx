@@ -4,14 +4,12 @@ import {
   AvatarFallback,
   AvatarGroup,
   AvatarGroupCount,
-  AvatarImage,
 } from "@farnazshahriari/design-system"
 
 /**
- * The avatar is small by design, so it is previewed the way it ships: at
- * readable size, beside a name and a role. AvatarImage is part of the
- * composition; the capture environment serves no portraits, and Radix renders
- * the image only once it has loaded, so the initials fallback is what shows.
+ * The avatar is small by design, so it is previewed the way it ships: at a
+ * readable size, beside a name and a role. Initials are the fallback and the
+ * default here — the capture environment serves no portraits.
  */
 export const Team = () => (
   <div className="flex flex-col gap-4">
@@ -23,7 +21,6 @@ export const Team = () => (
     ].map((p) => (
       <div key={p.initials} className="flex items-center gap-3">
         <Avatar size="lg">
-          <AvatarImage src="portraits/none.jpg" alt="" />
           <AvatarFallback>{p.initials}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
@@ -35,7 +32,10 @@ export const Team = () => (
   </div>
 )
 
-/** AvatarGroup overlaps the set and AvatarGroupCount closes it. */
+/**
+ * AvatarGroup overlaps the set and AvatarGroupCount closes it. At `lg` the
+ * overlap still clears the initials — smaller sizes clip them.
+ */
 export const Group = () => (
   <div className="flex flex-col gap-6">
     <div className="flex items-center gap-4">
@@ -57,10 +57,10 @@ export const Group = () => (
     </div>
     <div className="flex items-center gap-4">
       <AvatarGroup>
-        <Avatar>
+        <Avatar size="lg">
           <AvatarFallback>LH</AvatarFallback>
         </Avatar>
-        <Avatar>
+        <Avatar size="lg">
           <AvatarFallback>JP</AvatarFallback>
         </Avatar>
         <AvatarGroupCount>+2</AvatarGroupCount>
@@ -86,15 +86,27 @@ export const Sizes = () => (
   </div>
 )
 
-/** AvatarBadge rides the bottom-right corner and keeps its ring on any ground. */
+/**
+ * AvatarBadge rides the bottom-right corner and keeps a ring in the page
+ * ground, so the dot stays readable against the avatar beneath it.
+ */
 export const WithBadge = () => (
-  <div className="flex items-center gap-6">
-    {(["sm", "default", "lg"] as const).map((size) => (
-      <Avatar key={size} size={size}>
-        <AvatarFallback>RM</AvatarFallback>
-        <AvatarBadge />
-      </Avatar>
+  <div className="flex flex-col gap-4">
+    {[
+      { initials: "RM", name: "Rosa Mendel", status: "Available today" },
+      { initials: "TO", name: "Tomas Okonjo", status: "In the field until 12 March" },
+      { initials: "LH", name: "Lena Hartmann", status: "Available from Thursday" },
+    ].map((p) => (
+      <div key={p.initials} className="flex items-center gap-3">
+        <Avatar size="lg">
+          <AvatarFallback>{p.initials}</AvatarFallback>
+          <AvatarBadge />
+        </Avatar>
+        <div className="flex flex-col">
+          <span className="text-body font-medium">{p.name}</span>
+          <span className="text-meta text-muted-foreground">{p.status}</span>
+        </div>
+      </div>
     ))}
-    <span className="text-body text-muted-foreground">Available today</span>
   </div>
 )
