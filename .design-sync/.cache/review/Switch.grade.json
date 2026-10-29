@@ -1,0 +1,5 @@
+{"cells":{
+ "Preferences":{"verdict":"good","note":"Three labelled preferences with helper lines and realistic portfolio copy. Mixed on/off states."},
+ "Sizes":{"verdict":"good","note":"Both sizes with their prop names and a line on when each applies. The two are close in height, which is true of the component."},
+ "States":{"verdict":"good","note":"Off, on, and both disabled states — the disabled pair fades correctly rather than disappearing."}
+}}

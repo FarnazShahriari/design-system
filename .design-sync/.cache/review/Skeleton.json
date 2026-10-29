@@ -1,0 +1,19 @@
+{
+  "gradeKey": "054277fa324eecab",
+  "sourceKey": "9436c95c1739fbb8",
+  "keyRecipe": 7,
+  "cells": [
+    "CardGrid",
+    "IndexRows",
+    "ProjectCard",
+    "TextBlock"
+  ],
+  "pendingGrade": false,
+  "shots": [
+    "CardGrid",
+    "IndexRows",
+    "ProjectCard",
+    "TextBlock"
+  ],
+  "pageErrs": []
+}

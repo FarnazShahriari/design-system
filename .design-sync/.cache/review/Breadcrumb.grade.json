@@ -1,0 +1,6 @@
+{"cells":{
+"Default":{"verdict":"good","note":"Work / Case studies / Northwind. Ancestors muted, current page in foreground black, chevron separators at the right 3.5 size. Calm and correct."},
+"Shallow":{"verdict":"good","note":"Two-level trail with a long current-page title; wraps cleanly and the muted/foreground contrast still reads."},
+"SlashSeparator":{"verdict":"good","note":"Custom slash children render in place of the chevron and sit on the baseline with the links. Reads as a path, as intended."},
+"AbovePageTitle":{"verdict":"good","note":"In-situ composition: trail, text-h3 title over two lines, text-meta byline. Spacing is even and the hierarchy is unambiguous."}
+}}

@@ -1,0 +1,17 @@
+{
+  "gradeKey": "d0baf5d1d0576741",
+  "sourceKey": "c4ed7b0628fb973a",
+  "keyRecipe": 7,
+  "cells": [
+    "HalfAndHalf",
+    "SevenFive",
+    "TwelveColumns"
+  ],
+  "pendingGrade": false,
+  "shots": [
+    "HalfAndHalf",
+    "SevenFive",
+    "TwelveColumns"
+  ],
+  "pageErrs": []
+}

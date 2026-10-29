@@ -1,0 +1,4 @@
+{"cells":{
+ "FAQ":{"verdict":"good","note":"type=single + collapsible + defaultValue: the first answer is open in the static shot, chevron rotated, the other three closed. Hairline rules between items, no shadow."},
+ "Multiple":{"verdict":"good","note":"type=multiple with two panels open at once and the third closed — the behavioural difference from single is visible in one frame."}
+}}

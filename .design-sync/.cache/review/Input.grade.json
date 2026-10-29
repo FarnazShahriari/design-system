@@ -1,0 +1,7 @@
+{"cells":{
+ "Default":{"verdict":"good","note":"Two real fields, uppercase token labels above each control, placeholder in muted, one calm helper line. Square corners, line-grey borders, no shadow."},
+ "Filled":{"verdict":"good","note":"defaultValue renders as foreground text at full contrast; label/control/value hierarchy reads cleanly."},
+ "Types":{"verdict":"good","note":"tel, date and number all render their native affordances inside the system's border; the date picker glyph sits flush right without breaking the square frame."},
+ "Invalid":{"verdict":"good","note":"aria-invalid gives a destructive border on both the filled and the empty case, each with a destructive message under it. Colour stays inside the ~2% cap."},
+ "Disabled":{"verdict":"good","note":"Both disabled fields drop to 50% — value and placeholder variants — and the helper line explains why rather than leaving it implied."}
+}}

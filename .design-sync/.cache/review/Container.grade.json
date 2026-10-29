@@ -1,0 +1,5 @@
+{"cells":{
+ "Widths":{"verdict":"good","note":"The three widths are now visibly different thanks to the 1600px capture viewport — default 1400px, narrow at reading measure, wide edge to edge. Below 832px they were identical, which is why the override exists."},
+ "Insets":{"verdict":"good","note":"Paper runs edge to edge, the block starts where the container padding ends, and the copy states the actual values."},
+ "NarrowForReading":{"verdict":"good","note":"Real long-form at reading measure: label, statement heading, lead and body. Text-heavy, so it also proves Inter and the type scale are applied."}
+}}

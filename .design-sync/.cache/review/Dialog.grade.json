@@ -1,0 +1,5 @@
+{"cells":{
+ "Open":{"verdict":"good","note":"defaultOpen renders the modal statically: dimmed ground, opaque paper panel separated by a border and no shadow, title, description, close affordance and a black primary action."},
+ "Confirm":{"verdict":"good","note":"The confirmation shape — one destructive action and one way out, same square panel. Reads at a glance over the overlay."},
+ "Closed":{"verdict":"good","note":"The closed state: DialogTrigger alone, nothing mounted. Carries the trigger composition that the open exports deliberately omit."}
+}}

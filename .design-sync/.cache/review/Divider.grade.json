@@ -1,0 +1,5 @@
+{"cells":{
+ "BetweenSameGrounds":{"verdict":"good","note":"Two muted sections reading as one continuous ground with breathing room between them — which is the whole point: Divider draws nothing, it is empty ground at section rhythm."},
+ "Sizes":{"verdict":"good","note":"sm / default / lg as three visibly different gaps between the same two muted bands. Nothing is drawn; the growing space is the component."},
+ "OnDark":{"verdict":"good","note":"theme=\"dark\" keeps the black continuous across the gap, so the bold block does not break into two."}
+}}

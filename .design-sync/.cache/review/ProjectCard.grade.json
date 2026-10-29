@@ -1,0 +1,6 @@
+{"cells":{
+ "Card":{"verdict":"good","note":"The card in its real parent: locked media frame, truncated title, description and outline tags, whole card one link. No border, no shadow."},
+ "WithMedia":{"verdict":"good","note":"Custom media — a flat foreground block and a muted one, both token-coloured, no remote images — at 16/9 with the label sitting in the frame."},
+ "Ratios":{"verdict":"good","note":"4/3 beside 3/4: the per-card ratio holds and neither study is cropped to match the other."},
+ "SharedTitle":{"verdict":"good","note":"transitionName on the left card, none on the right, with the copy naming the difference. Renders identically at rest, which is correct — the morph only exists across a navigation."}
+}}

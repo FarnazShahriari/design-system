@@ -1,0 +1,5 @@
+{"cells":{
+ "TwelveColumns":{"verdict":"good","note":"Twelve muted single-column blocks on paper with the 16px gutter clearly visible and each column numbered. (bg-background would have vanished here — inside a themed section it IS the ground.)"},
+ "SevenFive":{"verdict":"good","note":"The editorial split: argument on seven columns, facts on five, children placing themselves with col-span utilities exactly as the component intends."},
+ "HalfAndHalf":{"verdict":"good","note":"Six and six, a before/after pair lined up on the same columns with hairline rules above each. Calm, factual copy."}
+}}

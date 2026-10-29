@@ -1,0 +1,6 @@
+{"cells":{
+ "Team":{"verdict":"good","note":"Four lg avatars beside name and role. Initials fallbacks are fully legible; no remote images, so nothing depends on the network."},
+ "Group":{"verdict":"good","note":"Two overlapped stacks closed by AvatarGroupCount. At lg the -2 overlap still clears the initials, so FS/RM/TO and LH/JP all read."},
+ "Sizes":{"verdict":"good","note":"The sm / default / lg ladder, visibly stepped and labelled."},
+ "WithBadge":{"verdict":"good","note":"AvatarBadge on the bottom-right corner with its ring in the page ground, paired with a name and a real status line so the dot has something to mean."}
+}}

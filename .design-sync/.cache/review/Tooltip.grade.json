@@ -1,0 +1,4 @@
+{"cells":{
+ "Default":{"verdict":"good","note":"defaultOpen renders the overlay statically — an inverted black block with paper text and a square arrow, beside its trigger. Separates itself without a shadow."},
+ "Sides":{"verdict":"good","note":"The same tooltip on top, right and bottom, all three open and none overlapping. TooltipProvider is carried by the export because the harness supplies no provider."}
+}}

@@ -1,0 +1,5 @@
+{"cells":{
+ "Default":{"verdict":"good","note":"Card surface, a title and one factual sentence in muted grey. Square, bordered, no shadow."},
+ "Destructive":{"verdict":"good","note":"Same paper surface; only the text shifts to destructive, which is exactly the variant's contract. Colour stays under the cap."},
+ "Stacked":{"verdict":"good","note":"Both variants together as a page would stack them — the difference is legible at a glance without a second surface colour."}
+}}

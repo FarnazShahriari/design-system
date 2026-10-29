@@ -1,0 +1,17 @@
+{
+  "gradeKey": "fb4df6ecb0beff8f",
+  "sourceKey": "25f0ebe93d2280ac",
+  "keyRecipe": 7,
+  "cells": [
+    "Default",
+    "Destructive",
+    "Stacked"
+  ],
+  "pendingGrade": false,
+  "shots": [
+    "Default",
+    "Destructive",
+    "Stacked"
+  ],
+  "pageErrs": []
+}

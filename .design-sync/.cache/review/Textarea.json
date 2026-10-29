@@ -1,0 +1,19 @@
+{
+  "gradeKey": "b67f7704e95cde54",
+  "sourceKey": "64ff1e6118081403",
+  "keyRecipe": 7,
+  "cells": [
+    "Default",
+    "Disabled",
+    "Filled",
+    "Invalid"
+  ],
+  "pendingGrade": false,
+  "shots": [
+    "Default",
+    "Disabled",
+    "Filled",
+    "Invalid"
+  ],
+  "pageErrs": []
+}

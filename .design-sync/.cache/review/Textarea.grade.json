@@ -1,0 +1,6 @@
+{"cells":{
+ "Default":{"verdict":"good","note":"Labelled brief field at a usable height, muted placeholder asking a real question, helper line underneath. Resize grip is the only ornament."},
+ "Filled":{"verdict":"good","note":"A genuine two-paragraph brief; line length and leading read comfortably, and the character count sits in meta."},
+ "Invalid":{"verdict":"good","note":"Destructive border plus a destructive sentence that says what to do, not just that something is wrong."},
+ "Disabled":{"verdict":"good","note":"Drops to 50% with the content still legible, and the helper states the reason it is read-only."}
+}}
