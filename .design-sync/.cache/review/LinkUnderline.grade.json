@@ -1,0 +1,5 @@
+{"cells":{
+ "InSentence":{"verdict":"good","note":"Two links inline in real sentences, each carrying the permanent muted resting rule — colour is never the only affordance."},
+ "OnDark":{"verdict":"good","note":"The same links on the bold ground; the resting rule picks up the inverted tokens on its own, no onDark prop anywhere."},
+ "AsList":{"verdict":"good","note":"Standalone in a footer column, including an external anchor via asChild. All three rules sit at the same offset below the label."}
+}}

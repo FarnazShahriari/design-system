@@ -1,0 +1,5 @@
+{"cells":{
+ "Themes":{"verdict":"good","note":"The core idea renders exactly: identical markup in three bands, the button inverting to paper-on-black in the dark one with no prop changed."},
+ "TheBoldBlock":{"verdict":"good","note":"The single bold ground carrying a statement at text-h2. Paper on black."},
+ "Rhythm":{"verdict":"good","note":"Three rhythm steps, visibly different heights, labels in the uppercase label style."}
+}}

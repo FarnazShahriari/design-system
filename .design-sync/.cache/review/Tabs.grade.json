@@ -1,0 +1,5 @@
+{"cells":{
+ "Default":{"verdict":"good","note":"Muted track with the active tab lifted onto the page ground; defaultValue keeps the Discovery panel open in the static shot."},
+ "Line":{"verdict":"good","note":"variant=line drops the track and marks the active tab with a rule under it. Inactive labels sit at reduced weight."},
+ "Vertical":{"verdict":"good","note":"orientation=vertical moves the list beside the panel and the active rule to its right edge; the panel sits in the remaining column."}
+}}

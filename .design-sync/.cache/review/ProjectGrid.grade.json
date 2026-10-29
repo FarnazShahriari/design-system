@@ -1,0 +1,5 @@
+{"cells":{
+ "Work":{"verdict":"good","note":"Four real projects, two columns, media blocks as token-coloured surfaces. All four fit now that the capture viewport is 1200x1100."},
+ "Staggered":{"verdict":"good","note":"The column offset reads clearly against the un-staggered Work cell above."},
+ "OnDark":{"verdict":"good","note":"The whole grid inverts inside a dark section with no props changed — cards, captions, tags and borders all follow."}
+}}

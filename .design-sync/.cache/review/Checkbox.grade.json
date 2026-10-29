@@ -1,0 +1,6 @@
+{"cells":{
+ "DisciplineList":{"verdict":"good","note":"A real labelled group with a legend, two options pre-checked. Checked boxes are the bold black block, unchecked are line-grey — exactly the 80/20 split."},
+ "WithDescriptions":{"verdict":"good","note":"Box top-aligned against a two-line description; label and meta line stack cleanly without the control drifting off the first line."},
+ "States":{"verdict":"good","note":"Unchecked, checked, disabled and disabled-checked all distinguishable at a glance, each named by its own label."},
+ "Consent":{"verdict":"good","note":"Single consent checkbox with aria-invalid: destructive box outline and a destructive line indented to the label column."}
+}}

@@ -1,0 +1,19 @@
+{
+  "gradeKey": "e89f13eafcce9efb",
+  "sourceKey": "d421b25d7f81e389",
+  "keyRecipe": 7,
+  "cells": [
+    "BetweenRows",
+    "Combined",
+    "Horizontal",
+    "Vertical"
+  ],
+  "pendingGrade": false,
+  "shots": [
+    "BetweenRows",
+    "Combined",
+    "Horizontal",
+    "Vertical"
+  ],
+  "pageErrs": []
+}

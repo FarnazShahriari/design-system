@@ -1,0 +1,5 @@
+{"cells":{
+"BothEnds":{"verdict":"good","note":"1 … 6 7 8 … 24 inside a complete Pagination. Both ellipses match the 36px page-button footprint, so the row stays on one rhythm."},
+"TrailingOnly":{"verdict":"good","note":"Near the start: one ellipsis before the last page. Correct collapse for the position."},
+"LeadingOnly":{"verdict":"good","note":"Near the end: ellipsis moves to the front and Next is muted and inert. Mirrors FirstPage correctly."}
+}}

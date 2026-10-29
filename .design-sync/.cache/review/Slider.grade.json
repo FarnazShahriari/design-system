@@ -1,0 +1,6 @@
+{"cells":{
+ "Single":{"verdict":"good","note":"Explicit defaultValue in a w-72 wrapper, so it renders as a real track rather than a hairline. Value read out beside the label, filled range in bold black against a muted track."},
+ "Range":{"verdict":"good","note":"Two thumbs with the filled band between them, min and max captions at the ends; the range reads immediately as a band, not two unrelated handles."},
+ "Stepped":{"verdict":"good","note":"step=1 over 1-5 with the five marks below; the thumb lands exactly on the labelled 3."},
+ "Disabled":{"verdict":"good","note":"Track, range and thumb all drop together at 50% while the value stays readable, and the helper says why it is locked."}
+}}

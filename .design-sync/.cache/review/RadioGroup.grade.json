@@ -1,0 +1,6 @@
+{"cells":{
+ "Discipline":{"verdict":"good","note":"The full parent composition — legend, three labelled items, one selected — which is the only way the leaf item renders at all. Filled dot reads clearly against the line-grey ring."},
+ "WithDescriptions":{"verdict":"good","note":"Three budget bands each with a line of what it buys; the selected middle option is unambiguous and the items stay top-aligned to their first line."},
+ "Invalid":{"verdict":"good","note":"Nothing selected, aria-invalid on every item giving destructive rings, and one destructive sentence telling the reader what to do."},
+ "Disabled":{"verdict":"good","note":"Whole group disabled with one value still held; the selected dot stays visible through the fade so the held value is not lost."}
+}}

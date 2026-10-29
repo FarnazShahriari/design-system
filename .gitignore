@@ -42,6 +42,15 @@ next-env.d.ts
 .ds-sync/
 ds-bundle/
 .design-sync/.cache/
+# ...except the grade verdicts. design-sync normally keeps verification state
+# out of git because it travels via the uploaded project's _ds_sync.json. This
+# repo's build machine cannot upload (cloud session, no design-system auth), so
+# that channel does not exist and the grades would be redone from scratch on the
+# machine that can. They are content-hashed against the authored previews and
+# the preview-affecting config — both committed — so a stale one clears itself.
+!.design-sync/.cache/
+!.design-sync/.cache/review/
+!.design-sync/.cache/review/*.json
 .design-sync/learnings/
 .design-sync/node_modules
 packages/design-system/.ds-compiled.css

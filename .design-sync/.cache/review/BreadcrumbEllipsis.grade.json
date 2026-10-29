@@ -1,0 +1,5 @@
+{"cells":{
+"Collapsed":{"verdict":"good","note":"Ellipsis shown inside a full breadcrumb; the glyph sits square between chevrons and both ends of the trail stay visible. No longer a blank card."},
+"CollapsedWithSlashes":{"verdict":"good","note":"Same collapse with slash separators; glyph alignment holds against the slashes."},
+"BeforeAndAfter":{"verdict":"good","note":"Full five-item trail over the collapsed three-item one, each under a text-label. The trade the component makes is legible at a glance."}
+}}

@@ -1,0 +1,6 @@
+{"cells":{
+"Horizontal":{"verdict":"good","note":"A visible border-coloured rule between a Role block and a Team block, with even space either side. Clearly distinct from Divider's empty space."},
+"Vertical":{"verdict":"good","note":"Three vertical rules between inline meta items; the row sets h-5 so they render at full height instead of collapsing."},
+"BetweenRows":{"verdict":"good","note":"Repeated between index rows, it reads as a ruled list without any border utility on the rows themselves."},
+"Combined":{"verdict":"good","note":"Horizontal rule under the heading, vertical rules splitting a three-stat strip at h-10. Both orientations proven in one true composition."}
+}}

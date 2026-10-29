@@ -1,0 +1,6 @@
+{"cells":{
+"ProjectCard":{"verdict":"good","note":"Media block plus a title line and a shorter meta line — the real shape of a work-index card. Square corners, bg-accent, pulse."},
+"CardGrid":{"verdict":"good","note":"Three cards side by side with varied line widths, so it reads as loading content rather than a repeated stamp."},
+"TextBlock":{"verdict":"good","note":"Heading bar then four body lines that ragged-end like prose. Convincing as a case-study intro mid-load."},
+"IndexRows":{"verdict":"good","note":"Ruled rows with a name placeholder left and a year placeholder right; matches the loaded index row for row, so nothing jumps."}
+}}

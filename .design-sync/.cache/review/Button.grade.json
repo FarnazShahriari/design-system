@@ -1,0 +1,6 @@
+{"cells":{
+ "Variants":{"verdict":"good","note":"All six variants distinct and on-brand: black default, paper secondary, line-grey outline, bare ghost, underline link, desaturated destructive."},
+ "Sizes":{"verdict":"good","note":"Three sizes, visibly stepped, labels sentence case."},
+ "Pill":{"verdict":"good","note":"The pill exception, shown filled and outline."},
+ "Disabled":{"verdict":"good","note":"Both disabled states fade correctly; black reads as grey at reduced opacity on paper, which is the intended behaviour."}
+}}

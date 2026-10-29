@@ -1,0 +1,5 @@
+{"cells":{
+ "Stages":{"verdict":"good","note":"Three labelled stages with tabular percentages right-aligned to the track; the three fills step visibly from 100 to 18 and share one baseline grid."},
+ "Edges":{"verdict":"good","note":"0 and 100 both legible — the empty track still reads as a track, and full is the bold black edge to edge."},
+ "Prominent":{"verdict":"good","note":"The one summary bar: h-3 track under a text-h4 title, with week count and tabular percentage split across the ends. No shadow, square-adjacent, colour untouched."}
+}}

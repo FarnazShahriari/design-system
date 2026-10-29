@@ -1,0 +1,6 @@
+{"cells":{
+"Default":{"verdict":"good","note":"Previous / 1 2 3 / Next with page 2 outlined. Active state is the only box on the row, so the current page reads immediately."},
+"FirstPage":{"verdict":"good","note":"Previous is muted and pointer-disabled at the start of the range; clearly inert without shouting."},
+"PrevNextOnly":{"verdict":"good","note":"The calmest form: two controls plus a 'Page 2 of 7' meta line, centred."},
+"BelowTheIndex":{"verdict":"good","note":"In-situ: ruled work index with years right-aligned, pagination centred below. Shows where the component actually lives."}
+}}

@@ -1,0 +1,19 @@
+{
+  "gradeKey": "1a33f7493fa62baa",
+  "sourceKey": "1056051ac974aced",
+  "keyRecipe": 7,
+  "cells": [
+    "AboveControl",
+    "BesideControl",
+    "RequiredAndOptional",
+    "WithDisabledControl"
+  ],
+  "pendingGrade": false,
+  "shots": [
+    "AboveControl",
+    "BesideControl",
+    "RequiredAndOptional",
+    "WithDisabledControl"
+  ],
+  "pageErrs": []
+}

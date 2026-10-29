@@ -1,0 +1,17 @@
+{
+  "gradeKey": "6fe3111ac4605dff",
+  "sourceKey": "21d3559aff68bd5a",
+  "keyRecipe": 7,
+  "cells": [
+    "BothEnds",
+    "LeadingOnly",
+    "TrailingOnly"
+  ],
+  "pendingGrade": false,
+  "shots": [
+    "BothEnds",
+    "LeadingOnly",
+    "TrailingOnly"
+  ],
+  "pageErrs": []
+}

@@ -1,0 +1,6 @@
+{"cells":{
+ "AboveControl":{"verdict":"good","note":"Label doing its real job: uppercase token label tied by htmlFor to an input and a textarea. Clear vertical rhythm between the three pairs."},
+ "BesideControl":{"verdict":"good","note":"Beside a checkbox and a switch the label becomes the clickable text of the row; baseline alignment with both controls is correct."},
+ "RequiredAndOptional":{"verdict":"good","note":"Required and Optional ride in the label's own flex gap as meta — required in foreground, optional in muted — so status is carried by weight, not colour."},
+ "WithDisabledControl":{"verdict":"good","note":"peer-disabled carries both labels down with their controls; the whole row fades together instead of leaving live-looking text beside a dead control."}
+}}

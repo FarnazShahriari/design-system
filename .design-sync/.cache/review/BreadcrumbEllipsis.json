@@ -1,0 +1,17 @@
+{
+  "gradeKey": "f36dfdbda6ed683b",
+  "sourceKey": "cf0b31dd3e24dc3c",
+  "keyRecipe": 7,
+  "cells": [
+    "BeforeAndAfter",
+    "Collapsed",
+    "CollapsedWithSlashes"
+  ],
+  "pendingGrade": false,
+  "shots": [
+    "BeforeAndAfter",
+    "Collapsed",
+    "CollapsedWithSlashes"
+  ],
+  "pageErrs": []
+}

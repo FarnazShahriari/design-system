@@ -1,0 +1,6 @@
+{"cells":{
+ "Full":{"verdict":"good","note":"The whole compound in order — header with a bordered foot, title, description, CardAction holding a badge, content, bordered footer with meta and an outline button. Paper surface, line-grey rules, no shadow, near-square corners."},
+ "WithAction":{"verdict":"good","note":"CardAction switches CardHeader to its two-column grid: the Share button holds the top-right corner against a two-line description without being pushed."},
+ "Stat":{"verdict":"good","note":"The quiet form — header plus a single figure at text-h2 with a meta qualifier. Reads as one fact, which is the point."},
+ "Tiled":{"verdict":"good","note":"Three project cards tile to equal height with matching footers; headings keep their line-height because the h3 sits inside CardTitle rather than restyling it."}
+}}

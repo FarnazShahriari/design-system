@@ -1,0 +1,6 @@
+{"cells":{
+ "Chosen":{"verdict":"good","note":"Two triggers carrying real chosen values, chevron muted and flush right, labels and helper in the right type roles."},
+ "Placeholder":{"verdict":"good","note":"Unset trigger renders the placeholder in muted via data-placeholder, so it is clearly distinct from a chosen value."},
+ "Open":{"verdict":"good","note":"Renders open statically with position=\"popper\": menu sits below the trigger, both groups with their SelectLabels, the separator, the disabled option at reduced opacity and the check on the current value."},
+ "States":{"verdict":"good","note":"aria-invalid on the trigger gives a destructive border with a destructive line; the disabled trigger fades at 50% and keeps its value readable."}
+}}
