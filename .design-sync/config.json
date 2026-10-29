@@ -1,0 +1,14 @@
+{
+  "shape": "package",
+  "pkg": "@farnazshahriari/design-system",
+  "globalName": "CalmBold",
+  "srcDir": "src",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": ".ds-compiled.css",
+  "guidelinesGlob": [
+    "skills/**/*.md"
+  ],
+  "extraEntries": [
+    "../../.design-sync/process-shim.mjs"
+  ]
+}

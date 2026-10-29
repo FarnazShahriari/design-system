@@ -1,0 +1,7 @@
+/* Input for the design-sync CSS compile. The package ships TypeScript source
+   and no compiled stylesheet — its components are styled by Tailwind utilities
+   that only exist once Tailwind has scanned that source. design-sync needs a
+   real stylesheet, so this entry regenerates one. Not shipped; gitignored. */
+@import "tailwindcss";
+@import "./theme.css";
+@source "./src";
