@@ -1,0 +1,65 @@
+{
+  "shape": "package",
+  "pkg": "@farnazshahriari/design-system",
+  "globalName": "CalmBold",
+  "srcDir": "src",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": ".ds-compiled.css",
+  "guidelinesGlob": [
+    "skills/**/*.md"
+  ],
+  "extraEntries": [
+    "../../.design-sync/process-shim.mjs"
+  ],
+  "overrides": {
+    "Container": {
+      "viewport": "1600x1000"
+    },
+    "ProjectGrid": {
+      "viewport": "1200x1100"
+    },
+    "Card": {
+      "cardMode": "column"
+    },
+    "Checkbox": {
+      "cardMode": "column"
+    },
+    "PaginationEllipsis": {
+      "cardMode": "column"
+    },
+    "Progress": {
+      "cardMode": "column"
+    },
+    "RadioGroup": {
+      "cardMode": "column"
+    },
+    "Separator": {
+      "cardMode": "column"
+    },
+    "Skeleton": {
+      "cardMode": "column"
+    },
+    "Switch": {
+      "cardMode": "column"
+    },
+    "Tabs": {
+      "cardMode": "column"
+    },
+    "Textarea": {
+      "cardMode": "column"
+    },
+    "Dialog": {
+      "cardMode": "single",
+      "primaryStory": "Open"
+    },
+    "Select": {
+      "cardMode": "single",
+      "primaryStory": "Open"
+    },
+    "Tooltip": {
+      "cardMode": "single",
+      "primaryStory": "Sides"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

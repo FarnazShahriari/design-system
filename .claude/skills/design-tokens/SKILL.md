@@ -10,8 +10,8 @@ font-size. Every one of those values lives in `packages/design-system/theme.css`
 components only ever reference the token name.**
 
 That is the whole reason the system can be restyled in one place. The moment
-a `#33658a` appears in a component, changing the accent stops working and
-nobody finds out until the next rebrand.
+a `#0d0d0d` appears in a component, rebranding stops working and nobody
+finds out until the next time the palette moves.
 
 ## Where things live
 
@@ -22,7 +22,7 @@ Everything is in `packages/design-system/theme.css`, in four blocks:
 | `@theme inline` | The mapping that generates Tailwind utilities, plus the `--text-*` scale |
 | `:root` | Light theme values — the only place a colour is a literal |
 | `.dark` | Dark theme values, same token names |
-| `[data-section="…"]` | Per-section overrides for light / muted / dark / accent bands |
+| `[data-section="…"]` | Per-section overrides for the light / muted / dark bands |
 
 ## Using a token
 
@@ -46,33 +46,84 @@ pair is the most common way this system breaks.
 4. If it fails, fix the palette rather than lowering the bar. The script
    prints the ratio and what was needed.
 
-`--accent` is the one token meant to change per project. Everything else is
-the shared neutral base, and changing it is a decision about the system
-rather than about a project.
+There is no "one token to swap per project". This system carries a specific
+brand: Paper `#f5f4f0`, Black `#0d0d0d`, Line grey `#bdbab2`, and Point
+`#7a8574`. 80% paper, 20% black, colour capped at roughly 2% of a view.
+Changing any of them is a decision about the brand, not about a project —
+a consuming project that needs to differ redeclares the token in its own
+CSS after the theme import.
 
 ## Things that will surprise you
 
-- **`--ring` is deliberately not derived from `--accent`.** A focus ring
-  built from the accent silently drops below its required 3:1 the moment
-  someone picks a pale accent. Keeping it neutral makes focus survive any
-  accent swap. Don't "improve" this.
+- **`--accent` is not a brand accent.** Its name is inherited from shadcn
+  and it misleads everyone once. 37 of its 39 uses are `focus:`, `hover:`
+  and `data-[state=open]:` backgrounds — it is the *interaction surface*.
+  It belongs a step down the paper ramp. Give it a saturated colour and
+  every dropdown hover becomes a block of that colour. The brand's actual
+  colour is `--point`.
+- **`--point` has a budget.** About 2% of a view: the "you are here" dot,
+  and nothing else. It is never text — at 3.51:1 on paper it is below the
+  4.5:1 text needs, on purpose, which is the brand's "never coloured text
+  for important information" expressed as a number.
+- **There is no accent section theme.** A page has one bold ground and it
+  is `theme="dark"`. `<Section theme="accent">` was removed in 3.0.0 and
+  is now a TypeScript error rather than a silent colour change.
+- **`--ring` is deliberately not derived from any brand colour.** A focus
+  ring built from one silently drops below its required 3:1 when the
+  palette moves pale. Keeping it neutral makes focus survive a rebrand.
+  Don't "improve" this.
 - **`--border` and `--input` are different on purpose.** A control's
   boundary is what identifies it, so it needs 3:1; decorative dividers do
   not, so `--border` stays quiet. They used to be the same value and that
   was an accessibility bug.
-- **Dark-mode accent is lighter than light-mode accent.** A mid-luminance
-  band leaves almost no headroom to mute a caption against, which is why
-  `#33658a` becomes `#6aa0c8` in the dark. If you change one, check the
-  other.
+- **Line grey cannot be `--input`.** `#bdbab2` is 1.76:1 on paper. That is
+  fine for a decorative rule and fails the 3:1 a control's boundary needs,
+  which is exactly why the two tokens are separate. `--input` is `#85827b`.
+- **Dark-mode destructive is lighter than light-mode destructive.** It has
+  to carry black text at AA on a dark ground, not merely be visible, so
+  `#8f2e20` becomes `#d05a44`. If you change one, check the other.
 
 ## Type and spacing
 
-The type scale is `text-display` / `text-h1` … `text-h4` / `text-lead` /
-`text-meta`. Each carries its own line-height, tracking and weight, so
-`text-h1` is the whole declaration — don't add `leading-*` or `tracking-*`
-next to it. Ordinary copy stays on Tailwind's `text-sm` / `text-base`.
+Four roles, and every token belongs to one:
 
-**One trap.** A few vendored components hard-set their own line-height —
+| Role | Tokens | Spec |
+| --- | --- | --- |
+| Statement | `text-display`, `text-h1` | ExtraBold 800, 48–96px, max one per view |
+| Heading | `text-h2`, `text-h3`, `text-h4` | Bold 700, 20–32px |
+| Body | `text-lead`, `text-body` | Regular 400, 17–18px at 1.6 |
+| Label | `text-label`, `text-meta` | Medium 500, 13px, +10% tracking, never below 12px |
+
+Each carries its own line-height, tracking and weight, so `text-h1` is the
+whole declaration — don't add `leading-*` or `tracking-*` next to it.
+
+**Body copy is `text-body`, not `text-sm` / `text-base`.** Tailwind's
+defaults are 14/16px at 1.43/1.5, below the brand's floor. `<body>` sets
+`text-body` metrics globally, so plain paragraphs are already right; reach
+for the class when an element overrides it.
+
+**Labels use `text-label`, not `text-meta`.** A Tailwind font-size token
+carries size, line-height, tracking and weight — but not `text-transform`,
+so `text-meta` alone always loses the uppercasing. `text-label` is a
+`@utility` that composes the complete label. Use `text-meta` only when you
+deliberately want those metrics without the uppercasing.
+
+**The trap that cost the most to find.** `cn()` uses `tailwind-merge`, which
+does not know this system's type roles. It sees `text-h2`, fails to match a
+known font size, and files it under *text colour* — so a colour utility later
+in the same call **deletes it**:
+
+```js
+cn("text-h2", "text-muted-foreground")  // -> "text-muted-foreground"
+```
+
+Silently: the heading renders at the inherited size and it reads as a design
+mistake, not a bug. `src/lib/utils.ts` registers the roles with
+`extendTailwindMerge` to stop this. **If you add a type role to `theme.css`,
+add it to that list too** — otherwise it will be eaten everywhere, and
+nothing will tell you.
+
+**A second trap.** A few vendored components hard-set their own line-height —
 `CardTitle` is `leading-none font-semibold`, `DialogTitle` is `text-lg
 leading-none font-semibold`. `cn()` merges font-size and line-height as
 separate groups, so `<CardTitle className="text-h4">` gives you the h4

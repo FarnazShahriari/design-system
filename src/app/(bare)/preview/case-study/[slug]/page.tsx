@@ -148,7 +148,7 @@ export default async function CaseStudyArchetype({
 
       {/* The next-case teaser carries the *next* project's title name, so
           clicking it morphs this word into that page's h1 in turn. */}
-      <Section theme="accent" rhythm="lg">
+      <Section theme="dark" rhythm="lg">
         <Container>
           <p className="text-meta text-muted-foreground">Next case study</p>
           <Link

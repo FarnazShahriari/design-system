@@ -1,6 +1,6 @@
 ---
 name: motion-recipes
-description: How things move in this design system — the two easing curves, the Reveal primitive, the shared-element title morph, and the reduced-motion rule. Use this whenever animation, transition, hover effect, scroll behaviour or page transition is involved in this repo, including requests like "make this fade in", "animate this on scroll", "add a hover effect", "this feels janky", or "can the transition be smoother". Also use it before adding any duration, easing or keyframe.
+description: How things move in this design system — the easing curve, the Reveal primitive, the shared-element title morph, and the reduced-motion rule. Use this whenever animation, transition, hover effect, scroll behaviour or page transition is involved in this repo, including requests like "make this fade in", "animate this on scroll", "add a hover effect", "this feels janky", or "can the transition be smoother". Also use it before adding any duration, easing or keyframe.
 ---
 
 # Motion recipes
@@ -24,8 +24,17 @@ In `packages/design-system/src/lib/motion.ts`, matching the CSS values:
 
 | Token | Value | For |
 | --- | --- | --- |
-| `easeOutExpo` | `0.16, 1, 0.3, 1` | The default. Anything the user triggered. |
-| `easeOut` | `0.19, 1, 0.22, 1` | Large surfaces the page moves itself. |
+| `easeOutExpo` | `0.22, 1, 0.36, 1` | The default. Anything the user triggered. |
+| `easeOut` | `0.22, 1, 0.36, 1` | Large surfaces the page moves itself. |
+
+Both names resolve to the same curve as of 3.0.0: the brand specifies one
+easing — "slow out, never bouncy" — and the two exports are kept because
+what still differs between them is *duration*, not shape. The same curve is
+Tailwind's `ease-out` here (theme.css overrides `--ease-out`), so a CSS
+transition and a Motion animation move identically without either side
+knowing about the other. Never write a raw `cubic-bezier()` or an
+`ease-[...]` arbitrary value — that is how a transition silently stops
+following the system.
 
 Durations: `instant` .15s (hover colour), `quick` .35s (underline wipe),
 `short` .5s (nudges), `fade` .9s (opacity on a reveal), `settle` 1.2s

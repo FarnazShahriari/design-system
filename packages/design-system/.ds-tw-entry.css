@@ -1,0 +1,14 @@
+/* Input for the design-sync CSS compile. The package ships TypeScript source
+   and no compiled stylesheet — its components are styled by Tailwind utilities
+   that only exist once Tailwind has scanned that source. design-sync needs a
+   real stylesheet, so this entry regenerates one. Not shipped; gitignored.
+
+   BOTH @source lines are load-bearing. Scanning only ./src compiles the
+   utilities the library itself happens to use — a preview reaching for any
+   other class (tabular-nums, aspect-[4/3], the my-* scale) gets a class that
+   matches no rule, and the card renders wrong with no build error and no
+   capture error. Silent, and expensive to find. */
+@import "tailwindcss";
+@import "./theme.css";
+@source "./src";
+@source "../../.design-sync/previews";

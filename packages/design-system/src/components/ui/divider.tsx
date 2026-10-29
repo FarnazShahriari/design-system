@@ -15,8 +15,8 @@ const dividerVariants = cva("w-full bg-background", {
     theme: {
       light: "",
       muted: "",
+      /** The one bold ground — see Section. There is no accent band. */
       dark: "",
-      accent: "",
       inherit: "",
     },
     size: {

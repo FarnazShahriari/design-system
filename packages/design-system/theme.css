@@ -67,52 +67,93 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  /* The brand's fourth colour, and the only one that is a colour at all.
+     Capped at ~2% of any view: the timeline's "you are here" dot, and
+     nothing else. It is deliberately NOT wired into a section theme —
+     there is no green band in this system. */
+  --color-point: var(--point);
+
+  /* The scrim behind a modal. Deliberately NOT derived from --foreground:
+     a scrim has to stay dark in both themes, and --foreground is paper in
+     the dark one, which would light the page up instead of dimming it. */
+  --color-overlay: var(--overlay);
+
   /* --------------------------------------------------------
-     Simplified type scale (a pared-down version of the very
-     detailed 7-breakpoint scale in reference/clay-spec.md).
-     Fluid via clamp() so it looks right at any width without
-     needing a dozen breakpoint rules. Tight negative tracking
-     at display sizes, loosening to 0 at small sizes, mirrors
-     the source material's signature typographic move.
-     Use as text-display / text-h1 / text-h2 / text-h3 / text-h4
-     / text-lead / text-meta. Ordinary copy stays on Tailwind's
-     default text-sm / text-base / text-lg — only headings and
-     the two special body variants get a named scale.
+     Type scale — Inter, with weight.
+
+     The brand names four roles, and they map onto these tokens:
+
+       Statements  ExtraBold 800, 48-96px, tracking -3%, max one
+                   per view            -> text-display, text-h1
+       Headings    Bold 700, 20-32px   -> text-h2, text-h3, text-h4
+       Body        Regular 400, 17-18px, line-height 1.55-1.65
+                                       -> text-body, text-lead
+       Labels      Medium 500, 13px, uppercase, +10% tracking,
+                   never below 12px    -> text-label (see @utility)
+
+     Fluid via clamp() so it holds at any width without a dozen
+     breakpoint rules. The sizes below are the brand's, not an
+     interpretation of them.
      -------------------------------------------------------- */
-  --text-display: clamp(2.5rem, 0.81rem + 6.93vw, 6.875rem);
-  --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.045em;
-  --text-display--font-weight: 700;
 
-  --text-h1: clamp(2.5rem, 1.245rem + 5.15vw, 5.75rem);
+  /* Statements. ExtraBold is the brand's loudest move and the reason
+     Inter is loaded as a variable font: 800 costs no extra file. */
+  --text-display: clamp(3.5rem, 1.98rem + 6.25vw, 6rem);   /* 56 -> 96 */
+  --text-display--line-height: 1.0;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 800;
+
+  --text-h1: clamp(3rem, 2.39rem + 2.5vw, 4.5rem);          /* 48 -> 72 */
   --text-h1--line-height: 1.05;
-  --text-h1--letter-spacing: -0.04em;
-  --text-h1--font-weight: 700;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h1--font-weight: 800;
 
-  --text-h2: clamp(1.875rem, 1.1rem + 3.17vw, 3.875rem);
-  --text-h2--line-height: 1.1;
-  --text-h2--letter-spacing: -0.03em;
+  /* Headings. Bold, and deliberately much smaller than the statements —
+     "important titles are never small or faint" is about weight and
+     contrast, not size. The gap between 72px and 32px is the hierarchy. */
+  --text-h2: clamp(1.5rem, 1.19rem + 1.25vw, 2rem);         /* 24 -> 32 */
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.02em;
   --text-h2--font-weight: 700;
 
-  --text-h3: clamp(1.25rem, 0.864rem + 1.58vw, 2.25rem);
-  --text-h3--line-height: 1.2;
-  --text-h3--letter-spacing: -0.02em;
+  --text-h3: clamp(1.25rem, 1.1rem + 0.63vw, 1.625rem);     /* 20 -> 26 */
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
   --text-h3--font-weight: 700;
 
-  --text-h4: clamp(1.25rem, 1.009rem + 0.99vw, 1.875rem);
-  --text-h4--line-height: 1.25;
-  --text-h4--letter-spacing: -0.02em;
+  --text-h4: clamp(1.25rem, 1.17rem + 0.31vw, 1.375rem);    /* 20 -> 22 */
+  --text-h4--line-height: 1.3;
+  --text-h4--letter-spacing: -0.01em;
   --text-h4--font-weight: 700;
 
-  --text-lead: clamp(1.125rem, 0.739rem + 1.58vw, 2.125rem);
-  --text-lead--line-height: 1.4;
-  --text-lead--letter-spacing: -0.01em;
-  --text-lead--font-weight: 500;
+  /* Body. Previously this system had no body token at all and ordinary
+     copy sat on Tailwind's text-sm/text-base — 14/16px at 1.43/1.5,
+     below the brand's floor. text-body is the default for paragraphs now. */
+  --text-body: var(--body-size);
+  --text-body--line-height: var(--body-leading);
+  --text-body--letter-spacing: 0em;
+  --text-body--font-weight: 400;
 
-  --text-meta: clamp(0.8125rem, 0.716rem + 0.4vw, 1.0625rem);
+  /* Lead. An opening paragraph: body's weight, one step up in size. */
+  --text-lead: clamp(1.25rem, 1.1rem + 0.63vw, 1.625rem);   /* 20 -> 26 */
+  --text-lead--line-height: 1.45;
+  --text-lead--letter-spacing: -0.01em;
+  --text-lead--font-weight: 400;
+
+  /* Labels. Fixed at 13px: the brand sets a 12px floor, and a fluid
+     label that shrinks on a phone would cross it. The uppercasing cannot
+     ride along here — a Tailwind font-size token carries size, leading,
+     tracking and weight, but not text-transform — so the complete label
+     is the text-label utility defined further down. */
+  --text-meta: var(--label-size);
   --text-meta--line-height: 1.4;
-  --text-meta--letter-spacing: 0em;
+  --text-meta--letter-spacing: var(--label-tracking);
   --text-meta--font-weight: 500;
+
+  /* One curve, from the brand: slow out, never bouncy. Overriding
+     Tailwind's own --ease-out means every `ease-out` in the system —
+     CSS transitions included — picks it up without being told. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ============================================================
@@ -131,35 +172,64 @@
      large. One token so every icon in the system stays in step with it. */
   --stroke-icon: 2.25;
 
-  --background: #ffffff;
-  --foreground: #06070a; /* near-black, never pure #000 */
+  /* Label metrics live out here rather than inside @theme inline, because
+     the text-label utility needs to read them at runtime and an inline
+     theme value is substituted away at build time. One source of truth
+     for both text-meta and text-label. */
+  --label-size: 0.8125rem; /* 13px — the brand's floor is 12 */
+  --label-tracking: 0.1em; /* +10% */
+  --body-size: clamp(1.0625rem, 1.03rem + 0.16vw, 1.125rem); /* 17 -> 18 */
+  --body-leading: 1.6;
 
-  --card: #ffffff;
-  --card-foreground: #06070a;
-  --popover: #ffffff;
-  --popover-foreground: #06070a;
+  /* --- The brand palette. Paper 70%, black 20%, line 8%, point ≤2%. ---
+     Only four values here are the brand's own; the rest are derived to
+     sit between them, and every pair is checked by `npm run check:contrast`. */
+  --background: #f5f4f0; /* Paper — fog, snow, pale stone */
+  --foreground: #0d0d0d; /* Black — basalt, night water */
 
-  --primary: #171921; /* the "black" surface — buttons, the pill on light */
-  --primary-foreground: #ffffff;
+  --card: #f5f4f0;       /* a card is paper with a line around it, not a
+                            lifted surface — this system has no shadows */
+  --card-foreground: #0d0d0d;
+  --popover: #f5f4f0;
+  --popover-foreground: #0d0d0d;
 
-  --secondary: #f3f4f6; /* off-white */
-  --secondary-foreground: #171921;
+  --primary: #0d0d0d;    /* the bold 20%: buttons, the one black block */
+  --primary-foreground: #f5f4f0;
 
-  --muted: #f3f4f6;
-  --muted-foreground: #666c7a; /* labels, captions, meta — 4.5:1 on white AND on muted */
+  --secondary: #ebe9e3;  /* paper, one step deeper — quiet bands and chips */
+  --secondary-foreground: #0d0d0d;
 
-  --accent: #33658a; /* swap per brand — the one accent color slot */
-  --accent-foreground: #ffffff;
+  --muted: #ebe9e3;
+  --muted-foreground: #5a5852; /* 6.46:1 on paper, 5.86:1 on secondary */
 
-  --destructive: #cf3723;
-  --destructive-foreground: #ffffff;
+  /* --accent is NOT a brand accent. In this component library it is the
+     interaction surface: 37 of its 39 uses are focus:, hover: and
+     data-[state=open]: backgrounds on menu items, options and toggles.
+     Giving it a saturated colour painted every dropdown hover in a block
+     of it. It is a third step down the paper ramp now, which is what a
+     hover state should be. The brand's colour lives in --point. */
+  --accent: #e4e1d9;
+  --accent-foreground: #0d0d0d;
 
-  --border: #e6e8eb; /* decorative: dividers, card edges — deliberately quiet */
-  --input: #8b94a2;  /* a control's boundary identifies it, so it needs 3:1 */
-  --ring: #171921;   /* stays neutral on purpose — see the note below */
+  /* Point. A marker, never a ground and never text — at 3.51:1 on paper
+     it clears the 3:1 a non-text mark needs and misses the 4.5:1 text
+     needs, which matches the brand's own "never coloured text" rule. */
+  --point: #7a8574;
 
-  --selection-bg: #bcd4e6;
-  --selection-fg: #06070a;
+  /* Errors are functional, not expressive. Deep enough to carry paper
+     text at AA, desaturated enough not to read as a brand colour. */
+  --destructive: #8f2e20;
+  --destructive-foreground: #f5f4f0;
+
+  --border: #bdbab2; /* Line grey — decorative: dividers, card edges, rules */
+  --input: #85827b;  /* a control's boundary identifies it, so it needs 3:1 —
+                        Line grey is only 1.76:1 on paper and cannot do this job */
+  --ring: #0d0d0d;   /* stays neutral on purpose — see the note below */
+
+  --overlay: #0d0d0d; /* scrim: the black, at whatever alpha the component asks for */
+
+  --selection-bg: #d9ddd4; /* the point, diluted to a highlight */
+  --selection-fg: #0d0d0d;
 }
 
 /* Why --ring is not derived from --accent: --accent is documented as the
@@ -172,36 +242,43 @@
    No component needs to know a dark mode exists.
    ============================================================ */
 .dark {
-  --background: #171921;
-  --foreground: #ffffff;
+  --background: #0d0d0d;
+  --foreground: #f5f4f0;
 
-  --card: #171921;
-  --card-foreground: #ffffff;
-  --popover: #171921;
-  --popover-foreground: #ffffff;
+  --card: #0d0d0d;
+  --card-foreground: #f5f4f0;
+  --popover: #0d0d0d;
+  --popover-foreground: #f5f4f0;
 
-  --primary: #ffffff;
-  --primary-foreground: #171921;
+  --primary: #f5f4f0;
+  --primary-foreground: #0d0d0d;
 
-  --secondary: #252833;
-  --secondary-foreground: #ffffff;
+  --secondary: #1c1c1a;
+  --secondary-foreground: #f5f4f0;
 
-  --muted: #252833;
-  --muted-foreground: #b2b8c2;
+  --muted: #1c1c1a;
+  --muted-foreground: #a8a59d; /* the brand's muted-on-black, 7.90:1 */
 
-  --accent: #6aa0c8; /* the same blue, lifted: a mid-luminance band leaves no
-                        headroom to mute a caption against (see check:contrast) */
-  --accent-foreground: #171921;
+  --accent: #262622; /* interaction surface, same job as on paper */
+  --accent-foreground: #f5f4f0;
 
-  --destructive: #cf3723;
-  --destructive-foreground: #ffffff;
+  /* The point needs no lifting here: 5.03:1 on black, 4.42:1 on the
+     secondary. Unlike the old blue accent, it is dark enough to survive
+     inversion without a second value. */
+  --point: #7a8574;
 
-  --border: #353945;
-  --input: #62697f;
-  --ring: #b2b8c2;
+  --destructive: #d05a44; /* lifted for the dark ground: it has to carry
+                             black text at AA, not just be visible */
+  --destructive-foreground: #0d0d0d;
 
-  --selection-bg: #274c68;
-  --selection-fg: #ffffff;
+  --border: #333330;
+  --input: #6e6b64;
+  --ring: #a8a59d;
+
+  --overlay: #0d0d0d; /* same black as on paper — a scrim does not invert */
+
+  --selection-bg: #3a4036;
+  --selection-fg: #f5f4f0;
 }
 
 /* ============================================================
@@ -216,73 +293,71 @@
    so these work identically in light and dark mode.
    ============================================================ */
 [data-section="light"] {
-  --background: #ffffff;
-  --foreground: #06070a;
-  --card: #ffffff;
-  --card-foreground: #06070a;
-  --primary: #171921;
-  --primary-foreground: #ffffff;
-  --secondary: #f3f4f6;
-  --secondary-foreground: #171921;
-  --muted: #f3f4f6;
-  --muted-foreground: #666c7a;
-  --border: #e6e8eb;
-  --input: #8b94a2;
-  --ring: #171921;
+  --background: #f5f4f0;
+  --foreground: #0d0d0d;
+  --card: #f5f4f0;
+  --card-foreground: #0d0d0d;
+  --primary: #0d0d0d;
+  --primary-foreground: #f5f4f0;
+  --secondary: #ebe9e3;
+  --secondary-foreground: #0d0d0d;
+  --muted: #ebe9e3;
+  --muted-foreground: #5a5852;
+  --accent: #e4e1d9;
+  --accent-foreground: #0d0d0d;
+  --point: #7a8574;
+  --border: #bdbab2;
+  --input: #85827b;
+  --ring: #0d0d0d;
 }
 
 [data-section="muted"] {
-  --background: #f3f4f6;
-  --foreground: #06070a;
-  --card: #ffffff;
-  --card-foreground: #06070a;
-  --primary: #171921;
-  --primary-foreground: #ffffff;
-  --secondary: #ffffff;
-  --secondary-foreground: #171921;
-  --muted: #e6e8eb;
-  --muted-foreground: #666c7a;
-  --border: #cbd0d6;
-  --input: #8b94a2;
-  --ring: #171921;
+  --background: #ebe9e3;
+  --foreground: #0d0d0d;
+  --card: #f5f4f0;
+  --card-foreground: #0d0d0d;
+  --primary: #0d0d0d;
+  --primary-foreground: #f5f4f0;
+  --secondary: #f5f4f0;
+  --secondary-foreground: #0d0d0d;
+  --muted: #e4e1d9;
+  --muted-foreground: #5a5852;
+  --accent: #dcd8ce;
+  --accent-foreground: #0d0d0d;
+  --point: #7a8574;
+  --border: #b3afa6;
+  --input: #7e7b74;
+  --ring: #0d0d0d;
 }
 
+/* The one bold ground. "One black block per page for the key statement" —
+   so there is exactly one dark section theme, and it is this. */
 [data-section="dark"] {
-  --background: #171921;
-  --foreground: #ffffff;
-  --card: #171921;
-  --card-foreground: #ffffff;
-  --primary: #ffffff;
-  --primary-foreground: #171921;
-  --secondary: #252833;
-  --secondary-foreground: #ffffff;
-  --muted: #252833;
-  --muted-foreground: #b2b8c2;
-  --border: #353945;
-  --input: #62697f;
-  --ring: #b2b8c2;
+  --background: #0d0d0d;
+  --foreground: #f5f4f0;
+  --card: #0d0d0d;
+  --card-foreground: #f5f4f0;
+  --primary: #f5f4f0;
+  --primary-foreground: #0d0d0d;
+  --secondary: #1c1c1a;
+  --secondary-foreground: #f5f4f0;
+  --muted: #1c1c1a;
+  --muted-foreground: #a8a59d;
+  --accent: #262622;
+  --accent-foreground: #f5f4f0;
+  --point: #7a8574;
+  --border: #333330;
+  --input: #6e6b64;
+  --ring: #a8a59d;
 }
 
-/* The accent section derives everything from --accent, so it keeps
-   working when the accent is swapped per project. Note what this
-   does to buttons: --primary becomes the accent's foreground, so a
-   default Button on an accent band inverts to a legible white pill
-   automatically instead of a near-black one that goes shapeless. */
-[data-section="accent"] {
-  --background: var(--accent);
-  --foreground: var(--accent-foreground);
-  --card: color-mix(in srgb, var(--accent-foreground) 10%, var(--accent));
-  --card-foreground: var(--accent-foreground);
-  --primary: var(--accent-foreground);
-  --primary-foreground: var(--accent);
-  --secondary: color-mix(in srgb, var(--accent-foreground) 16%, transparent);
-  --secondary-foreground: var(--accent-foreground);
-  --muted: color-mix(in srgb, var(--accent-foreground) 10%, transparent);
-  --muted-foreground: color-mix(in srgb, var(--accent-foreground) 85%, transparent);
-  --border: color-mix(in srgb, var(--accent-foreground) 26%, transparent);
-  --input: color-mix(in srgb, var(--accent-foreground) 45%, transparent);
-  --ring: var(--accent-foreground);
-}
+/* There is no [data-section="accent"].
+   It was a full-bleed band of --accent, which made sense when --accent was
+   a brand colour. The brand this system now carries has no third ground:
+   paper for 80% of a page, black for the 20% that matters, and a green
+   that is capped at ~2% of a view — a band of it would be ~100%.
+   `<Section theme="accent">` is a TypeScript error now rather than a
+   silent colour change; the replacement is theme="dark". */
 
 /* ============================================================
    VIEW TRANSITIONS
@@ -297,7 +372,7 @@
    ============================================================ */
 ::view-transition-group(.morph) {
   animation-duration: 700ms;
-  animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1); /* --ease-out */
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); /* --ease-out */
 }
 
 /* A touch of blur mid-flight hides the pixel interpolation you would
@@ -327,12 +402,34 @@
   }
 }
 
+/* ============================================================
+   LABEL
+   The brand's labels are Medium 500, 13px, uppercase, +10% tracking.
+   A Tailwind font-size token carries size, line-height, tracking and
+   weight — but not text-transform — so `text-meta` alone always lost
+   the uppercasing, and every call site had to remember to add it.
+   This composes the complete label into one class. It reads the same
+   --label-* custom properties text-meta does, so the two cannot drift.
+   ============================================================ */
+@utility text-label {
+  font-size: var(--label-size);
+  line-height: 1.4;
+  letter-spacing: var(--label-tracking);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+    /* The brand sets body at 17-18px, line-height 1.6. Tailwind's default
+       is 16/1.5, so without this every paragraph that does not opt into
+       text-body sits below the brand's floor. */
+    font-size: var(--body-size);
+    line-height: var(--body-leading);
   }
   ::selection {
     background-color: var(--selection-bg);
