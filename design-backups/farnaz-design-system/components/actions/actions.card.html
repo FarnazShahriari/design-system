@@ -1,0 +1,23 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Actions" subtitle="Button variants, pill CTA, sizes, group, toggles" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:20px 24px;margin:0}.rows{display:flex;flex-direction:column;gap:14px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.lbl{font-size:11px;color:var(--muted-foreground);width:84px;flex-shrink:0;font-weight:500}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = window.FarnazDesignSystem_626f14;
+Object.assign(window, NS);
+function App(){
+return <div className="rows">
+<div className="row"><span className="lbl">Variants</span><Button>Default</Button><Button variant="secondary">Secondary</Button><Button variant="outline">Outline</Button><Button variant="ghost">Ghost</Button><Button variant="link">Link</Button><Button variant="destructive">Destructive</Button></div>
+<div className="row"><span className="lbl">The pill</span><Button pill>Start a project <Icon name="arrow-right" /></Button><Button pill variant="outline">Secondary pill</Button></div>
+<div className="row"><span className="lbl">Sizes</span><Button size="xs">Extra small</Button><Button size="sm">Small</Button><Button>Default</Button><Button size="lg">Large</Button><Button size="icon" aria-label="Add"><Icon name="plus" /></Button><Button disabled>Disabled</Button></div>
+<div className="row"><span className="lbl">Group</span><ButtonGroup><Button variant="outline">Week</Button><Button variant="outline">Month</Button><Button variant="outline">Year</Button></ButtonGroup></div>
+<div className="row"><span className="lbl">Toggle</span><Toggle aria-label="Bold"><Icon name="bold" /></Toggle><Toggle variant="outline"><Icon name="italic" /></Toggle><Toggle defaultPressed><Icon name="underline" /></Toggle>
+<ToggleGroup type="multiple" variant="outline" defaultValue={["bold"]}><ToggleGroupItem value="bold"><Icon name="bold" /></ToggleGroupItem><ToggleGroupItem value="italic"><Icon name="italic" /></ToggleGroupItem><ToggleGroupItem value="underline"><Icon name="underline" /></ToggleGroupItem></ToggleGroup></div>
+</div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script></body></html>

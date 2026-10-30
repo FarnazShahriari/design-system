@@ -1,0 +1,17 @@
+:root{
+/* spacing: the step set the system reaches for (Tailwind scale, 0.25rem base) */
+--spacing:0.25rem;
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--space-20:80px;--space-25:100px;--space-30:120px;
+/* radius: near-square by design, derived from one base */
+--radius:0.125rem;
+--radius-sm:calc(var(--radius) * 0.6);--radius-md:calc(var(--radius) * 0.8);--radius-lg:var(--radius);--radius-xl:calc(var(--radius) * 1.4);
+--radius-pill:999px;
+/* layout */
+--container-default:1400px;--container-narrow:52rem;--container-inset:24px;--container-inset-md:40px;
+--grid-columns:12;/* @kind other */--grid-gutter:16px;
+--bp-md:768px;--bp-xl:1280px;
+/* icons */
+--stroke-icon:2.25;
+/* shadows: none. Depth comes from colour blocks and overlap. */
+--shadow-none:none;
+}

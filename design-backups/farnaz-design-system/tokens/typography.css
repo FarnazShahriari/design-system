@@ -1,0 +1,23 @@
+:root{
+--font-inter:"Inter";--font-geist-mono:"Geist Mono";
+--font-sans:var(--font-inter),ui-sans-serif,system-ui,sans-serif;
+--font-mono:var(--font-geist-mono),ui-monospace,SFMono-Regular,Menlo,monospace;
+--weight-body:500;--weight-heading:700;
+--font-size-display:clamp(2.5rem,0.81rem + 6.93vw,6.875rem);/* @kind other */--line-height-display:1.05;--tracking-display:-0.045em;
+--font-size-h1:clamp(2.5rem,1.245rem + 5.15vw,5.75rem);/* @kind other */--line-height-h1:1.05;--tracking-h1:-0.04em;
+--font-size-h2:clamp(1.875rem,1.1rem + 3.17vw,3.875rem);/* @kind other */--line-height-h2:1.1;--tracking-h2:-0.03em;
+--font-size-h3:clamp(1.25rem,0.864rem + 1.58vw,2.25rem);/* @kind other */--line-height-h3:1.2;--tracking-h3:-0.02em;
+--font-size-h4:clamp(1.25rem,1.009rem + 0.99vw,1.875rem);/* @kind other */--line-height-h4:1.25;--tracking-h4:-0.02em;
+--font-size-lead:clamp(1.125rem,0.739rem + 1.58vw,2.125rem);/* @kind other */--line-height-lead:1.4;--tracking-lead:-0.01em;
+--font-size-meta:clamp(0.8125rem,0.716rem + 0.4vw,1.0625rem);/* @kind other */--line-height-meta:1.4;
+--font-size-xs:0.75rem;--line-height-xs:1rem;--font-size-sm:0.875rem;--line-height-sm:1.25rem;--font-size-base:1rem;--line-height-base:1.5rem;--font-size-lg:1.125rem;--line-height-lg:1.75rem;
+}
+.text-display{font-size:var(--font-size-display);line-height:1.05;letter-spacing:-0.045em;font-weight:700}
+.text-h1{font-size:var(--font-size-h1);line-height:1.05;letter-spacing:-0.04em;font-weight:700}
+.text-h2{font-size:var(--font-size-h2);line-height:1.1;letter-spacing:-0.03em;font-weight:700}
+.text-h3{font-size:var(--font-size-h3);line-height:1.2;letter-spacing:-0.02em;font-weight:700}
+.text-h4{font-size:var(--font-size-h4);line-height:1.25;letter-spacing:-0.02em;font-weight:700}
+.text-lead{font-size:var(--font-size-lead);line-height:1.4;letter-spacing:-0.01em;font-weight:500}
+.text-meta{font-size:var(--font-size-meta);line-height:1.4;letter-spacing:0;font-weight:500}
+.text-xs{font-size:.75rem;line-height:1rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}
+.text-muted{color:var(--muted-foreground)}

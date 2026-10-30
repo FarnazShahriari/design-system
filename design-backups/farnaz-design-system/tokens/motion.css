@@ -1,0 +1,6 @@
+:root{
+--ease-out-expo:cubic-bezier(0.16,1,0.3,1);/* @kind other */ /* default — anything the user triggers */
+--ease-out:cubic-bezier(0.19,1,0.22,1);/* @kind other */     /* large surfaces the page moves itself */
+--duration-instant:150ms;/* @kind other */--duration-quick:350ms;/* @kind other */--duration-short:500ms;/* @kind other */--duration-fade:900ms;/* @kind other */--duration-settle:1200ms;/* @kind other */
+--reveal-offset:16px;/* @kind other */
+}

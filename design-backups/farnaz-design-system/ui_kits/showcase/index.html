@@ -1,0 +1,45 @@
+<!-- @dsCard group="Showcase app" viewport="1280x800" name="Showcase docs" subtitle="The style-guide shell: sticky header, sidebar nav, overview and entry pages" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Design System</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script>Object.assign(window, window.FarnazDesignSystem_626f14);</script>
+<script type="text/babel" src="registry.jsx"></script>
+<script type="text/babel" src="Shell.jsx"></script>
+<script type="text/babel" src="Overview.jsx"></script>
+<script type="text/babel" src="EntryPage.jsx"></script>
+<style>
+.sc-header{position:sticky;top:0;z-index:40;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--background) 80%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.sc-header-inner{margin:0 auto;display:flex;height:64px;max-width:80rem;align-items:center;gap:12px;padding:0 16px}
+.sc-body{margin:0 auto;display:flex;max-width:80rem;gap:40px;padding:40px 16px}
+@media (min-width:640px){.sc-header-inner{padding:0 24px}.sc-body{padding:56px 24px}.sc-three{grid-template-columns:repeat(3,1fr)!important}.sc-dl{grid-template-columns:auto 1fr!important}}
+.sc-sidebar{display:none;width:240px;flex-shrink:0}
+.sc-sidebar-inner{position:sticky;top:96px;max-height:calc(100dvh - 7rem);overflow-y:auto;padding-right:16px}
+@media (min-width:1024px){.sc-sidebar{display:block}.sc-mobile{display:none!important}}
+.sc-nav-ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:1px}
+.sc-nav-link{display:block;border-radius:var(--radius-md);padding:6px 12px;font-size:.875rem;line-height:1.25rem;color:var(--muted-foreground);transition:color 150ms,background 150ms}
+.sc-nav-link:hover{background:color-mix(in srgb,var(--secondary) 60%,transparent);color:var(--foreground)}
+.sc-nav-link[data-active="true"]{background:var(--secondary);color:var(--secondary-foreground);font-weight:500}
+.sc-three{display:grid;gap:32px}
+.sc-dl{display:grid;column-gap:32px;row-gap:8px;font-size:.875rem}
+.sc-example{border-radius:var(--radius-md);border:1px solid var(--border);padding:24px}
+@media (min-width:640px){.sc-example{padding:32px}}
+.sc-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+function App() {
+  const [route, setRoute] = React.useState(() => location.hash.slice(1));
+  const [dark, setDark] = React.useState(false);
+  React.useEffect(() => { document.documentElement.classList.toggle("dark", dark); }, [dark]);
+  const nav = (r) => { location.hash = r; setRoute(r); window.scrollTo(0, 0); };
+  const [s, e] = route.split("/");
+  const section = SECTIONS.find((x) => x.slug === s);
+  const entry = section && section.entries.find((x) => x.slug === e);
+  const page = route === "all" ? <AllPage /> : entry ? <EntryPage key={route} section={section} entry={entry} /> : <Overview onNav={nav} />;
+  return <Shell route={route} onNav={nav} dark={dark} setDark={setDark}>{page}</Shell>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script></body></html>

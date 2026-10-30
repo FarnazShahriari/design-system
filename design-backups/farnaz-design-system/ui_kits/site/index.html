@@ -1,0 +1,37 @@
+<!-- @dsCard group="Site archetypes" viewport="1280x800" name="Portfolio site" subtitle="Work index → case study → about, built only from Section/Container/ProjectGrid" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Site archetypes</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script>Object.assign(window, window.FarnazDesignSystem_626f14);</script>
+<script type="text/babel" src="Media.jsx"></script>
+<script type="text/babel" src="WorkIndex.jsx"></script>
+<script type="text/babel" src="CaseStudy.jsx"></script>
+<script type="text/babel" src="About.jsx"></script>
+</head>
+<script src="projects.js"></script>
+<style>
+.wi-hero{display:grid;gap:40px}
+@media (min-width:768px){.wi-hero{grid-template-columns:1fr auto;align-items:end;gap:64px}.cs-split{grid-template-columns:57.5fr 42.5fr!important;gap:64px!important}.cs-two{grid-template-columns:1fr 1fr!important}}
+.wi-filter{display:flex;align-items:baseline;gap:8px;color:var(--muted-foreground);transition:color 150ms}.wi-filter:hover,.wi-filter[data-active="true"]{color:var(--foreground)}
+.wi-grid-section{padding-bottom:96px!important}@media (min-width:1280px){.wi-grid-section{padding-bottom:192px!important}}
+.cs-split{display:grid;gap:40px}.cs-two{margin-top:40px;display:grid;gap:16px}
+.cs-next{margin-top:16px;display:flex;align-items:center;gap:20px;color:var(--foreground)}.cs-next:hover{color:var(--foreground)}
+.cs-next-arrow{width:36px;height:36px;transition:transform 500ms var(--ease-out-expo)}.cs-next:hover .cs-next-arrow{transform:translateX(8px)}
+@media (min-width:768px){.cs-next-arrow{width:56px;height:56px}}
+.kit-nav{position:fixed;left:16px;bottom:16px;z-index:60;display:flex;gap:4px;padding:4px;border:1px solid var(--border);background:var(--background)}
+</style>
+<body><div id="root"></div>
+<script type="text/babel">
+function App() {
+  const [route, setRoute] = React.useState(() => location.hash.slice(1) || "work");
+  const nav = (r) => { location.hash = r; setRoute(r); window.scrollTo(0, 0); };
+  React.useEffect(() => { const h = () => setRoute(location.hash.slice(1) || "work"); window.addEventListener("hashchange", h); return () => window.removeEventListener("hashchange", h); }, []);
+  const [name, arg] = route.split("/");
+  const page = name === "case" ? <CaseStudy key={arg} slug={arg} onNav={nav} /> : name === "about" ? <About onNav={nav} /> : <WorkIndex onNav={nav} />;
+  return <>{page}<div className="kit-nav">{[["work","Work index"],["case/northwind","Case study"],["about","About"]].map(([r,l]) => <Button key={r} size="xs" variant={route.startsWith(r.split("/")[0]) ? "secondary" : "ghost"} onClick={() => nav(r)}>{l}</Button>)}</div></>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script></body></html>

@@ -1,0 +1,25 @@
+<!-- @dsCard group="Components" viewport="700x360" name="Disclosure" subtitle="Tabs, Accordion, Collapsible, Carousel, ScrollArea" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:20px 24px;margin:0}.rows{display:flex;flex-direction:column;gap:14px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.lbl{font-size:11px;color:var(--muted-foreground);width:84px;flex-shrink:0;font-weight:500}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = window.FarnazDesignSystem_626f14;
+Object.assign(window, NS);
+function App(){
+return <div className="cols">
+<div className="rows">
+<Tabs defaultValue="a"><TabsList><TabsTrigger value="a">Overview</TabsTrigger><TabsTrigger value="b">Tokens</TabsTrigger><TabsTrigger value="c">Motion</TabsTrigger></TabsList><TabsContent value="a"><p className="text-sm text-muted">One file owns the look.</p></TabsContent><TabsContent value="b"><p className="text-sm text-muted">Colour, radius, type.</p></TabsContent><TabsContent value="c"><p className="text-sm text-muted">Two curves.</p></TabsContent></Tabs>
+<Tabs defaultValue="a"><TabsList variant="line"><TabsTrigger value="a">All work</TabsTrigger><TabsTrigger value="b">Product</TabsTrigger><TabsTrigger value="c">Branding</TabsTrigger></TabsList></Tabs>
+<ScrollArea style={{height:80,border:"1px solid var(--border)",borderRadius:"var(--radius-md)",padding:"8px 12px"}}>{["Colours","Typography","Spacing","Shape","Motion","Section","Grid","Reveal"].map(x=><div key={x} className="text-sm" style={{padding:"4px 0"}}>{x}</div>)}</ScrollArea>
+</div>
+<div className="rows">
+<Accordion type="single" defaultValue="a"><AccordionItem value="a"><AccordionTrigger>How do we start?</AccordionTrigger><AccordionContent><p className="text-muted">A short call, then a written proposal.</p></AccordionContent></AccordionItem><AccordionItem value="b"><AccordionTrigger>How long does it take?</AccordionTrigger><AccordionContent>Usually 8–12 weeks.</AccordionContent></AccordionItem></Accordion>
+<div style={{padding:"0 48px"}}><Carousel><CarouselContent>{[1,2,3].map(n=><CarouselItem key={n}><div style={{aspectRatio:"16/9",background:"var(--muted)",display:"flex",alignItems:"center",justifyContent:"center"}} className="text-meta text-muted">Slide {n}</div></CarouselItem>)}</CarouselContent><CarouselPrevious /><CarouselNext /></Carousel></div>
+</div></div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script></body></html>

@@ -1,0 +1,27 @@
+<!-- @dsCard group="Components" viewport="700x400" name="Forms" subtitle="Input, Textarea, Select, NativeSelect, InputGroup, Field" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:20px 24px;margin:0}.rows{display:flex;flex-direction:column;gap:14px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.lbl{font-size:11px;color:var(--muted-foreground);width:84px;flex-shrink:0;font-weight:500}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = window.FarnazDesignSystem_626f14;
+Object.assign(window, NS);
+function App(){
+return <div className="cols">
+<FieldGroup>
+<Field><FieldLabel htmlFor="e">Email</FieldLabel><Input id="e" placeholder="you@example.com" /><FieldDescription>We reply within two days.</FieldDescription></Field>
+<Field invalid><FieldLabel htmlFor="n">Name</FieldLabel><Input id="n" aria-invalid="true" defaultValue="" /><FieldError>Tell us who you are.</FieldError></Field>
+<Field><FieldLabel>Message</FieldLabel><Textarea placeholder="Tell us about the project" /></Field>
+</FieldGroup>
+<FieldGroup>
+<Field><FieldLabel>Service</FieldLabel><Select defaultValue="product"><SelectTrigger><SelectValue placeholder="Choose" /></SelectTrigger><SelectContent><SelectItem value="product">Product design</SelectItem><SelectItem value="brand">Branding</SelectItem><SelectItem value="web">Websites</SelectItem></SelectContent></Select></Field>
+<Field><FieldLabel>Budget</FieldLabel><NativeSelect><NativeSelectOption>£20–50k</NativeSelectOption><NativeSelectOption>£50k+</NativeSelectOption></NativeSelect></Field>
+<Field><FieldLabel>Search</FieldLabel><InputGroup><InputGroupInput placeholder="Search work" /><InputGroupAddon><Icon name="search" /></InputGroupAddon><InputGroupAddon align="inline-end"><Kbd>⌘K</Kbd></InputGroupAddon></InputGroup></Field>
+</FieldGroup>
+</div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script></body></html>

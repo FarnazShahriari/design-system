@@ -1,0 +1,18 @@
+<!-- @dsCard group="Components" viewport="700x200" name="Motion" subtitle="Reveal: rise-fade, fade, rise (replay)" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:20px 24px;margin:0}.rows{display:flex;flex-direction:column;gap:14px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.lbl{font-size:11px;color:var(--muted-foreground);width:84px;flex-shrink:0;font-weight:500}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = window.FarnazDesignSystem_626f14;
+Object.assign(window, NS);
+function App(){
+const [k,setK]=React.useState(0);
+return <div className="rows"><div className="row"><Button size="sm" variant="outline" onClick={()=>setK(k+1)}>Replay</Button><span className="text-xs text-muted">opacity 0.9s · translateY 16px 1.2s · ease-out-expo · once</span></div>
+<div key={k} className="row" style={{gap:16,alignItems:"stretch"}}>{["rise-fade","fade","rise"].map((v,i)=><Reveal key={v} variant={v} delay={i*0.1}><div style={{width:190,height:80,background:"var(--muted)",display:"flex",alignItems:"center",justifyContent:"center"}} className="text-meta">{v}</div></Reveal>)}</div></div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script></body></html>

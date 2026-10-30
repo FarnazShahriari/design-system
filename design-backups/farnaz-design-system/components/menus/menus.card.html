@@ -1,0 +1,24 @@
+<!-- @dsCard group="Components" viewport="700x320" name="Menus" subtitle="DropdownMenu, ContextMenu, Command" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:20px 24px;margin:0}.rows{display:flex;flex-direction:column;gap:14px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.lbl{font-size:11px;color:var(--muted-foreground);width:84px;flex-shrink:0;font-weight:500}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = window.FarnazDesignSystem_626f14;
+Object.assign(window, NS);
+function App(){
+const [grid,setGrid]=React.useState(true);
+return <div className="cols">
+<div className="rows" style={{minHeight:260}}>
+<DropdownMenu defaultOpen><DropdownMenuTrigger asChild><Button variant="outline">Options <Icon name="chevron-down" /></Button></DropdownMenuTrigger><DropdownMenuContent style={{width:200}}><DropdownMenuLabel>Project</DropdownMenuLabel><DropdownMenuSeparator /><DropdownMenuItem><Icon name="copy" /> Duplicate <DropdownMenuShortcut>⌘D</DropdownMenuShortcut></DropdownMenuItem><DropdownMenuCheckboxItem checked={grid} onCheckedChange={setGrid}>Show grid</DropdownMenuCheckboxItem><DropdownMenuSeparator /><DropdownMenuItem variant="destructive"><Icon name="trash-2" /> Delete</DropdownMenuItem></DropdownMenuContent></DropdownMenu>
+</div>
+<div className="rows">
+<Command style={{border:"1px solid var(--border)",height:"auto"}}><CommandInput placeholder="Search the system…" /><CommandList><CommandEmpty>No results found.</CommandEmpty><CommandGroup heading="Foundations"><CommandItem><Icon name="palette" /> Colours</CommandItem><CommandItem><Icon name="type" /> Typography</CommandItem></CommandGroup><CommandSeparator /><CommandGroup heading="Components"><CommandItem><Icon name="square" /> Button <CommandShortcut>B</CommandShortcut></CommandItem></CommandGroup></CommandList></Command>
+<ContextMenu><ContextMenuTrigger><div className="text-sm text-muted" style={{border:"1px dashed var(--border)",padding:"14px",textAlign:"center"}}>Right-click here</div></ContextMenuTrigger><ContextMenuContent style={{width:180}}><ContextMenuItem>Back <ContextMenuShortcut>⌘[</ContextMenuShortcut></ContextMenuItem><ContextMenuItem>Reload</ContextMenuItem></ContextMenuContent></ContextMenu>
+</div></div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script></body></html>
