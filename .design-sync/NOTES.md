@@ -249,6 +249,35 @@ needs a design-system authorization that only an interactive Claude Code
 session can obtain, via `/design-login`. The build and verification run
 anywhere; only the upload is gated.
 
+**Always pass `--entry`.** The exact invocation, from the repo root:
+
+```sh
+node .ds-sync/resync.mjs --config .design-sync/config.json --node-modules ./node_modules \
+  --entry ./packages/design-system/src/index.ts --out ./ds-bundle \
+  --remote .design-sync/.cache/remote-sync.json
+```
+
+Without `--entry`, the package dir resolves to the workspace *symlink*
+`node_modules/@farnazshahriari/design-system`, so the package-relative
+`extraEntries` path `../../.design-sync/process-shim.mjs` lands in
+`node_modules/` and is skipped (`! extraEntries: ... not found`). Every
+preview then throws `process is not defined` again — 244 render failures
+from one log line. `--entry` makes the package dir the real
+`packages/design-system`.
+
+**Playwright on the owner's Mac:** the cache at
+`~/Library/Caches/ms-playwright` holds chromium **1248**, which is pinned by
+**playwright 1.64.0** (not the 1.63.0 the cloud sandbox needed — check the
+cache's build number on each machine).
+
+**First upload: 2026-10-30**, into the *CalmBold Design System* project
+(`cfg.projectId`). The project's `_ds_sync.json` is now the anchor, so the
+committed `.cache/review/*.json` grades are no longer the only
+carry-forward channel. Re-syncs fetch the anchor into
+`.design-sync/.cache/remote-sync.json` first. The older hand-built
+*Farnaz Design System* project is unrelated to this sync, and the sync
+never touches it.
+
 ## Re-sync risks
 
 - **Stale `.ds-compiled.css`.** It is gitignored, so a fresh clone has none and

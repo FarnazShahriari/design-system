@@ -1,6 +1,7 @@
 {
   "shape": "package",
   "pkg": "@farnazshahriari/design-system",
+  "projectId": "9fd677da-db35-449e-9eb5-3692e99d1b19",
   "globalName": "CalmBold",
   "srcDir": "src",
   "tsconfig": "tsconfig.json",
