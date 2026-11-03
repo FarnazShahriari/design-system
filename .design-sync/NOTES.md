@@ -305,6 +305,16 @@ never touches it.
   `DesignSync(register_assets)` (group "Colors & Typography"). Re-register
   if a card is added or renamed.
 
+- **The project's colour and type lists need `tokens/tokens.css`.** Claude
+  Design builds them by scanning the stylesheets, and in `.ds-compiled.css`
+  the brand's `:root` sits ~3,700 lines down, behind Tailwind's default
+  palette. The scan never reached it: the manifest listed `--color-blue-600`
+  and not `--background`, and marked Inter "unreferenced". Prep step 4
+  (`scripts/design-sync-tokens.mjs`) derives plain custom properties from
+  `theme.css` into `packages/design-system/.ds-tokens/` (gitignored, never
+  published). `cfg.tokensPkg` (the package itself) and `cfg.tokensGlob` make
+  it the first `@import` in `styles.css`.
+
 ## Re-sync risks
 
 - **Stale `.ds-compiled.css`.** It is gitignored, so a fresh clone has none and

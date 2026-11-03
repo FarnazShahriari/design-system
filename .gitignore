@@ -56,3 +56,4 @@ ds-bundle/
 packages/design-system/.ds-compiled.css
 packages/design-system/types/
 packages/design-system/index.d.ts
+packages/design-system/.ds-tokens/

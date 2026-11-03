@@ -9,6 +9,8 @@
   "extraFonts": [
     "../../.design-sync/theme/fonts/fonts.css"
   ],
+  "tokensPkg": "@farnazshahriari/design-system",
+  "tokensGlob": ".ds-tokens/*.css",
   "guidelinesGlob": [
     "skills/**/*.md"
   ],
