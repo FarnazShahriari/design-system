@@ -296,9 +296,14 @@ never touches it.
   computed styles; type rows use the real `text-*` classes, compiled via the
   `@source` line for `.design-sync/theme`), so a token change shows up after
   a normal rebuild. Only the prose in them can go stale.
-- Paths sit under `brand/` and the groups are named "Colors" and "Fonts"
-  deliberately: both sort ahead of `components/` and "general", so the
+- Paths sit under `brand/` and the group is named "Colors & Typography"
+  deliberately: it sorts ahead of `components/` and "general", so the
   section shows before the components however the pane orders them.
+- **The `@dsCard` marker alone did not list them.** After the first upload
+  the manifest still held only the 244 component cards, so the section
+  never appeared. They are also registered explicitly with
+  `DesignSync(register_assets)` (group "Colors & Typography"). Re-register
+  if a card is added or renamed.
 
 ## Re-sync risks
 
