@@ -278,6 +278,28 @@ carry-forward channel. Re-syncs fetch the anchor into
 *Farnaz Design System* project is unrelated to this sync, and the sync
 never touches it.
 
+## Theme section (Colors, Fonts) and the fonts
+
+- **Fonts ship through `cfg.extraFonts`.** The app loads Inter and Geist Mono
+  through `next/font`, which never reaches claude.ai/design, so until
+  2026-10-30 every card and design rendered in system-ui. The woff2 files and
+  their `@font-face` rules live in `.design-sync/theme/fonts/`. The
+  `--font-inter` / `--font-geist-mono` names that `theme.css` reads are set
+  in `.ds-tw-entry.css`. Both halves are needed: the faces alone go unused.
+- **The theme cards are hand-written, not generated.** They live in
+  `.design-sync/theme/cards/` and upload to `brand/*.html` in the project.
+  The converter does not know about them, so **copy them into
+  `ds-bundle/brand/` and include `brand/**` in the upload plan** on every
+  sync that touches them. Re-syncs never delete them: `deletePaths` only
+  covers component files.
+- They read every value from the live tokens (swatch labels are filled from
+  computed styles; type rows use the real `text-*` classes, compiled via the
+  `@source` line for `.design-sync/theme`), so a token change shows up after
+  a normal rebuild. Only the prose in them can go stale.
+- Paths sit under `brand/` and the groups are named "Colors" and "Fonts"
+  deliberately: both sort ahead of `components/` and "general", so the
+  section shows before the components however the pane orders them.
+
 ## Re-sync risks
 
 - **Stale `.ds-compiled.css`.** It is gitignored, so a fresh clone has none and

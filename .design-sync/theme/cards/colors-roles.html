@@ -1,0 +1,40 @@
+<!-- @dsCard group="Colors" viewport="1000x720" name="Colour roles" subtitle="Every semantic token, light and dark side by side" -->
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;background:var(--background);font-family:var(--font-sans)}
+  .cols{display:grid;grid-template-columns:1fr 1fr}
+  .col{padding:28px;background:var(--background);color:var(--foreground)}
+  h2{margin:0 0 18px;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-foreground)}
+  .row{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)}
+  .sw{height:38px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;border:1px solid var(--border)}
+  .tok{font-family:var(--font-mono);font-size:12px}
+  .use{font-size:12px;color:var(--muted-foreground)}
+</style></head>
+<body>
+<template id="rows">
+  <div class="row"><div class="sw" style="background:var(--background);color:var(--foreground)">Aa</div><div><div class="tok">background / foreground · <span data-var="--background"></span> / <span data-var="--foreground"></span></div><div class="use">The page and its text</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--primary);color:var(--primary-foreground)">Aa</div><div><div class="tok">primary · <span data-var="--primary"></span></div><div class="use">Buttons, the one bold block</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--secondary);color:var(--secondary-foreground)">Aa</div><div><div class="tok">secondary / muted · <span data-var="--secondary"></span></div><div class="use">Quiet bands and chips</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--background);color:var(--muted-foreground)">Aa</div><div><div class="tok">muted-foreground · <span data-var="--muted-foreground"></span></div><div class="use">Captions and secondary text</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--accent);color:var(--accent-foreground)">Aa</div><div><div class="tok">accent · <span data-var="--accent"></span></div><div class="use">Hover and open-state surface, not a brand colour</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--destructive);color:var(--destructive-foreground)">Aa</div><div><div class="tok">destructive · <span data-var="--destructive"></span></div><div class="use">Errors only</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--background);border:3px solid var(--input)"></div><div><div class="tok">input · <span data-var="--input"></span></div><div class="use">A control's edge (needs 3:1)</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--border)"></div><div><div class="tok">border · <span data-var="--border"></span></div><div class="use">Dividers, card edges, rules</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--background);outline:3px solid var(--ring);outline-offset:-6px"></div><div><div class="tok">ring · <span data-var="--ring"></span></div><div class="use">Focus, kept neutral on purpose</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--point)"></div><div><div class="tok">point · <span data-var="--point"></span></div><div class="use">A marker, capped at ~2% of a view</div></div></div>
+  <div class="row"><div class="sw" style="background:var(--selection-bg);color:var(--selection-fg)">Aa</div><div><div class="tok">selection · <span data-var="--selection-bg"></span></div><div class="use">Highlighted text</div></div></div>
+</template>
+<div class="cols">
+  <div class="col"><h2>Light</h2><div class="slot"></div></div>
+  <div class="col dark"><h2>Dark</h2><div class="slot"></div></div>
+</div>
+<script>
+  const rows = document.getElementById("rows")
+  document.querySelectorAll(".slot").forEach((s) => s.append(rows.content.cloneNode(true)))
+  addEventListener("load", () => document.querySelectorAll("[data-var]").forEach((el) => {
+    el.textContent = getComputedStyle(el).getPropertyValue(el.dataset.var).trim()
+  }))
+</script>
+</body></html>

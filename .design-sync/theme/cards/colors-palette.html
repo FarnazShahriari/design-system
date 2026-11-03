@@ -1,0 +1,33 @@
+<!-- @dsCard group="Colors" viewport="900x340" name="Brand palette" subtitle="Paper, black, line and point, with the share of a view each one gets" -->
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;padding:28px;background:var(--background);color:var(--foreground);font-family:var(--font-sans)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .chip{height:120px;border:1px solid var(--border)}
+  .name{margin-top:12px;font-weight:700;font-size:17px}
+  .meta{font-family:var(--font-mono);font-size:12px;color:var(--muted-foreground);margin-top:2px}
+  .bar{display:flex;height:14px;margin-top:28px;border:1px solid var(--border)}
+  .note{font-size:13px;color:var(--muted-foreground);margin-top:8px}
+</style></head>
+<body>
+  <div class="grid">
+    <div><div class="chip" style="background:var(--background)"></div><div class="name">Paper</div><div class="meta">--background · <span data-var="--background"></span></div><div class="meta">~70% of a view</div></div>
+    <div><div class="chip" style="background:var(--foreground)"></div><div class="name">Black</div><div class="meta">--foreground · <span data-var="--foreground"></span></div><div class="meta">~20%: the bold block</div></div>
+    <div><div class="chip" style="background:var(--border)"></div><div class="name">Line</div><div class="meta">--border · <span data-var="--border"></span></div><div class="meta">~8%: rules and edges</div></div>
+    <div><div class="chip" style="background:var(--point)"></div><div class="name">Point</div><div class="meta">--point · <span data-var="--point"></span></div><div class="meta">≤2%: a marker, never text</div></div>
+  </div>
+  <div class="bar">
+    <div style="flex:70;background:var(--background)"></div>
+    <div style="flex:20;background:var(--foreground)"></div>
+    <div style="flex:8;background:var(--border)"></div>
+    <div style="flex:2;background:var(--point)"></div>
+  </div>
+  <div class="note">Near-monochrome by design. Point is the only real colour, and it never becomes a ground or a band.</div>
+<script>
+  addEventListener("load", () => document.querySelectorAll("[data-var]").forEach((el) => {
+    el.textContent = getComputedStyle(el).getPropertyValue(el.dataset.var).trim()
+  }))
+</script>
+</body></html>

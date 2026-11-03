@@ -12,3 +12,11 @@
 @import "./theme.css";
 @source "./src";
 @source "../../.design-sync/previews";
+@source "../../.design-sync/theme";
+
+/* The app gets these two from next/font. In claude.ai/design the faces come
+   from .design-sync/theme/fonts/fonts.css (cfg.extraFonts) instead. */
+:root {
+  --font-inter: "Inter";
+  --font-geist-mono: "Geist Mono";
+}

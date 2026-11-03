@@ -6,6 +6,9 @@
   "srcDir": "src",
   "tsconfig": "tsconfig.json",
   "cssEntry": ".ds-compiled.css",
+  "extraFonts": [
+    "../../.design-sync/theme/fonts/fonts.css"
+  ],
   "guidelinesGlob": [
     "skills/**/*.md"
   ],

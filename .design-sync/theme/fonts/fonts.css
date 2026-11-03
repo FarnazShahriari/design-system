@@ -1,0 +1,22 @@
+/* The system's two typefaces, for design-sync only. The app loads them
+   through next/font, which never reaches claude.ai/design — without these
+   faces every card and design falls back to system-ui. Wired in through
+   cfg.extraFonts; the --font-inter / --font-geist-mono names theme.css
+   reads are set in packages/design-system/.ds-tw-entry.css.
+
+   Latin subset, variable weight, from Google Fonts (both are OFL). */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(./Inter-latin.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(./GeistMono-latin.woff2) format("woff2");
+}
