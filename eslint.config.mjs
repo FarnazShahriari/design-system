@@ -27,6 +27,9 @@ const eslintConfig = defineConfig([
     ".ds-sync/**",
     "packages/design-system/types/**",
     "packages/design-system/index.d.ts",
+    // A byte-for-byte copy of an old Claude Design project, kept as an
+    // archive. Its JSX relies on globals that bundle provided.
+    "design-backups/**",
   ]),
 ]);
 
